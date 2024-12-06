@@ -1,0 +1,1 @@
+export { Footer as MemoFooter } from './ui/Footer';
