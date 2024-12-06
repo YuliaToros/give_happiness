@@ -19,8 +19,8 @@ export const SertificateList = React.memo(() => {
             {sertificates.length > 0
                 ? sertificates.map((sertificate) => {
                     if (user?.id === sertificate.user_id) {                        
-                        return (<Link key={sertificate.id} to={CLIENT_ROUTES.BOOKS + `/${sertificate.id}`}>
-                            <SertificateItem book={sertificate} />
+                        return (<Link key={sertificate.id} to={CLIENT_ROUTES.SERTIFICATES + `/${sertificate.id}`}>
+                            <SertificateItem sertificate={sertificate} />
                         </Link> )                       
                     } else {
                         return <SertificateItem key={sertificate.id} sertificate={sertificate} />

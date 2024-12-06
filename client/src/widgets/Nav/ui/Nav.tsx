@@ -38,12 +38,6 @@ export const Nav = React.memo(() => {
               <li>
                 <Link to={CLIENT_ROUTES.REG}>Reg</Link>
               </li>
-              <li>
-                <Link to={CLIENT_ROUTES.AUTH}>Auth</Link>
-              </li>
-              <li>
-                <Link to={CLIENT_ROUTES.REG}>Reg</Link>
-              </li>
             </>
           )}
       </ul>
