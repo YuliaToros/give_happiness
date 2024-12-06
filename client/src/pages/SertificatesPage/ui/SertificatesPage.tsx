@@ -4,7 +4,7 @@ import { MemoSertificateForm, MemoSertificateList } from "@/widgets";
 export function SertificatesPage() {
     return (
         <>
-            <h1>Books page</h1>
+            <h1>Sertificates page</h1>
             <MemoSertificateForm />
             <MemoSertificateList />
         </>
