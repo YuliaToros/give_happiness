@@ -1,0 +1,1 @@
+export { SertificateList as MemoSertificateList } from './ui/SertificateList';
