@@ -15,39 +15,38 @@ export const Nav = React.memo(() => {
   }
 
   return (
-    <nav>
-      <ul>
-        {user
-          ? (
-            <>
-              <li>
-                <Link to={CLIENT_ROUTES.HOME}>Home</Link>
-              </li>
-              <li>
-                <Link to={CLIENT_ROUTES.SERTIFICATES}>Sertificates</Link>
-              </li>
-              <li>
-                <a onClick={logoutHandler} href="#">Logout</a>
-              </li>
-            </>
-          ) : (
-            <>
-              <li>
-                <Link to={CLIENT_ROUTES.AUTH}>Auth</Link>
-              </li>
-              <li>
-                <Link to={CLIENT_ROUTES.REG}>Reg</Link>
-              </li>
-              <li>
-                <Link to={CLIENT_ROUTES.AUTH}>Auth</Link>
-              </li>
-              <li>
-                <Link to={CLIENT_ROUTES.REG}>Reg</Link>
-              </li>
-            </>
-          )}
-      </ul>
-    </nav>
+    <nav className="navbar navbar-expand-lg bg-body-tertiary">
+            <div className="container-fluid">
+                <Link to={CLIENT_ROUTES.HOME} className="navbar-brand">Тут логотип</Link>
+                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+                <div className="collapse navbar-collapse" id="navbarNav">
+                    <ul className="navbar-nav">
+                        <li className="nav-item">
+                            <Link to={CLIENT_ROUTES.HOME} className="nav-link active" aria-current="page">Главная</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to={CLIENT_ROUTES.SERTIFICATES} className="nav-link">Сертификаты</Link>
+                        </li>
+                        <li>
+                        {!user && <li className="nav-item">
+                            <Link to={CLIENT_ROUTES.AUTH} className="nav-link">Войти</Link>
+                        </li>}
+                        </li>
+                        {!user && <li className="nav-item">
+                            <Link to={CLIENT_ROUTES.REG} className="nav-link">Регистрация</Link>
+                        </li>}
+                        {user && <li className="nav-item">
+                            <div>Привет, ТУТ ИМЯ</div>
+                        </li>}
+                        {user && <li className="nav-item">
+                            <button type='button' onClick={logoutHandler} className='btn btn-danger'>Выйти</button>
+                        </li>}
+                    </ul>
+                </div>
+            </div>
+        </nav>
   );
 })
 
