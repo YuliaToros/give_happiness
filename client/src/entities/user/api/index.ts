@@ -8,9 +8,9 @@ enum API_ROUTES {
     REFRESH_PATH = '/auth/refresh',
 };
 
-enum PAYLOAD_TYPES {
-    EMAIL = 'email'
-}
+// enum PAYLOAD_TYPES {
+//     EMAIL = 'email'
+// }
 
 export class UserService {
     static async registration(email: string, password: string): Promise<{ accessToken: string, user: UserWithoutPasswordType }> {
