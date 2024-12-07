@@ -1,5 +1,10 @@
-import { Sertificate } from '../../model';
+// import { Sertificate } from '../../model';
 import { useEffect } from 'react';
+
+import { Card, Button, Typography } from 'antd';
+
+const { Meta } = Card;
+const { Title, Text } = Typography;
 
 // export function SertificateItem({ sertificate }: { sertificate: Sertificate }) {
 
@@ -26,19 +31,30 @@ export function SertificateItem() {
             console.log('Unmount: SertificateItem');
         }
     }, [])
-
+    
     return (
-        <>
-          <div className="card" style={{ width: "18rem" }}>
-            <img src="https://mygiftcard.ru/upload/resize_cache/iblock/1a4/400_250_1/5es4w31j2cdizt83poerxzdintcp8vp7.png.webp" className="card-img-top" alt="..." />
-            <div className="card-body">
-              <h5 className="card-title">Подарочный сертификат №1</h5>
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <span>500 - 3000р</span>
-                <a href="#" className="btn btn-primary">Купить</a>
-              </div>
-            </div>
-          </div>
-        </>
-      );
+      <Card
+        hoverable
+        style={{ width: 300 }}
+        cover={
+          <img
+            alt="example"
+            src="https://mygiftcard.ru/upload/resize_cache/iblock/1a4/400_250_1/5es4w31j2cdizt83poerxzdintcp8vp7.png.webp"
+          />
+        }
+      >
+        <Meta
+          title={<Title level={4}>Подарочный сертификат №1</Title>}
+          description={
+            <>
+              <Text>500 - 3000р</Text>
+              <br />
+              <Button type="primary" style={{ marginTop: 16 }}>
+                Купить
+              </Button>
+            </>
+          }
+        />
+      </Card>
+    );
 }
