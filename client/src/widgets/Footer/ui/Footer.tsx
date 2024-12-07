@@ -1,35 +1,35 @@
 import React from "react";
-import { Container, Row, Col } from 'react-bootstrap';
-// import { Link } from "react-router-dom";
+import { Layout, Row, Col, Typography, Divider} from "antd";
+import Link from "antd/es/typography/Link";
+
+const { Text, Title } = Typography;
 
 export const Footer = React.memo(() => {
+  const currentYear = new Date().getFullYear();
 
-    const currentYear = new Date().getFullYear();
-
-    return (
-        <footer className="bg-dark text-white py-4">
-      <Container>
-        <Row>
-          <Col md={4}>
-            <p>&copy; {currentYear}, Бедолаги продактион</p>
-          </Col>
-          <Col md={4}>
-            <h5>Контакты</h5>
-            <ul className="list-unstyled">
-              <li>Email: info@bedolagiprodaktion.com</li>
-              <li>Телефон: +7 (123) 456-78-90</li>
-            </ul>
-          </Col>
-          <Col md={4}>
-            <a href='#'>О компании</a>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <a href='#'>Оплата и доставка</a>
-          </Col>
-        </Row>
-      </Container>
-    </footer>
-    );
-})
+  return (
+    <Layout.Footer
+      style={{ backgroundColor: "#f0f2f5", color: "#333" }}
+      className="py-4"
+    >
+      <Row gutter={16}>
+        <Col xs={24} sm={8}>
+          <Text>&copy; {currentYear}, Бедолаги продактион</Text>
+        </Col>
+        <Col xs={24} sm={8}>
+          <Title level={5}>Контакты</Title>
+          <ul style={{ listStyleType: "none", padding: 0 }}>
+            <li>Email: <Link href="mailto:info@bedolagiprodaktion.com">info@bedolagiprodaktion.com</Link></li>
+            <li>Телефон: <Link href="tel:+71234567890">+7 (123) 456-78-90</Link></li>
+          </ul>
+        </Col>
+        <Col xs={24} sm={8}>
+          <ul style={{ listStyleType: "none", padding: 0 }}>
+            <li><Link href="#" style={{ color: "#333" }}>О компании</Link></li>
+            <li><Link href="#" style={{ color: "#333" }}>Оплата и доставка</Link></li>
+          </ul>
+        </Col>
+      </Row>
+    </Layout.Footer>
+  );
+});
