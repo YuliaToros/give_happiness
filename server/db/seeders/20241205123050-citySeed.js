@@ -1,0 +1,26 @@
+"use strict";
+
+/** @type {import('sequelize-cli').Migration} */
+module.exports = {
+  async up(queryInterface, Sequelize) {
+    await queryInterface.bulkInsert(
+      "Cities",
+      [
+        {
+          name: "Москва",
+        },
+        {
+          name: "Санкт-Петербург",
+        },
+        {
+          name: "Мурманск",
+        },
+      ],
+      {}
+    );
+  },
+
+  async down(queryInterface, Sequelize) {
+    await queryInterface.bulkDelete("Cities", null, {});
+  },
+};
