@@ -8,7 +8,7 @@ const UserAuthRegService = require('../services/user.service')
 exports.userRegistrationController = async (req, res) => {
   try {
     // const { name, email, password, phone, verify_status, company_name, company_description, city_id, role_id } = req.body;
-    const {  email, password } = req.body;
+    const { name, email, password, role_id } = req.body;
     console.log(1111, req.body);
     
 
@@ -29,7 +29,7 @@ console.log(1);
 
     if (!user) {
       user = await UserAuthRegService.addUser({
-        // name,
+        name,
         email, 
         password: await bcrypt.hash(password, 10),
         // phone,
@@ -37,7 +37,7 @@ console.log(1);
         // company_name,
         // company_description,
         // city_id,
-        // role_id,
+        role_id,
       });
 console.log(2);
 

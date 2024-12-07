@@ -5,7 +5,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
 
 // Импортируем тип AuthResponse из локального индекса
-import { UserWithoutPasswordType } from './index';
+import {  UserWithoutPasswordType } from './index';
 
 // Импортируем класс UserService из папки api для работы с API
 import { UserService } from "../api";
@@ -73,13 +73,13 @@ export const authorization = createAsyncThunk<
 // Создаем асинхронную thunk-функцию для регистрации
 export const registration = createAsyncThunk<
     AuthResponse, 
-    { email: string, password: string }, 
+    { email: string, password: string, name:string , role_id:number}, 
     { rejectValue: RejectValue }
-    >(USER_THUNK_TYPES_PREFIX.USER_REGISTRATION, async ({ email, password }, { rejectWithValue }) => {
+    >(USER_THUNK_TYPES_PREFIX.USER_REGISTRATION, async ({ email, password,name,role_id }, { rejectWithValue }) => {
 
     try {
         // Пытаемся выполнить запрос к API для регистрации пользователя
-        return await UserService.registration(email, password, name );
+        return await UserService.registration(email, password, name, role_id );
     } catch (error) { 
         // Обрабатываем ошибку, приводя ее к типу AxiosError
         const err = error as AxiosError<{ message: string }>
@@ -111,3 +111,4 @@ export const logout = createAsyncThunk<
         });
     }
 });
+//--------------------------------------------ROLES---------------------------------------------

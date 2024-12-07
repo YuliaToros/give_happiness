@@ -16,7 +16,7 @@ class UserService {
   }
 
   static async addUser({
-    // name,
+     name,
     email,
     password,
     // phone,
@@ -24,13 +24,13 @@ class UserService {
     // company_name,
     // company_description,
     // city_id,
-    // role_id
+     role_id
   }
 
   ) {
     try {
       const user = await User.create({
-        // name,
+         name,
         email,
         password,
         // phone,
@@ -38,7 +38,7 @@ class UserService {
         // company_name,
         // company_description,
         // city_id,
-        // role_id,
+         role_id,
       });
       console.log(3);
       
