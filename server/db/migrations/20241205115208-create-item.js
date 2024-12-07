@@ -23,7 +23,8 @@ module.exports = {
       },
       status: {
         type: Sequelize.ENUM,
-        values: ["unmoder", "inmoder", "moder"],
+        values: ["unmoder", "inmoder", "moder"], // Указаны значения ENUM
+        defaultValue: "unmoder", // Значение по умолчанию
       },
       count: {
         type: Sequelize.INTEGER,
