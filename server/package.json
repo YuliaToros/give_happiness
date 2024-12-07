@@ -5,8 +5,13 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js --ext js,json",
-    "dbr": "npx sequelize db:create &&  npx sequelize db:migrate && npx sequelize db:seed:all"
+    "dev": "nodemon app.js --ext js, jsx, json",
+    "dbr": "npx sequelize db:create &&  npx sequelize db:migrate && npx sequelize db:seed:all",
+    "dev2": "node --watch app.js",
+    "dbc": "npx sequelize db:create",
+    "dbd": "npx sequelize db:drop",
+    "dbm": "npx sequelize db:migrate:undo:all && npx sequelize db:migrate",
+    "dbs": "npx sequelize db:seed:undo:all && npx sequelize db:seed:all"
   },
   "keywords": [],
   "author": "",

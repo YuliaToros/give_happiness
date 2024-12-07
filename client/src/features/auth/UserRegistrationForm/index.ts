@@ -1,0 +1,1 @@
+export { UserRegistrationForm as MemoUserRegistrationForm } from './ui/UserRegistrationForm'

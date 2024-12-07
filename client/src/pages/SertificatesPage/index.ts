@@ -1,0 +1,1 @@
+export { SertificatesPage } from './ui/SertificatesPage'

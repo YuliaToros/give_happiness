@@ -1,0 +1,1 @@
+export { UserAuthorizationForm as MemoUserAuthorizationForm } from './ui/UserAuthorizationForm'
