@@ -79,8 +79,8 @@ export const registration = createAsyncThunk<
 
     try {
         // Пытаемся выполнить запрос к API для регистрации пользователя
-        return await UserService.registration(email, password);
-    } catch (error) {
+        return await UserService.registration(email, password, name );
+    } catch (error) { 
         // Обрабатываем ошибку, приводя ее к типу AxiosError
         const err = error as AxiosError<{ message: string }>
 
