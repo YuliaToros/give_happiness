@@ -9,7 +9,7 @@ const {
   const verifyRefreshToken = require('../middleware/verifyRefreshToken')
   
   module.exports = router
-    .post('/reg', userRegistrationController)
-    .post('/log', userAuthorizationController)
+    .post('/registration', userRegistrationController)
+    .post('/authorization', userAuthorizationController)
     .delete('/logout', usetLogoutController)
     .get('/refresh', verifyRefreshToken, userRefreshController)

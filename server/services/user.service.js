@@ -15,29 +15,33 @@ class UserService {
     }
   }
 
-  static async addUser(
-    name,
+  static async addUser({
+    // name,
     email,
     password,
-    phone,
-    verify_status,
-    company_name,
-    company_description,
-    city_id,
-    role_id
+    // phone,
+    // verify_status,
+    // company_name,
+    // company_description,
+    // city_id,
+    // role_id
+  }
+
   ) {
     try {
       const user = await User.create({
-        name,
+        // name,
         email,
         password,
-        phone,
-        verify_status,
-        company_name,
-        company_description,
-        city_id,
-        role_id,
+        // phone,
+        // verify_status,
+        // company_name,
+        // company_description,
+        // city_id,
+        // role_id,
       });
+      console.log(3);
+      
       const newUser = await User.findOne({
         where: { id: user.id },
         include: [

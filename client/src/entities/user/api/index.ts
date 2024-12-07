@@ -13,10 +13,11 @@ enum API_ROUTES {
 // }
 
 export class UserService {
-    static async registration(email: string, password: string): Promise<{ accessToken: string, user: UserWithoutPasswordType }> {
+    static async registration(email: string, password: string, name:string): Promise<{ accessToken: string, user: UserWithoutPasswordType }> {
         const response = await axiosInstance.post(API_ROUTES.REG_PATH, {
             email,
-            password
+            password,
+            name
         });
 
         setAccessToken(response.data.accessToken);
