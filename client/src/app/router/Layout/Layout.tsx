@@ -16,7 +16,9 @@ export function Layout() {
     return (
         <>
             <MemoNav />
-            <Outlet />
+            <div className="container d-flex flex-column vh-100">
+                <Outlet />
+            </div>
             <MemoFooter />
         </>
     );
