@@ -1,5 +1,5 @@
 import { axiosInstance, setAccessToken } from "@/shared/lib/axiosInstance";
-import { UserWithoutPasswordType } from "../model";
+import { UserWithoutPasswordType,RoleList } from "../model";
 
 enum API_ROUTES {
     REG_PATH = '/auth/registration',
@@ -12,12 +12,23 @@ enum API_ROUTES {
 //     EMAIL = 'email'
 // }
 
+
+
+
 export class UserService {
-    static async registration(email: string, password: string, name:string): Promise<{ accessToken: string, user: UserWithoutPasswordType }> {
+    
+    // ---Взять роли для пользователя---
+    static async getRoles():Promise<RoleList>{
+        const response = await axiosInstance.get('/role')
+        return response.data.role
+    }
+
+    static async registration(email: string, password: string, name:string, role_id:number): Promise<{ accessToken: string, user: UserWithoutPasswordType }> {
         const response = await axiosInstance.post(API_ROUTES.REG_PATH, {
             email,
             password,
-            name
+            name,
+            role_id
         });
 
         setAccessToken(response.data.accessToken);

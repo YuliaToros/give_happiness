@@ -4,11 +4,13 @@ import sertificatesReducer from "@/entities/sertificate/model/sertificatesSlice"
 
 // Импортируем функцию configureStore из Redux Toolkit
 import { configureStore } from "@reduxjs/toolkit";
+import  {roleReducer}  from '@/entities/user/model/roleSlice';
 
 const store = configureStore({
     reducer: {
         user: userReducer,
         sertificates: sertificatesReducer,
+        role:roleReducer
     }
 });
 

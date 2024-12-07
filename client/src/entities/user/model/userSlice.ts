@@ -2,12 +2,18 @@ import { createSlice } from "@reduxjs/toolkit";
 import { UserWithoutPasswordType } from ".";
 import { refreshAccessToken, registration, authorization, logout } from "./userThunk";
 
+/////////////---------------ROLE------------------
+
+
+
 // Определяем тип состояния для хранилища пользователя
 type UserState = {
     user: UserWithoutPasswordType | null;
     error: string | null;
     loading: boolean;
 }
+
+
 
 // Устанавливаем начальное состояние
 const initialState: UserState = {
