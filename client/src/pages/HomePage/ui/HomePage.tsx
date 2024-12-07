@@ -3,13 +3,6 @@ import { CLIENT_ROUTES } from "@/app/router";
 import { CarouselBanner } from '@/widgets';
 import { Link } from 'react-router-dom';
 
-// Импортируем изображения
-import banner1 from '../assets/banner_null_1.png';
-import banner2 from '../assets/banner_null_2.png';
-import banner3 from '../assets/banner_null_3.png';
-
-
-// Интерфейс для изображений
 interface Image {
   url: string;
   alt: string;
@@ -18,15 +11,15 @@ interface Image {
 export const HomePage: React.FC = () => {
   const images: Image[] = [
     {
-      url: banner1,
+      url: '/img/banner/banner1.jpg',
       alt: 'Первый баннер',
     },
     {
-      url: banner2,
+      url: '/img/banner/banner2.jpg',
       alt: 'Второй баннер',
     },
     {
-      url: banner3,
+      url: '/img/banner/banner3.jpg',
       alt: 'Третий баннер',
     }
   ];
