@@ -1,7 +1,12 @@
 export type UserType = {
-  id: number
-  email: string;
-  password: string;
+  id: number,
+  name: string,
+  email: string,
+  password: string,
+  phone: number,
+  verify_status: string
+  company_name: string,
+  company_description: string,
   createdAt: Date,
   updatedAt: Date
 };

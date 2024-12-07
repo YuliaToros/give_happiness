@@ -21,8 +21,8 @@ export const UserAuthorizationForm = React.memo(() => {
 
     return (
         <form onSubmit={authHandler}>
-            <input defaultValue={email} onChange={({ target }) => setPassword(target.value)} type="email" required placeholder="You email" />
-            <input defaultValue={password} onChange={({ target }) => setEmail(target.value)} type="password" required placeholder="You password" />
+            <input defaultValue={email} onChange={({ target }) => setEmail(target.value)} type="email" required placeholder="You email" />
+            <input defaultValue={password} onChange={({ target }) => setPassword(target.value)} type="password" required placeholder="You password" />
             <button disabled={(!email || !password)} type="submit">Auth</button>
         </form>
     );
