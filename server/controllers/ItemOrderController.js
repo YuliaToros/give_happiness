@@ -23,7 +23,7 @@ class ItemOrderController {
   };
 
   static createItemOrderController = async (req, res) => {
-    const { item_id, Order_id } =
+    const { item_id, order_id } =
       req.body;
 
     const authUser = res.locals.user;
@@ -33,7 +33,7 @@ class ItemOrderController {
       return;
     }
 
-    if (!item_id || !Order_id) {
+    if (!item_id || !order_id) {
       res.status(400).json({ message: "Данные пустые" });
       return;
     }
@@ -41,7 +41,7 @@ class ItemOrderController {
     try {
       const ItemOrder = await ItemOrderService.createItemOrder({
         item_id,
-        Order_id,
+        order_id,
      
       });
 
