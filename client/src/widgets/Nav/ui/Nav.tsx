@@ -1,23 +1,39 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/rtkHooks";
 import { logout } from "@/entities/user/model/userThunk";
 import { CLIENT_ROUTES } from "@/app/router";
 import { Layout, Menu, Button, Drawer, Space } from "antd";
-import { LogoutOutlined, HomeOutlined, FileOutlined, MenuOutlined } from "@ant-design/icons";
+import {
+  LogoutOutlined,
+  HomeOutlined,
+  FileOutlined,
+  MenuOutlined,
+} from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import logo from '../logo_black.png';
+import logo from "../logo_black.png";
+import { getAllUsers } from "@/entities/user/model/userCRUDThunk";
 
 const { Header } = Layout;
 
 export const Nav = React.memo(() => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { user } = useAppSelector(state => state.user);
+  const { userCRUD, loading: usersLoading, error: usersError } = useAppSelector((state) => state.userCRUD);
+  const { user, loading: userLoading, error: userError } = useAppSelector((state) => state.user);
   const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    dispatch(getAllUsers());
+   
+   
+  }, [dispatch]);
+
+  
 
   const logoutHandler = () => {
     dispatch(logout());
+
     navigate(CLIENT_ROUTES.AUTH);
   };
 
@@ -29,15 +45,57 @@ export const Nav = React.memo(() => {
     setVisible(false);
   };
 
+  if (usersLoading || userLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (usersError || userError) {
+    return <div>Error: {usersError || userError}</div>;
+  }
+
+  if (!user) {
+    return <div>Загрузка...</div>;
+  }
+  console.log('User:', user);
+  console.log("Current userCRUD in Nav:", userCRUD);
+  
+  const userRoleName = user.role ? user.role.name : "Роль не указана";
+
   return (
-    <Header style={{ display: "flex", alignItems: "center", padding: "0 16px", marginBottom: "5px", backgroundColor: "white", boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)" }}>
+    <Header
+      style={{
+        display: "flex",
+        alignItems: "center",
+        padding: "0 16px",
+        marginBottom: "5px",
+        backgroundColor: "white",
+        boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
+      }}
+    >
       <div style={{ marginRight: "auto" }}>
-      <Link to={CLIENT_ROUTES.HOME}><img src={logo} alt='Logo' style={{ width: '50px', marginRight: '16px' }} /></Link>
+        <Link to={CLIENT_ROUTES.HOME}>
+          <img
+            src={logo}
+            alt="Logo"
+            style={{ width: "50px", marginRight: "16px" }}
+          />
+        </Link>
       </div>
       <div style={{ display: "flex", alignItems: "center" }}>
-        <Button type="text" icon={<MenuOutlined />} onClick={showDrawer} style={{ color: "black", fontSize: "1.5rem", display: "none" }} className="mobile-menu-button" />
-        <Menu className="nav-menu" theme="light" mode="horizontal" defaultSelectedKeys={["home"]} style={{ display: "flex", alignItems: "center" }}>
-
+        <Button
+          type="text"
+          icon={<MenuOutlined />}
+          onClick={showDrawer}
+          style={{ color: "black", fontSize: "1.5rem", display: "none" }}
+          className="mobile-menu-button"
+        />
+        <Menu
+          className="nav-menu"
+          theme="light"
+          mode="horizontal"
+          defaultSelectedKeys={["home"]}
+          style={{ display: "flex", alignItems: "center" }}
+        >
           <Menu.Item key="certificates">
             <Link to={CLIENT_ROUTES.SERTIFICATES}>Сертификаты</Link>
           </Menu.Item>
@@ -57,8 +115,15 @@ export const Nav = React.memo(() => {
         </Menu>
         {user && (
           <Space style={{ marginLeft: "16px" }}>
-            <span style={{ color: "black", marginRight: "16px" }}>Привет, ТУТ ИМЯ</span>
-            <Button type="primary" danger icon={<LogoutOutlined />} onClick={logoutHandler}>
+            <span style={{ color: "black", marginRight: "16px" }}>
+              Привет, {user.name} вы {userRoleName}
+            </span>
+            <Button
+              type="primary"
+              danger
+              icon={<LogoutOutlined />}
+              onClick={logoutHandler}
+            >
               Выйти
             </Button>
           </Space>
@@ -70,28 +135,46 @@ export const Nav = React.memo(() => {
         onClose={onClose}
         visible={visible}
       >
-        <Menu className="nav-menu" theme="light" mode="vertical" defaultSelectedKeys={["home"]}>
+        <Menu
+          className="nav-menu"
+          theme="light"
+          mode="vertical"
+          defaultSelectedKeys={["home"]}
+        >
           <Menu.Item key="home" icon={<HomeOutlined />}>
-            <Link to={CLIENT_ROUTES.HOME} onClick={onClose}>Главная</Link>
+            <Link to={CLIENT_ROUTES.HOME} onClick={onClose}>
+              Главная
+            </Link>
           </Menu.Item>
           <Menu.Item key="certificates" icon={<FileOutlined />}>
-            <Link to={CLIENT_ROUTES.SERTIFICATES} onClick={onClose}>Сертификаты</Link>
+            <Link to={CLIENT_ROUTES.SERTIFICATES} onClick={onClose}>
+              Сертификаты
+            </Link>
           </Menu.Item>
           {!user && (
             <Menu.Item key="auth">
-              <Link to={CLIENT_ROUTES.AUTH} onClick={onClose}>Войти</Link>
+              <Link to={CLIENT_ROUTES.AUTH} onClick={onClose}>
+                Войти
+              </Link>
             </Menu.Item>
           )}
           {!user && (
             <Menu.Item key="reg">
-              <Link to={CLIENT_ROUTES.REG} onClick={onClose}>Регистрация</Link>
+              <Link to={CLIENT_ROUTES.REG} onClick={onClose}>
+                Регистрация
+              </Link>
             </Menu.Item>
           )}
         </Menu>
         {user && (
           <Space direction="vertical" style={{ marginTop: "16px" }}>
             <span>Привет, ТУТ ИМЯ</span>
-            <Button type="primary" danger icon={<LogoutOutlined />} onClick={logoutHandler}>
+            <Button
+              type="primary"
+              danger
+              icon={<LogoutOutlined />}
+              onClick={logoutHandler}
+            >
               Выйти
             </Button>
           </Space>
