@@ -8,7 +8,7 @@ import {
 } from '@ant-design/icons';
 import { Button, Layout, Menu, theme } from 'antd';
 import { Profile } from '../../Profile/ui/ProfileForm';
-import { CatalogForm } from '../../Catalog/ui/CatalogForm/CatalogForm';
+import { CatalogForm } from '../../Catalog/index';
 
 const { Header, Sider, Content } = Layout;
 

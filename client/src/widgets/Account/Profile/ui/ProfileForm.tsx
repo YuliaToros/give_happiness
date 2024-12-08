@@ -1,9 +1,23 @@
 import React, { useState } from 'react';
+import { useAppDispatch, useAppSelector } from "@/shared/hooks/rtkHooks";
 import { Card, Input, Button, Form, Space, Select } from 'antd';
 const { Option } = Select;
 
-export const Profile: React.FC = () => {
+export const ProfileForm: React.FC = () => {
+  const { user } = useAppSelector(state => state.user)
   const [isEditing, setIsEditing] = useState(false);
+  const [name, setName] = useState(user?.name)
+  const [email, setEmail] = useState(user?.email)
+  const [phone, setPhone] = useState(String(user?.phone))
+  const [verifyStatus, setVerifyStatus] = useState(String(user?.verify_status))
+  const [companyName, setCompanyName] = useState(user?.company_name)
+  const [companyDescription, setCompanyDescription] = useState(user?.company_description)
+
+  const dispatch = useAppDispatch()
+
+  // дописать
+  //dispatch(updateProfile({ name, email, phone: Number(phone), verifyStatus: Number(verifyStatus), companyName, companyDescription }))
+  
   const [form] = Form.useForm();
   const [userData, setUserData] = useState({
     name: 'Иван Иванов',
@@ -45,26 +59,26 @@ export const Profile: React.FC = () => {
         layout="vertical"
       >
         <Form.Item label="Имя" name="name">
-          <Input disabled={!isEditing} />
+          <Input onChange={({ target }) => setName(target.value)} defaultValue={name} disabled={!isEditing} />
+        </Form.Item>
+        <Form.Item label="Email" name="email">
+          <Input onChange={({ target }) => setEmail(target.value)} defaultValue={email} disabled={!isEditing} />
         </Form.Item>
         <Form.Item label="Телефон" name="phone">
-          <Input disabled={!isEditing} />
+          <Input onChange={({ target }) => setPhone(target.value)} defaultValue={phone} disabled={!isEditing} />
         </Form.Item>
         <Form.Item label="Статус верификации" name="verify_status">
-          <Select disabled={!isEditing}>
+          <Select onChange={({ target }) => setVerifyStatus(target.value)} defaultValue={verifyStatus} disabled={!isEditing}>
             <Option value="Верифицирован">Верифицирован</Option>
             <Option value="В процессе верификации">В процессе верификации</Option>
             <Option value="Не верифицирован">Не верифицирован</Option>
           </Select>
         </Form.Item>
         <Form.Item label="Название компании" name="company_name">
-          <Input disabled={!isEditing} />
+          <Input onChange={({ target }) => setCompanyName(target.value)} defaultValue={companyName} disabled={!isEditing} />
         </Form.Item>
         <Form.Item label="Описание компании" name="company_description">
-          <Input.TextArea disabled={!isEditing} />
-        </Form.Item>
-        <Form.Item label="Email" name="email">
-          <Input disabled={!isEditing} />
+          <Input.TextArea onChange={({ target }) => setCompanyDescription(target.value)} defaultValue={companyDescription} disabled={!isEditing} />
         </Form.Item>
 
         {isEditing && (

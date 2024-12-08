@@ -30,7 +30,7 @@ export const UserRegistrationForm = React.memo(() => {
         }
 
         dispatch(registration({ email, password, name, role_id }))
-        navigate(CLIENT_ROUTES.HOME);
+        navigate(CLIENT_ROUTES.ACCOUNT_PAGE);
     }
 
     return (
