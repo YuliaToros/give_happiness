@@ -70,7 +70,12 @@ export const AccountMenu: React.FC = () => {
             borderRadius: borderRadiusLG,
           }}
         >
-          Content
+            Content
+            {/* То, что ниже – пример оформления для отрисовки контента */}
+            {/* {selectedMenuItem === '1' && <Profile />}
+          {selectedMenuItem === '2' && <Catalog />}
+          {selectedMenuItem === '3' && <PurchaseHistory />}
+          {selectedMenuItem === '4' && <SalesHistory />} */}
         </Content>
       </Layout>
     </Layout>
