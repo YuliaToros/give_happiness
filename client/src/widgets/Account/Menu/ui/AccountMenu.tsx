@@ -7,11 +7,14 @@ import {
   UserOutlined,
 } from '@ant-design/icons';
 import { Button, Layout, Menu, theme } from 'antd';
+import { Profile } from '../../Profile/ui/ProfileForm';
+import { CatalogForm } from '../../Catalog/ui/CatalogForm/CatalogForm';
 
 const { Header, Sider, Content } = Layout;
 
 export const AccountMenu: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const [selectedMenuItem, setSelectedMenuItem] = useState('1'); // Добавлено состояние для выбранного пункта меню
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -24,6 +27,8 @@ export const AccountMenu: React.FC = () => {
           theme="light"
           mode="inline"
           defaultSelectedKeys={['1']}
+          selectedKeys={[selectedMenuItem]} // Установка выбранного ключа
+          onClick={(item) => setSelectedMenuItem(item.key)} // Обработчик клика для обновления состояния
           items={[
             {
               key: '1',
@@ -37,14 +42,14 @@ export const AccountMenu: React.FC = () => {
             },
             {
               key: '3',
-              icon: <HistoryOutlined/>,
+              icon: <HistoryOutlined />,
               label: 'История покупок',
             },
             {
-                key: '4',
-                icon: <HistoryOutlined/>,
-                label: 'История продаж',
-              },
+              key: '4',
+              icon: <HistoryOutlined />,
+              label: 'История продаж',
+            },
           ]}
         />
       </Sider>
@@ -70,12 +75,10 @@ export const AccountMenu: React.FC = () => {
             borderRadius: borderRadiusLG,
           }}
         >
-            Content
-            {/* То, что ниже – пример оформления для отрисовки контента */}
-            {/* {selectedMenuItem === '1' && <Profile />}
-          {selectedMenuItem === '2' && <Catalog />}
-          {selectedMenuItem === '3' && <PurchaseHistory />}
-          {selectedMenuItem === '4' && <SalesHistory />} */}
+          {/* Условная отрисовка контента */}
+          {selectedMenuItem === '1' && <Profile />}
+          {selectedMenuItem === '2' && <CatalogForm />}
+          {/* Добавьте другие компоненты для других пунктов меню (Catalog, PurchaseHistory, SalesHistory) */}
         </Content>
       </Layout>
     </Layout>
