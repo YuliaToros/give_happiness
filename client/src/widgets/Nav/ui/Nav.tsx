@@ -6,8 +6,6 @@ import { CLIENT_ROUTES } from "@/app/router";
 import { Layout, Menu, Button, Drawer, Space } from "antd";
 import {
   LogoutOutlined,
-  HomeOutlined,
-  FileOutlined,
   MenuOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
@@ -64,44 +62,41 @@ export const Nav = React.memo(() => {
   return (
     <Header
       style={{
-        display: "flex",
-        alignItems: "center",
-        padding: "0 16px",
-        marginBottom: "5px",
-        backgroundColor: "white",
-        boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
+        display: 'flex',
+        alignItems: 'center',
+        padding: '0 16px',
+        marginBottom: '5px',
+        backgroundColor: '#fff',
+        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
       }}
     >
-      <div style={{ marginRight: "auto" }}>
+      <div style={{ marginRight: 'auto' }}>
         <Link to={CLIENT_ROUTES.HOME}>
           <img
             src={logo}
             alt="Logo"
-            style={{ width: "50px", marginRight: "16px" }}
+            style={{ width: '50px', marginRight: '16px' }}
           />
         </Link>
       </div>
-      <div style={{ display: "flex", alignItems: "center" }}>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
         <Button
           type="text"
           icon={<MenuOutlined />}
           onClick={showDrawer}
-          style={{ color: "black", fontSize: "1.5rem", display: "none" }}
+          style={{ color: '#000', fontSize: '1.5rem', display: 'none' }}
           className="mobile-menu-button"
         />
         <Menu
           className="nav-menu"
           theme="light"
           mode="horizontal"
-          defaultSelectedKeys={["home"]}
-          style={{ display: "flex", alignItems: "center" }}
+          defaultSelectedKeys={['home']}
+          style={{ display: 'flex', alignItems: 'center' }}
         >
           <Menu.Item key="certificates">
             <Link to={CLIENT_ROUTES.SERTIFICATES}>Сертификаты</Link>
           </Menu.Item>
-          <Menu.Item key="account">
-              <Link to={CLIENT_ROUTES.ACCOUNT_PAGE}>Личный кабинет</Link>
-            </Menu.Item>
           {!user && (
             <Menu.Item key="auth">
               <Link to={CLIENT_ROUTES.AUTH}>Войти</Link>
@@ -112,25 +107,28 @@ export const Nav = React.memo(() => {
               <Link to={CLIENT_ROUTES.REG}>Регистрация</Link>
             </Menu.Item>
           )}
+          {user && (
+            <Space style={{ marginLeft: '16px' }}>
+              <Menu.Item key="account">
+                <Link to={CLIENT_ROUTES.ACCOUNT_PAGE}>Личный кабинет</Link>
+              </Menu.Item>
+              <span style={{ color: '#000', marginRight: '16px' }}>
+                Привет, {user.name} вы {userRoleName}
+              </span>
+              <Button
+                type="primary"
+                danger
+                icon={<LogoutOutlined />}
+                onClick={logoutHandler}
+              >
+                Выйти
+              </Button>
+            </Space>
+          )}
         </Menu>
-        {user && (
-          <Space style={{ marginLeft: "16px" }}>
-            <span style={{ color: "black", marginRight: "16px" }}>
-              Привет, {user.name} вы {userRoleName}
-            </span>
-            <Button
-              type="primary"
-              danger
-              icon={<LogoutOutlined />}
-              onClick={logoutHandler}
-            >
-              Выйти
-            </Button>
-          </Space>
-        )}
       </div>
       <Drawer
-        title="Меню"
+        title=""
         placement="right"
         onClose={onClose}
         visible={visible}
@@ -139,14 +137,19 @@ export const Nav = React.memo(() => {
           className="nav-menu"
           theme="light"
           mode="vertical"
-          defaultSelectedKeys={["home"]}
+          defaultSelectedKeys={['home']}
         >
-          <Menu.Item key="home" icon={<HomeOutlined />}>
+          {user && (
+            <Space direction="vertical" style={{ marginTop: '16px' }}>
+              <div>Привет, {user.name} вы {userRoleName}</div>
+            </Space>
+          )}
+          <Menu.Item key="home">
             <Link to={CLIENT_ROUTES.HOME} onClick={onClose}>
               Главная
             </Link>
           </Menu.Item>
-          <Menu.Item key="certificates" icon={<FileOutlined />}>
+          <Menu.Item key="certificates">
             <Link to={CLIENT_ROUTES.SERTIFICATES} onClick={onClose}>
               Сертификаты
             </Link>
@@ -165,20 +168,22 @@ export const Nav = React.memo(() => {
               </Link>
             </Menu.Item>
           )}
+          {user && (
+            <Space direction="vertical" style={{ marginTop: '16px' }}>
+              <Menu.Item key="account">
+                <Link to={CLIENT_ROUTES.ACCOUNT_PAGE}>Личный кабинет</Link>
+              </Menu.Item>
+              <Button
+                type="primary"
+                danger
+                icon={<LogoutOutlined />}
+                onClick={logoutHandler}
+              >
+                Выйти
+              </Button>
+            </Space>
+          )}
         </Menu>
-        {user && (
-          <Space direction="vertical" style={{ marginTop: "16px" }}>
-            <span>Привет, ТУТ ИМЯ</span>
-            <Button
-              type="primary"
-              danger
-              icon={<LogoutOutlined />}
-              onClick={logoutHandler}
-            >
-              Выйти
-            </Button>
-          </Space>
-        )}
       </Drawer>
     </Header>
   );
@@ -196,11 +201,11 @@ const styles = `
   }
   .nav-menu a {
     text-decoration: none;
-    color: inherit; /* Adjust color as needed */
+    color: black; /* Adjust color as needed */
   }
 `;
 
-const styleSheet = document.createElement("style");
-styleSheet.type = "text/css";
+const styleSheet = document.createElement('style');
+styleSheet.type = 'text/css';
 styleSheet.innerText = styles;
 document.head.appendChild(styleSheet);
