@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Layout } from "./Layout/Layout";
-import { UserAuthPage, UserRegPage,  UpdateSertificatePage, SertificatesPage, HomePage, NotFound } from "@/pages";
+import { UserAuthPage, UserRegPage,  UpdateSertificatePage, SertificatesPage, HomePage, NotFound, AccountPage } from "@/pages";
 
 export enum CLIENT_ROUTES {
     HOME = '/',
@@ -8,6 +8,8 @@ export enum CLIENT_ROUTES {
     REG = '/registration',
     SERTIFICATES = '/sertificates',
     CURRENT_SERTIFICATE_PAGE = '/sertificate/:id',
+    ACCOUNT_PAGE='/account',
+    // ACCOUNT_ID_PAGE='/account/:id',
     NOT_FOUND = '*',
 }
 
@@ -40,6 +42,11 @@ export const router = createBrowserRouter([
                 path: CLIENT_ROUTES.NOT_FOUND,
                 element: <NotFound />,
             },
+            {
+                path: CLIENT_ROUTES.ACCOUNT_PAGE,
+                element: <AccountPage />,
+            },
+            
         ]
     }
 ]);
