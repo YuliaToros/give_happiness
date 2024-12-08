@@ -11,15 +11,15 @@ interface Image {
 export const HomePage: React.FC = () => {
   const images: Image[] = [
     {
-      url: '/img/banner/banner1.jpg',
+      url: '/img/banner/banner_1.jpg',
       alt: 'Первый баннер',
     },
     {
-      url: '/img/banner/banner2.jpg',
+      url: '/img/banner/banner_2.jpg',
       alt: 'Второй баннер',
     },
     {
-      url: '/img/banner/banner3.jpg',
+      url: '/img/banner/banner_3.jpg',
       alt: 'Третий баннер',
     }
   ];
