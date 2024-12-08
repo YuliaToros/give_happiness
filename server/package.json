@@ -1,21 +1,26 @@
 {
   "name": "server",
   "version": "1.0.0",
+  "description": "",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js --ext js,json",
-    "dbr": "npx sequelize db:create &&  npx sequelize db:migrate && npx sequelize db:seed:all"
+    "dev": "nodemon app.js --ext js, jsx, json",
+    "dbr": "npx sequelize db:create &&  npx sequelize db:migrate && npx sequelize db:seed:all",
+    "dev2": "node --watch app.js",
+    "dbc": "npx sequelize db:create",
+    "dbd": "npx sequelize db:drop",
+    "dbm": "npx sequelize db:migrate:undo:all && npx sequelize db:migrate",
+    "dbs": "npx sequelize db:seed:undo:all && npx sequelize db:seed:all"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "bcrypt": "^5.1.1",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
-    "dotenv": "^16.4.7",
+    "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",

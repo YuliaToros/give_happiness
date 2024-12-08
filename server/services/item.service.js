@@ -3,9 +3,11 @@ const { Item, User } = require("../db/models");
 class ItemService {
   static async getAllItem() {
     try {
-      const item = await Item.findAll({
+      const item = await Item.findAll(
+        {
         include: [{ model: User, as: "user" }],
-      });
+      }
+    );
       return item;
     } catch (error) {
       throw new Error(error.message);
@@ -91,4 +93,4 @@ class ItemService {
   }
 }
 
-module.exports = UserService;
+module.exports = ItemService;

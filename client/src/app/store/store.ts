@@ -1,14 +1,17 @@
 // Импортируем редьюсер для пользователя из файла user.ts
 import userReducer from '@/entities/user/model/userSlice';
 import sertificatesReducer from "@/entities/sertificate/model/sertificatesSlice";
-
+import userCRUDReducer from '@/entities/user/model/userCRUDSlice'
 // Импортируем функцию configureStore из Redux Toolkit
 import { configureStore } from "@reduxjs/toolkit";
+import  {roleReducer}  from '@/entities/user/model/roleSlice';
 
 const store = configureStore({
     reducer: {
+        userCRUD: userCRUDReducer,
         user: userReducer,
         sertificates: sertificatesReducer,
+        role:roleReducer
     }
 });
 
