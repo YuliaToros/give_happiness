@@ -4,3 +4,4 @@ export { MemoUpdateSertificateForm } from "./UpdateSertificateForm";
 export { MemoSertificateForm } from "./SertificateForm";
 export { MemoSertificateList } from "./SertificateList";
 export { CarouselBanner } from "./Carousel";
+export { AccountMenu } from "./Account";
