@@ -39,7 +39,7 @@ class ItemCartController {
     }
 
     try {
-      const ItemCart = await ItemCartService.createItemCart({
+      const ItemCart = await ItemCartService.addItemCart({
         item_id,
         cart_id,
      

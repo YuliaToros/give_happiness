@@ -1,53 +1,46 @@
-import { axiosInstance } from "@/shared/lib/axiosInstance";
-import { Cart, CartList } from "@/entities/sertificate/model";
+import { axiosInstance } from '@/shared/lib/axiosInstance';
+import { Cart, CartList } from '../model';
 
 export class CartService {
-
-    static async createCart(title: string, author: string, pages: number, category_id: number): Promise<Cart> {
-        try {
-            const response = await axiosInstance.post('/sertificates', {
-                title,
-                author,
-                pages,
-                category_id
-            });
-            return response.data.sertificate;
-        } catch (error) {
-            console.error('Error create sertificate:', error);
-            throw new Error('Failed to create sertificate');
-        }
+  static async getUserCart(): Promise<Cart> {
+    try {
+      const response = await axiosInstance.get(`/cart`);
+      
+      return response.data.cart;
+    } catch (error) {
+      console.error('Error fetching user cart:', error);
+      throw new Error('Failed to fetch user cart');
     }
+  }
 
-    static async getAllCarts(): Promise<CartList> {
-        try {
-            const response = await axiosInstance.get('/sertificates');
-            return response.data.sertificates;
-        } catch (error) {
-            console.error('Error fetching all sertificates:', error);
-            throw new Error('Failed to fetch sertificates');
-        }
+  static async getAllUserCarts(userId: number): Promise<CartList> {
+    try {
+      const response = await axiosInstance.get(`/cart/${userId}`);
+      
+      return response.data.cart;
+    } catch (error) {
+      console.error('Error fetching user cart:', error);
+      throw new Error('Failed to fetch user cart');
     }
+  }
 
-    static async updateCart(id: number, title: string, author: string): Promise<Cart> {
-        try {
-            const response = await axiosInstance.put(`/sertificates/${id}`, {
-                title,
-                author
-            })
-            return response.data.sertificate;
-        } catch (error) {
-            console.error('Error updating sertificate:', error);
-            throw new Error('Failed to update sertificate');
-        }
+  static async addItemToCart(cartId: number, itemId: number): Promise<Cart> {
+    try {
+      const response = await axiosInstance.post(`/cart/${cartId}`, { itemId });
+      return response.data.cart;
+    } catch (error) {
+      console.error('Error adding item to cart:', error);
+      throw new Error('Failed to add item to cart');
     }
+  }
 
-    static async deleteCart(id: number): Promise<number> {
-        try {
-            await axiosInstance.delete(`/sertificates/${id}`)
-            return id;
-        } catch (error) {
-            console.error('Error deleting sertificate:', error);
-            throw new Error('Failed to delete sertificate');
-        }
+  static async removeItemFromCart(cartId: number, itemId: number): Promise<Cart> {
+    try {
+      const response = await axiosInstance.delete(`/cart/${cartId}/items/${itemId}`);
+      return response.data.cart;
+    } catch (error) {
+      console.error('Error removing item from cart:', error);
+      throw new Error('Failed to remove item from cart');
     }
+  }
 }

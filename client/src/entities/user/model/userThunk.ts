@@ -26,6 +26,7 @@ enum USER_THUNK_TYPES_PREFIX {
     USER_AUTHORIZATION = 'user/authorization',
     USER_REGISTRATION = 'user/registration',
     USER_LOGOUT = 'user/logout',
+    USER_GETALL = 'GETALL_USERS'
 };
 
 // Создаем асинхронную thunk-функцию для обновления токена доступа, _ — опциональный параметр
