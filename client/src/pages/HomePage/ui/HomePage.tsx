@@ -11,15 +11,15 @@ type Image = {
 export const HomePage: React.FC = () => {
   const images: Image[] = [
     {
-      src: '/img/banner/banner_1.png',
+      src: '/banner_1.png',
       alt: 'Первый баннер',
     },
     {
-      src: '/img/banner/banner_2.png',
+      src: '/banner_2.png',
       alt: 'Второй баннер',
     },
     {
-      src: '/img/banner/banner_3.png',
+      src: '/banner_3.png',
       alt: 'Третий баннер',
     }
   ];

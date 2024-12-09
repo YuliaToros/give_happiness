@@ -31,7 +31,7 @@ const serverConfig = (app) => {
   //app.use(removeHTTPHeader);
 
   // настройка статики, папка public ассоциирована с маршрутом запроса
-  app.use(express.static(path.join(__dirname, '../public')));
+  app.use('/banner', express.static(path.join(__dirname, '..', 'public', 'img', 'banner')));
 };
 
 module.exports = serverConfig;

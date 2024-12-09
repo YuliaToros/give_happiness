@@ -17,7 +17,7 @@ export const CarouselBanner: React.FC<CarouselBannerProps> = ({ images }) => {
         <Carousel.Item key={index}>
           <img
             className="d-block w-100"
-            src={image.src}
+            src={`${import.meta.env.VITE_IMAGES}${image.src}`}
             alt={image.alt}
           />
         </Carousel.Item>
