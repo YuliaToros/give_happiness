@@ -1,11 +1,17 @@
-export type Sertificate = {
-  id: number;
-  title: string;
-  author: string;
-  pages: number;
-  category_id: number;
-  user_id: number;
-};
-export type SertificateId = Sertificate['id'];
-export type SertificateList = Sertificate[];
-export type SertificateWithoutId = Omit<Sertificate, 'id'>;
+import { Sertificate } from "@/entities/sertificate"
+
+
+export type Cart = {
+  id:number,
+  user_id:number,
+  count:number,
+  items:Sertificate[]
+}
+
+export type CartItem = {
+  id:number,
+  cart_id:number,
+  item_id:number
+}
+
+export type CartList = CartItem[]

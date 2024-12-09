@@ -5,13 +5,15 @@ import userCRUDReducer from '@/entities/user/model/userCRUDSlice'
 // Импортируем функцию configureStore из Redux Toolkit
 import { configureStore } from "@reduxjs/toolkit";
 import  {roleReducer}  from '@/entities/user/model/roleSlice';
+import { cartReducer } from '@/entities/cart/model/cartSlice';
 
 const store = configureStore({
     reducer: {
         userCRUD: userCRUDReducer,
         user: userReducer,
         sertificates: sertificatesReducer,
-        role:roleReducer
+        role:roleReducer,
+        cart:cartReducer
     }
 });
 

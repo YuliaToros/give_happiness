@@ -74,7 +74,7 @@ class ItemController {
   static updateItemController = async (req, res) => {
     const { name, description, image, price, status, count } = req.body;
     const { id } = req.params;
-    console.log("my id", id);
+
     if (name === "" || description === "" || price === "") {
       res.status(400).json({ message: "данные пустые для обновления" });
       return;

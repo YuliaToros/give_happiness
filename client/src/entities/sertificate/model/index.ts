@@ -1,9 +1,10 @@
 export type Sertificate = {
   id: number;
-  title: string;
-  author: string;
-  pages: number;
-  category_id: number;
+  name: string;
+  description: string;
+  image: string;
+  price: number;
+  count:number;
   user_id: number;
 };
 export type SertificateId = Sertificate['id'];
