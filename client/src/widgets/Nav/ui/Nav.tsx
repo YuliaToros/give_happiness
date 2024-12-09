@@ -48,9 +48,6 @@ export const Nav = React.memo(() => {
     return <div>Loading...</div>;
   }
 
-  console.log("User:", user);
-  console.log("Current userCRUD in Nav:", userCRUD);
-
   const userRoleName = user?.role ? user?.role.name : "Роль не указана";
 
   return (
@@ -91,11 +88,6 @@ export const Nav = React.memo(() => {
           <Menu.Item key="certificates">
             <Link to={CLIENT_ROUTES.SERTIFICATES}>Сертификаты</Link>
           </Menu.Item>
-          {user && (
-          <Menu.Item key="account">
-              <Link to={CLIENT_ROUTES.ACCOUNT_PAGE}>Личный кабинет</Link>
-            </Menu.Item>
-          )}
           {!user && (
             <Menu.Item key="auth">
               <Link to={CLIENT_ROUTES.AUTH}>Войти</Link>
