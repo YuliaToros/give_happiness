@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/rtkHooks";
 import { Card, Input, Button, Form, Space, Select } from 'antd';
 const { Option } = Select;
@@ -9,20 +9,17 @@ export const ProfileForm: React.FC = () => {
   const [name, setName] = useState(user?.name)
   const [email, setEmail] = useState(user?.email)
   const [phone, setPhone] = useState(String(user?.phone))
-  const [verifyStatus, setVerifyStatus] = useState(String(user?.verify_status))
   const [companyName, setCompanyName] = useState(user?.company_name)
   const [companyDescription, setCompanyDescription] = useState(user?.company_description)
 
   const dispatch = useAppDispatch()
 
-  // дописать
-  //dispatch(updateProfile({ name, email, phone: Number(phone), verifyStatus: Number(verifyStatus), companyName, companyDescription }))
+  
   
   const [form] = Form.useForm();
   const [userData, setUserData] = useState({
     name: 'Иван Иванов',
     phone: '+79991234567',
-    verify_status: 'Верифицирован',
     company_name: 'ООО "Пример"',
     company_description: 'Описание компании',
     email: 'ivan.ivanov@example.com',
@@ -48,6 +45,32 @@ export const ProfileForm: React.FC = () => {
     form.setFieldsValue(userData);
   };
 
+  const handleUpdate = async (event: React.FormEvent) => {
+    event.preventDefault()
+
+    try {
+      if (!name || !email || !phone || !companyName || !companyDescription) {
+        return alert("Please fill all fields");
+      }
+      dispatch(updateProfile({ name, email, phone: Number(phone), companyName, companyDescription }));
+    } catch (error) {
+      console.error("Error deleting book:", error);
+    }
+
+    
+    
+    //navigate('/CatalogForm') поправить 
+
+    
+
+  }
+
+  useEffect(() => {
+    // дописать
+  
+  }, [])
+
+
   return (
     <Card>
       <Form
@@ -67,13 +90,6 @@ export const ProfileForm: React.FC = () => {
         <Form.Item label="Телефон" name="phone">
           <Input onChange={({ target }) => setPhone(target.value)} defaultValue={phone} disabled={!isEditing} />
         </Form.Item>
-        <Form.Item label="Статус верификации" name="verify_status">
-          <Select onChange={({ target }) => setVerifyStatus(target.value)} defaultValue={verifyStatus} disabled={!isEditing}>
-            <Option value="Верифицирован">Верифицирован</Option>
-            <Option value="В процессе верификации">В процессе верификации</Option>
-            <Option value="Не верифицирован">Не верифицирован</Option>
-          </Select>
-        </Form.Item>
         <Form.Item label="Название компании" name="company_name">
           <Input onChange={({ target }) => setCompanyName(target.value)} defaultValue={companyName} disabled={!isEditing} />
         </Form.Item>
@@ -84,7 +100,7 @@ export const ProfileForm: React.FC = () => {
         {isEditing && (
           <Form.Item>
             <Space>
-              <Button type="primary" htmlType="submit">
+              <Button onSubmit={handleUpdate} type="primary" htmlType="submit">
                 Сохранить
               </Button>
               <Button onClick={handleCancel}>Отменить</Button>

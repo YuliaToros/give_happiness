@@ -20,8 +20,6 @@ export const UserRegistrationForm = React.memo(() => {
         dispatch(initRoles())
     },[dispatch])
     
-   
-
     const registrationHandler = (e: React.FormEvent) => {
         e.preventDefault();
 
