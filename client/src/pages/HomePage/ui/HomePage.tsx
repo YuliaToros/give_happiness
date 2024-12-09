@@ -3,23 +3,23 @@ import { CLIENT_ROUTES } from "@/app/router";
 import { CarouselBanner } from '@/widgets';
 import { Link } from 'react-router-dom';
 
-interface Image {
-  url: string;
+type Image = {
+  src: string;
   alt: string;
 }
 
 export const HomePage: React.FC = () => {
   const images: Image[] = [
     {
-      url: '/img/banner/banner_1.jpg',
+      src: '/img/banner/banner_1.png',
       alt: 'Первый баннер',
     },
     {
-      url: '/img/banner/banner_2.jpg',
+      src: '/img/banner/banner_2.png',
       alt: 'Второй баннер',
     },
     {
-      url: '/img/banner/banner_3.jpg',
+      src: '/img/banner/banner_3.png',
       alt: 'Третий баннер',
     }
   ];

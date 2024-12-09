@@ -1,12 +1,12 @@
 import React from 'react';
 import { Carousel } from 'react-bootstrap';
 
-interface Image {
-  url: string;
+type Image = {
+  src: string;
   alt: string;
 }
 
-interface CarouselBannerProps {
+type CarouselBannerProps = {
   images: Image[];
 }
 
@@ -17,7 +17,7 @@ export const CarouselBanner: React.FC<CarouselBannerProps> = ({ images }) => {
         <Carousel.Item key={index}>
           <img
             className="d-block w-100"
-            src={image.url}
+            src={image.src}
             alt={image.alt}
           />
         </Carousel.Item>
