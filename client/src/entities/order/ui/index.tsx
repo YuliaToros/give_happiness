@@ -63,7 +63,7 @@ export const PurchaseHistoryTable: React.FC = () => {
       className={styles.customTable}
       columns={columns}
       dataSource={dataSource}
-      pagination={{ pageSize: 50 }}
+      pagination={{ pageSize: 25 }}
       scroll={{ y: 55 * 5 }}
     />
   );

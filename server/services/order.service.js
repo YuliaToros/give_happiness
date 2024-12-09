@@ -4,6 +4,7 @@ class OrderService {
   static async getAllOrder() {
     try {
       const Order = await Order.findAll({
+        order: [["id", "ASC"]],
         include: [{ model: User }],
       });
       return Order;

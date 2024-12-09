@@ -9,7 +9,7 @@ class UserController {
       console.error("Ошибка на сервере:", error);
       res
         .status(500)
-        .json({ message: "Ошибка при получении документов", Users: [] });
+        .json({ message: "Ошибка при получении user", Users: [] });
     }
   };
 

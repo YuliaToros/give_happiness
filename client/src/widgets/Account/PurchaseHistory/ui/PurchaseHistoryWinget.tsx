@@ -1,10 +1,9 @@
-import { PurchaseHistoryTable } from "@/entities/PurchaseHistory";
-
+import { PurchaseHistoryTable } from "@/entities/order";
 
 export function PurchaseHistoryWidget() {
-    return (
-        <div>
-         <PurchaseHistoryTable />
-        </div>
-    );
+  return (
+    <div>
+      <PurchaseHistoryTable />
+    </div>
+  );
 }

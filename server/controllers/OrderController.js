@@ -9,7 +9,7 @@ class OrderController {
       console.error("Ошибка на сервере:", error);
       res
         .status(500)
-        .json({ message: "Ошибка при получении документов", Orders: [] });
+        .json({ message: "Ошибка при получении заказов", Orders: [] });
     }
   };
 
