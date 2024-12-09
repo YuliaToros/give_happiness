@@ -7,8 +7,9 @@ import {
   UserOutlined,
 } from '@ant-design/icons';
 import { Button, Layout, Menu, theme } from 'antd';
-import { Profile } from '../../Profile/ui/ProfileForm';
-import { CatalogForm } from '../../Catalog/ui/CatalogForm/CatalogForm';
+import { CatalogForm } from '../../Catalog/index';
+import { ProfileForm } from '../../Profile';
+import { useAppSelector } from '@/shared/hooks/rtkHooks';
 
 const { Header, Sider, Content } = Layout;
 
@@ -19,8 +20,12 @@ export const AccountMenu: React.FC = () => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
+  const { user } = useAppSelector(state => state.user)
+
   return (
-    <Layout>
+    <>
+    {user && (
+      <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed} theme="light">
         <div className="demo-logo-vertical" />
         <Menu
@@ -76,11 +81,13 @@ export const AccountMenu: React.FC = () => {
           }}
         >
           {/* Условная отрисовка контента */}
-          {selectedMenuItem === '1' && <Profile />}
-          {selectedMenuItem === '2' && <CatalogForm />}
+          {selectedMenuItem === '1' && <ProfileForm />}
+          {selectedMenuItem === '2' && <CatalogForm userId={user.id}/>}
           {/* Добавьте другие компоненты для других пунктов меню (Catalog, PurchaseHistory, SalesHistory) */}
         </Content>
       </Layout>
     </Layout>
+    )}
+    </>
   );
 };
