@@ -1,15 +1,12 @@
 import React from 'react';
 import { Carousel } from 'react-bootstrap';
-import './carouselBanner.css'
 
-// Интерфейс для изображений
-interface Image {
-  url: string;
+type Image = {
+  src: string;
   alt: string;
 }
 
-// Типизация пропсов компонента
-interface CarouselBannerProps {
+type CarouselBannerProps = {
   images: Image[];
 }
 
@@ -19,8 +16,8 @@ export const CarouselBanner: React.FC<CarouselBannerProps> = ({ images }) => {
       {images.map((image, index) => (
         <Carousel.Item key={index}>
           <img
-            className="d-block carousel-image"
-            src={image.url}
+            className="d-block w-100"
+            src={`${import.meta.env.VITE_IMAGES}${image.src}`}
             alt={image.alt}
           />
         </Carousel.Item>
