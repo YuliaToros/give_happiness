@@ -51,13 +51,11 @@ export const Nav = React.memo(() => {
     return <div>Error: {usersError || userError}</div>;
   }
 
-  if (!user) {
-    return <div>Загрузка...</div>;
-  }
+ 
   console.log('User:', user);
   console.log("Current userCRUD in Nav:", userCRUD);
   
-  const userRoleName = user.role ? user.role.name : "Роль не указана";
+  const userRoleName = user?.role ? user?.role.name : "Роль не указана";
 
   return (
     <Header

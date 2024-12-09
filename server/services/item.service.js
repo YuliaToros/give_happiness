@@ -3,12 +3,12 @@ const { Item, User } = require("../db/models");
 class ItemService {
   static async getAllItem() {
     try {
-      const item = await Item.findAll(
+      const items = await Item.findAll(
         {
         include: [{ model: User, as: "user" }],
       }
     );
-      return item;
+      return items;
     } catch (error) {
       throw new Error(error.message);
     }

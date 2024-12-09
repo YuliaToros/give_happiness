@@ -1,7 +1,7 @@
 const {
     userRegistrationController,
     userAuthorizationController,
-    usetLogoutController,
+    userLogoutController,
     userRefreshController
   } = require('../controllers/AuthRegController')
   
@@ -11,5 +11,5 @@ const {
   module.exports = router
     .post('/registration', userRegistrationController)
     .post('/authorization', userAuthorizationController)
-    .delete('/logout', usetLogoutController)
+    .delete('/logout', userLogoutController)
     .get('/refresh', verifyRefreshToken, userRefreshController)
