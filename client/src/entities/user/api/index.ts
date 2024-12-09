@@ -18,7 +18,7 @@ export class UserService {
 
   static async getUsers(): Promise<UserList>  {
     const response = await axiosInstance.get("/user");
-    console.log("Response data:", response.data);
+    //console.log("Response data:", response.data);
 
     if (response.status === 200) {
       return response.data; // Данные получены, возвращаем их

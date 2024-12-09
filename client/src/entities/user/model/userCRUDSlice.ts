@@ -28,9 +28,9 @@ const userCRUDSlice = createSlice({
         state.loading = true;
       })
       .addCase(getAllUsers.fulfilled, (state, action) => {
-        console.log("Payload:", action.payload);
+        //console.log("Payload:", action.payload);
         state.userCRUD = action.payload;
-        console.log("Updated userCRUD:", state.userCRUD);
+        //console.log("Updated userCRUD:", state.userCRUD);
         state.loading = false;
         state.error = null;
       })
