@@ -4,7 +4,8 @@ class OrderController {
   static getAllOrdersController = async (req, res) => {
     try {
       const Orders = await OrderService.getAllOrder();
-      res.status(200).json({ message: "success", Orders: Orders }); // Даем клиенту данные с полем Orders
+      console.log(Orders);
+      res.status(200).json({ message: "success", Orders});
     } catch (error) {
       console.error("Ошибка на сервере:", error);
       res

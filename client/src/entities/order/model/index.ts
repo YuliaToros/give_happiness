@@ -1,9 +1,11 @@
-export type Order = {
+import { UserType } from "@/entities/user";
+
+
+export type OrderType = {
     id: number;
-    title: string;
-    author: string;
-    pages: number;
-    category_id: number;
-    user_id: number;
+    date: string;
+    sum: number;
+    user: UserType;
 };
-export type OrderList = Order[];
+
+export type OrderListType = OrderType[];

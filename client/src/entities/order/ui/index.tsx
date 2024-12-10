@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Table } from "antd";
 import type { TableColumnsType } from "antd";
 import { createStyles } from "antd-style";
+import { useAppDispatch, useAppSelector } from "@/shared/hooks/rtkHooks";
+import { getAllOrders } from "../model/orderThunk";
 
 const useStyle = createStyles(({ css, token }) => {
   const { antCls } = token;
@@ -49,15 +51,22 @@ const columns: TableColumnsType<DataType> = [
   }
 ];
 
-const dataSource = Array.from({ length: 100 }).map<DataType>((_, i) => ({
-  key: i,
-  name: `Edward King ${i}`,
-  age: 32,
-  address: `London, Park Lane no. ${i}`,
-}));
-
 export const PurchaseHistoryTable: React.FC = () => {
   const { styles } = useStyle();
+  const dispatch = useAppDispatch();
+  const { orders} = useAppSelector(state => state.orders);
+
+  console.log(orders, '<<<<<<<');
+  useEffect(() => {
+    dispatch(getAllOrders());
+}, [dispatch]);
+
+const dataSource = orders.map<OrderType>((el, i) => ({
+  key: i,
+  order_id: el.id,
+  sum: el.sum,
+}));
+
   return (
     <Table<DataType>
       className={styles.customTable}

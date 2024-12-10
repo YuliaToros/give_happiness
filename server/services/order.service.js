@@ -1,13 +1,13 @@
-const { User } = require("../db/models");
+const { User, Order } = require("../db/models");
 
 class OrderService {
   static async getAllOrder() {
     try {
-      const Order = await Order.findAll({
+      const Orders = await Order.findAll({
         order: [["id", "ASC"]],
-        include: [{ model: User }],
+        include: [{ model: User, as: 'user' }],
       });
-      return Order;
+      return Orders;
     } catch (error) {
       throw new Error(error.message);
     }
@@ -22,7 +22,7 @@ class OrderService {
       });
       const newOrder = await Order.findOne({
         where: { id: Order.id },
-        include: [{ model: User }],
+        include: [{ model: User, as: 'user' }],
       });
       return newOrder;
     } catch (error) {
