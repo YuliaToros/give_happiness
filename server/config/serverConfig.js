@@ -3,6 +3,7 @@ const morgan = require("morgan");
 //const removeHTTPHeader = require("../middleware/removeHeader");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const path = require('path');
 
 const serverConfig = (app) => {
   // погран. служба / парсит тело из формы
@@ -30,7 +31,7 @@ const serverConfig = (app) => {
   //app.use(removeHTTPHeader);
 
   // настройка статики, папка public ассоциирована с маршрутом запроса
-  //app.use(express.static("public"));
+  app.use('/banner', express.static(path.join(__dirname, '..', 'public', 'img', 'banner')));
 };
 
 module.exports = serverConfig;

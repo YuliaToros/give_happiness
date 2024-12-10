@@ -6,7 +6,7 @@ class CartController {
   static getUserCartController = async (req, res) => {
     try {
       const cart = await CartService.getUserCart(res.locals.user.id);
-      console.log("cart =====>>>>>>", cart);
+      //console.log("cart =====>>>>>>", cart);
 
       res.status(200).json({ message: "success", cart });
     } catch (error) {

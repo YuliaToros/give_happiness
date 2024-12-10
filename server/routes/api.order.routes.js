@@ -6,5 +6,5 @@ router.get("/", OrderController.getAllOrdersController);
 router.post("/", varifyAccessToken, OrderController.createOrderController);
 router.put("/", varifyAccessToken, OrderController.updateOrderController);
 router.delete("/:id", varifyAccessToken, OrderController.deleteOrderController);
-router.get("/", OrderController.getOneOrderController);
+router.get("/:id", OrderController.getOneOrderController);
 module.exports = router;

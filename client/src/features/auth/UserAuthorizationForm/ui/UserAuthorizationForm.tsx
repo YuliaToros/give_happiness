@@ -22,7 +22,7 @@ export const UserAuthorizationForm = React.memo(() => {
           }
 
         dispatch(authorization({ email, password }))
-        navigate(CLIENT_ROUTES.HOME);
+        navigate(CLIENT_ROUTES.ACCOUNT_PAGE);
     }
 
     return (

@@ -20,8 +20,8 @@ export const UserRegistrationForm = React.memo(() => {
         dispatch(initRoles())
     },[dispatch])
     
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const registrationHandler = (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -34,7 +34,7 @@ export const UserRegistrationForm = React.memo(() => {
       
 
         dispatch(registration({ email, password, name, role_id }))
-        navigate(CLIENT_ROUTES.HOME);
+        navigate(CLIENT_ROUTES.ACCOUNT_PAGE);
     }
 
     return (
