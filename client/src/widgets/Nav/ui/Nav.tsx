@@ -115,7 +115,7 @@ export const Nav = React.memo(() => {
                 <Link to={CLIENT_ROUTES.REG}>Регистрация</Link>
               </Menu.Item>
             )}
-            {user?.role_id !== 2 && (
+            {user?.role_id !== 2 && user && (
               <Menu.Item key="cart">
                 <Link to={CLIENT_ROUTES.CART}>Корзина</Link>
               </Menu.Item>
