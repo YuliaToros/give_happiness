@@ -117,7 +117,7 @@ export const logout = createAsyncThunk<
 // вызов сервиса на апдейт
 // вернет санка проапаного пользователя
 
-export const updateUser = createAsyncThunk<
+export const updateUserProfile = createAsyncThunk<
   AuthResponse,
   {
     name: string;

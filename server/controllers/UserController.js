@@ -1,4 +1,7 @@
+const jwtConfig = require("../config/jwtConfig");
 const UserService = require("../services/user.service");
+const generateTokens = require('../utils/generateTokens');
+
 
 class UserController {
   static getAllUsersController = async (req, res) => {
@@ -74,23 +77,32 @@ class UserController {
   };
 
   static updateUserController = async (req, res) => {
-    const { name, email, password, phone, verify_status, company_name, company_description, city_id, role_id } = req.body;
-    const { id } = req.params;
-    console.log("my id", id);
-    if (name === "" || email === "" || password === "") {
+    const { name, email, phone, company_name, company_description } = req.body;
+    const { id } = res.locals.user;
+
+    if (name === "" || email === "" || phone === "" || company_name === ""|| company_description === "") {
       res.status(400).json({ message: "данные пустые для обновления" });
       return;
     }
     try {
-      const countUpdated = await UserService.updateUser(req.body, id);
-      if (countUpdated > 0) {
-        const User = await UserService.getOneUser(id);
-        res.status(200).json({ message: "success update", User });
+      const newUser = await UserService.updateUser({ name, email, phone, company_name, company_description }, id);
+      delete newUser.password
+      const { accessToken, refreshToken } = generateTokens({ user: newUser });
+
+      if (newUser) {
+        res.status(200)
+        .cookie(jwtConfig.refresh.type, refreshToken, {
+          httpOnly: true,
+          maxAge: jwtConfig.refresh.expiresIn,
+        })
+        .json({ message: 'success', user: newUser, accessToken });
+
+        //res.status(200).json({ message: "success update", user });
       } else {
         res.status(200).json({ message: "fail update" });
       }
     } catch (error) {
-      res.status(500).json({ message: error.message, User: {} });
+      res.status(500).json({ message: error.message, user: {} });
     }
   };
 }

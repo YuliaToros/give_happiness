@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { UserWithoutPasswordType } from ".";
-import { refreshAccessToken, registration, authorization, logout, updateUser } from "./userThunk";
+import { refreshAccessToken, registration, authorization, logout, updateUserProfile } from "./userThunk";
 
 /////////////---------------ROLE------------------
 
@@ -82,15 +82,15 @@ const userSlice = createSlice({
 
 
             // ----------------------- updateUser ----------------------- 
-            .addCase(updateUser.pending, (state) => {
+            .addCase(updateUserProfile.pending, (state) => {
                 state.loading = true;
             })
-            .addCase(updateUser.fulfilled, (state, action) => {
+            .addCase(updateUserProfile.fulfilled, (state, action) => {
                 state.user = action.payload.user;
                 state.loading = false;
                 state.error = null;
             })
-            .addCase(updateUser.rejected, (state) => {
+            .addCase(updateUserProfile.rejected, (state) => {
                 state.loading = false;
             })
     }
