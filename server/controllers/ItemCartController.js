@@ -54,10 +54,12 @@ class ItemCartController {
 
   static deleteItemCartController = async (req, res) => {
     const { cartId, itemId } = req.params;
-    console.log(1111111111111111,"cartId:", cartId, "itemId:", itemId);
     const authUserId = res.locals.user.id;
+
+    console.log(1111111111111111,"cartId:", cartId, "itemId:", itemId);
     try {
-      const countDeletedItemCarts = await ItemCartService.deleteItemCart( cartId, itemId, authUserId);
+      const countDeletedItemCarts = await ItemCartService.deleteItemCart( cartId, itemId);
+      console.log(1111122211111,countDeletedItemCarts);
       if (countDeletedItemCarts > 0) {
         res.status(200).json({ message: "success delete" });
       } else {

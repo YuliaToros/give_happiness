@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchUserCart, addItemToCart, removeItemFromCart, syncCart } from './cartThunk';
-import {  Cart, CartList } from '../model';
+import {  Cart } from '../model';
 
 type CartState = {
   cart: Cart|null;
@@ -40,9 +40,7 @@ const cartSlice = createSlice({
       //   state.error = null;
       // })
       // .addCase(syncCart.fulfilled, (state, action) => {
-      //   state.cart = state.cart!.map((cartItem)=>{
-      //     return cartItem.id === action.payload.id ? action.payload : cartItem;
-      //   }) // Обновляем корзину
+      //   state.cart = action.payload;
       //   state.loading = false;
       //   state.error = null;
       // })

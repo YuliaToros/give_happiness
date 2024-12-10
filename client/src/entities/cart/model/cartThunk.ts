@@ -43,15 +43,16 @@ export const addItemToCart = createAsyncThunk<
 // Удалить товар из корзины
 export const removeItemFromCart = createAsyncThunk<
   Cart,
-  { cart_id: number; item_id: number },
+  { item_id: number; cart_id: number;  },
   { rejectValue: RejectValue }
 >(
   "cart/removeItemFromCart",
-  async ({ cart_id, item_id }, { rejectWithValue }) => {
+  async ({item_id, cart_id,  }, { rejectWithValue }) => {
     try {
       const updatedCart = await CartService.removeItemFromCart(
+        item_id,
         cart_id,
-        item_id
+        
       );
       return updatedCart;
     } catch (error) {

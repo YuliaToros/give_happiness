@@ -14,9 +14,12 @@ class ItemCartService {
 
   static async deleteItemCart(item_id, cart_id) {
     try {
+      console.log(1,item_id,cart_id);
+      
       return await ItemCart.destroy({
-        where: { item_id, cart_id, user_id: authUserId},
+        where: { item_id, cart_id},
       });
+      
     } catch (error) {
       throw new Error(error.message);
     }

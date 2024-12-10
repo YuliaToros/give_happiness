@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/rtkHooks";
 import { logout } from "@/entities/user/model/userThunk";
 import { CLIENT_ROUTES } from "@/app/router";
-import { Layout, Menu, Button, Drawer, Space } from "antd";
+import { Layout, Menu, Button, Drawer, Space, Spin } from "antd";
 import { LogoutOutlined, MenuOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import logo from "../logo_black.png";
@@ -14,25 +14,30 @@ const { Header } = Layout;
 export const Nav = React.memo(() => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const {
-    userCRUD,
-    loading: usersLoading,
-    error: usersError,
-  } = useAppSelector((state) => state.userCRUD);
-  const {
-    user,
-    loading: userLoading,
-    error: userError,
-  } = useAppSelector((state) => state.user);
+  const { loading: usersLoading } = useAppSelector((state) => state.userCRUD);
+  const { user, loading: userLoading } = useAppSelector((state) => state.user);
   const [visible, setVisible] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768); // Изначально проверяем ширину экрана
 
   useEffect(() => {
     dispatch(getAllUsers());
+
+    // Обработчик изменения размера окна
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768); // Обновляем состояние при изменении ширины экрана
+    };
+
+    // Добавляем слушатель события resize
+    window.addEventListener("resize", handleResize);
+
+    // Убираем слушатель при размонтировании компонента
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, [dispatch]);
 
-  const logoutHandler = () => {
-    dispatch(logout());
-
+  const logoutHandler = async () => {
+    await dispatch(logout());
     navigate(CLIENT_ROUTES.AUTH);
   };
 
@@ -44,11 +49,18 @@ export const Nav = React.memo(() => {
     setVisible(false);
   };
 
-  if (usersLoading || userLoading) {
-    return <div>Loading...</div>;
-  }
+  const userRoleName = useMemo(() => {
+    if (!user) return "Роль не указана";
+    return user.role ? user.role.name : "Роль не указана";
+  }, [user]);
 
-  const userRoleName = user?.role ? user?.role.name : "Роль не указана";
+  if (usersLoading || userLoading) {
+    return (
+      <div style={{ textAlign: "center", padding: "20px" }}>
+        <Spin size="large" />
+      </div>
+    );
+  }
 
   return (
     <Header
@@ -71,61 +83,70 @@ export const Nav = React.memo(() => {
         </Link>
       </div>
       <div style={{ display: "flex", alignItems: "center" }}>
-        <Button
-          type="text"
-          icon={<MenuOutlined />}
-          onClick={showDrawer}
-          style={{ color: "#000", fontSize: "1.5rem", display: "none" }}
-          className="mobile-menu-button"
-        />
-        <Menu
-          className="nav-menu"
-          theme="light"
-          mode="horizontal"
-          defaultSelectedKeys={["home"]}
-          style={{ display: "flex", alignItems: "center" }}
-        >
-          <Menu.Item key="certificates">
-            <Link to={CLIENT_ROUTES.SERTIFICATES}>Сертификаты</Link>
-          </Menu.Item>
-          {!user && (
-            <Menu.Item key="reg">
-              <Link to={CLIENT_ROUTES.REG}>Регистрация</Link>
+
+        {/* Кнопка меню для мобильных устройств */}
+        {isMobile && (
+          <Button
+            type="text"
+            icon={<MenuOutlined />}
+            onClick={showDrawer}
+            aria-label="Открыть меню"
+            style={{ color: "#000", fontSize: "1.5rem" }}
+          />
+        )}
+
+        {/* Горизонтальное меню для десктопа */}
+        {!isMobile && (
+          <Menu
+            theme="light"
+            mode="horizontal"
+            defaultSelectedKeys={["home"]}
+            style={{ display: "flex", alignItems: "center" }}
+          >
+            <Menu.Item key="certificates">
+              <Link to={CLIENT_ROUTES.SERTIFICATES}>Сертификаты</Link>
             </Menu.Item>
-          )}
-           {!user && (
-            <Menu.Item key="auth">
-              <Link to={CLIENT_ROUTES.AUTH}>Войти</Link>
-            </Menu.Item>
-          )}
-          {!user || user?.role_id !== 2 && (
-            <>
-              <Link to={CLIENT_ROUTES.CART}>Корзина</Link>
-            </>
-          )}
-          {user && (
-            <Space style={{ marginLeft: "16px" }}>
-              <Menu.Item key="account">
-                <Link to={CLIENT_ROUTES.ACCOUNT_PAGE}>Личный кабинет</Link>
+            {!user && (
+              <Menu.Item key="auth">
+                <Link to={CLIENT_ROUTES.AUTH}>Войти</Link>
+
               </Menu.Item>
-              <span style={{ color: "#000", marginRight: "16px" }}>
-                Привет, {user.name} вы {userRoleName}
-              </span>
-              <Button
-                type="primary"
-                danger
-                icon={<LogoutOutlined />}
-                onClick={logoutHandler}
-              >
-                Выйти
-              </Button>
-            </Space>
-          )}
-        </Menu>
+            )}
+            {!user && (
+              <Menu.Item key="reg">
+                <Link to={CLIENT_ROUTES.REG}>Регистрация</Link>
+              </Menu.Item>
+            )}
+            {user?.role_id !== 2 && (
+              <Menu.Item key="cart">
+                <Link to={CLIENT_ROUTES.CART}>Корзина</Link>
+              </Menu.Item>
+            )}
+            {user && (
+              <Space style={{ marginLeft: "16px" }}>
+                <Menu.Item key="account">
+                  <Link to={CLIENT_ROUTES.ACCOUNT_PAGE}>Личный кабинет</Link>
+                </Menu.Item>
+                <span style={{ color: "#000", marginRight: "16px" }}>
+                  Привет, {user.name} вы {userRoleName}
+                </span>
+                <Button
+                  type="primary"
+                  danger
+                  icon={<LogoutOutlined />}
+                  onClick={logoutHandler}
+                >
+                  Выйти
+                </Button>
+              </Space>
+            )}
+          </Menu>
+        )}
       </div>
+
+      {/* Выдвижное меню для мобильных устройств */}
       <Drawer title="" placement="right" onClose={onClose} visible={visible}>
         <Menu
-          className="nav-menu"
           theme="light"
           mode="vertical"
           defaultSelectedKeys={["home"]}
@@ -181,24 +202,3 @@ export const Nav = React.memo(() => {
     </Header>
   );
 });
-
-// Добавляем стили для медиа-запросов
-const styles = `
-  @media (max-width: 768px) {
-    .mobile-menu-button {
-      display: block !important;
-    }
-    .ant-menu-horizontal {
-      display: none !important;
-    }
-  }
-  .nav-menu a {
-    text-decoration: none;
-    color: black; /* Adjust color as needed */
-  }
-`;
-
-const styleSheet = document.createElement("style");
-styleSheet.type = "text/css";
-styleSheet.innerText = styles;
-document.head.appendChild(styleSheet);
