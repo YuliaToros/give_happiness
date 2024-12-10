@@ -1,33 +1,22 @@
-// import React, { useEffect } from 'react';
-import { useAppSelector } from '@/shared/hooks/rtkHooks';
-// import { fetchUserCart, addItemToCart } from '../../model/cartThunk';
-import { SertificateItem } from '@/entities/sertificate';
+import { useAppDispatch, useAppSelector } from "@/shared/hooks/rtkHooks";
+import { SertificateItem } from "@/entities/sertificate";
+import { removeItemFromCart } from "../../model/cartThunk";
 
 export function CartList() {
-  // const dispatch = useAppDispatch();
-  const { cart, loading, error } = useAppSelector(state => state.cart); // Получаем данные о корзине
-  // const { sertificates } = useAppSelector(state => state.sertificates); // Список всех сертификатов
 
-  // const handleBuyClick = (itemId: number) => {
-  //   if (cart) {
-  //     dispatch(addItemToCart({ cart_id: cart.id, item_id: itemId }));
-  //   }
-  // };
-console.log(cart);
+  const dispatch = useAppDispatch()
 
-  // useEffect(() => {
 
-  //   dispatch(fetchUserCart());
-  // }, [dispatch]);
+  const handleRemoveClick = (itemId: number) => {
+    if (cart) {
+      dispatch(removeItemFromCart({ cart_id: cart.id, item_id: itemId }));
+    }
+  };
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  const { cart } = useAppSelector((state) => state.cart); // Получаем данные о корзине
+  console.log(cart);
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
+  
   return (
     <div>
       <h1>Корзина</h1>
@@ -37,7 +26,7 @@ console.log(cart);
             return (
               <div key={sertificate.id}>
                 <SertificateItem sertificate={sertificate} />
-                {/* <button onClick={() => handleBuyClick(sertificate.id)}>Купить</button> */}
+                <button onClick={() => handleRemoveClick(sertificate.id)}>Удалить</button>
               </div>
             );
           })

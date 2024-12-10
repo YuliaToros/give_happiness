@@ -12,8 +12,14 @@ export const UserAuthorizationForm = React.memo(() => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
     const authHandler = (e: React.FormEvent) => {
         e.preventDefault();
+
+        if (!emailRegex.test(email)) {
+            return alert("Введите корректный email!");
+          }
 
         dispatch(authorization({ email, password }))
         navigate(CLIENT_ROUTES.HOME);

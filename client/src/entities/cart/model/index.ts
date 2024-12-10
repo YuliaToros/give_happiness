@@ -14,4 +14,6 @@ export type CartItem = {
   item_id:number
 }
 
+export type CartId = Cart["id"]
+
 export type CartList = CartItem[]
