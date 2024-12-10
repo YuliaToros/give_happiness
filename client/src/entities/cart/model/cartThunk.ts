@@ -1,0 +1,72 @@
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { CartService } from "../api";
+import { Cart } from ".";
+import { AxiosError } from "axios";
+
+type RejectValue = {
+  message: string;
+};
+
+// Получить корзину пользователя
+export const fetchUserCart = createAsyncThunk<Cart,void,{rejectValue: RejectValue}>(
+  "cart/fetchUserCart",
+  async (_,{ rejectWithValue }) => {
+    try {
+      return await CartService.getUserCart();
+    } catch (error) {
+      const err = error as AxiosError<{ message: string }>;
+      return rejectWithValue({
+        message: err.response?.data.message || err.message,
+      });
+    }
+  }
+);
+
+// Добавить товар в корзину
+export const addItemToCart = createAsyncThunk<
+  Cart,
+  { cart_id: number; item_id: number },
+  { rejectValue: RejectValue }
+>("cart/addItemToCart", async ({ cart_id, item_id }, { rejectWithValue }) => {
+  try {
+    const updatedCart = await CartService.addItemToCart(cart_id, item_id);
+    return updatedCart;
+  } catch (error) {
+    const err = error as AxiosError<{ message: string }>;
+    return rejectWithValue({
+      message: err.response?.data.message || err.message,
+    });
+  }
+});
+
+// // Удалить товар из корзины
+// export const removeItemFromCart = createAsyncThunk(
+//   "cart/removeItemFromCart",
+//   async (
+//     { cart_id, item_id }: { cart_id: number; item_id: number },
+//     { rejectWithValue }
+//   ) => {
+//     try {
+//       const updatedCart = await CartService.removeItemFromCart(
+//         cart_id,
+//         item_id
+//       );
+//       return updatedCart;
+//     } catch (error) {
+//       return rejectWithValue(error.message);
+//     }
+//   }
+// );
+
+// // Синхронизация корзины
+// export const syncCart = createAsyncThunk(
+//   "cart/syncCart",
+//   async (cart_id: number, { rejectWithValue }) => {
+//     try {
+//       const updatedCart = await CartService.getUserCart(cart_id);
+//       return updatedCart; // Возвращаем обновленную корзину
+//     } catch (error) {
+//       return rejectWithValue(error.message);
+//     }
+//   }
+// );

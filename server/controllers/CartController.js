@@ -1,55 +1,59 @@
 const CartService = require("../services/cart.service");
+const ItemCartService = require("../services/itemcart.service");
+const ItemCartController = require("./ItemCartController");
 
 class CartController {
-  static getAllCartsController = async (req, res) => {
+  static getUserCartController = async (req, res) => {
     try {
-      const Carts = await CartService.getAllCart();
-      res.status(200).json({ message: "success", Carts: Carts }); // Даем клиенту данные с полем Carts
+      const cart = await CartService.getUserCart(res.locals.user.id);
+      console.log("cart =====>>>>>>", cart);
+
+      res.status(200).json({ message: "success", cart });
     } catch (error) {
       console.error("Ошибка на сервере:", error);
       res
         .status(500)
-        .json({ message: "Ошибка при получении документов", Carts: [] });
+        .json({ message: "Ошибка при получении корзин", cart: null });
     }
   };
 
-  static getOneCartController = async (req, res) => {
+  static addItemToCartController = async (req, res) => {
     try {
-      const Cart = await CartService.getOneCart();
-      res.status(200).json({ message: "succcess getone", Cart });
+      const { cartId } = req.params;
+      const { itemId } = req.body;
+      const newEntry = await ItemCartService.addItemCart(itemId, cartId);
+      if (newEntry) {
+        const cart = await CartService.getUserCart(res.locals.user.id);
+        res.status(200).json({ message: "success", cart });
+      }
     } catch (error) {
-      res.status(500).json({ message: error.message, Carts: {} });
+      console.error("Ошибка на сервере:", error);
+      res
+        .status(500)
+        .json({ message: "Ошибка при получении корзин", cart: null });
     }
   };
 
   static createCartController = async (req, res) => {
-    const { user_id, sum, date } =
-      req.body;
-
+    const { user_id, sum, date } = req.body;
     const authUser = res.locals.user;
 
     if (!authUser) {
-      res.status(401).json({ message: "Пользователь не авторизован" });
-      return;
+      return res.status(401).json({ message: "Пользователь не авторизован" });
     }
 
     if (!user_id || !date) {
-      res.status(400).json({ message: "Данные пустые" });
-      return;
+      return res
+        .status(400)
+        .json({ message: "Недостаточно данных для создания корзины" });
     }
 
     try {
-      const Cart = await CartService.createCart({
-        user_id,
-        sum,
-        date,
-     
-      });
-
-      res.status(201).json({ message: "Успешно создано", Cart });
+      const cart = await CartService.createCart(user_id, sum, date);
+      res.status(201).json({ message: "Корзина успешно создана", cart });
     } catch (error) {
-      console.error("Ошибка при создании документа:", error.message);
-      res.status(500).json({ message: "Ошибка сервера", Cart: {} });
+      console.error("Ошибка при создании корзины:", error.message);
+      res.status(500).json({ message: "Ошибка сервера", cart: {} });
     }
   };
 
@@ -57,36 +61,16 @@ class CartController {
     const { id } = req.params;
     const authUserId = res.locals.user.id;
     try {
-      const countDeletedCarts = await CartService.deleteCart(id, authUserId);
+      const countDeletedCarts = await CartService.deleteCart(id);
       if (countDeletedCarts > 0) {
-        res.status(200).json({ message: "success delete" });
+        res.status(200).json({ message: "Корзина успешно удалена" });
       } else {
-        res.status(400).json({ message: "Not found to delete" });
+        res.status(400).json({ message: "Корзина не найдена для удаления" });
       }
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
   };
-
-  static updateCartController = async (req, res) => {
-    const { user_id, sum, date} = req.body;
-    const { id } = req.params;
-    console.log("my id", id);
-    if (date === "" || sum === "" ) {
-      res.status(400).json({ message: "данные пустые для обновления" });
-      return;
-    }
-    try {
-      const countUpdated = await CartService.updateCart(req.body, id);
-      if (countUpdated > 0) {
-        const Cart = await CartService.getOneCart(id);
-        res.status(200).json({ message: "success update", Cart });
-      } else {
-        res.status(200).json({ message: "fail update" });
-      }
-    } catch (error) {
-      res.status(500).json({ message: error.message, Cart: {} });
-    }
-  };
 }
+
 module.exports = CartController;

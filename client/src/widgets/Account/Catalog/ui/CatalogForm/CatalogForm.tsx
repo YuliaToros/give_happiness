@@ -6,7 +6,7 @@ import { CatalogItem } from '../CatalogItem/CatalogItem';
 const { Option } = Select;
 
 interface CatalogFormProps {
-  userId: string; // Add userId prop to identify user's certificates
+  userId: number; // Add userId prop to identify user's certificates
 }
 
 export const CatalogForm: React.FC<CatalogFormProps> = () => {

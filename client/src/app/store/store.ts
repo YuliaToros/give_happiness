@@ -6,6 +6,7 @@ import ordersReducer from '@/entities/order/model/orderSlice';
 // Импортируем функцию configureStore из Redux Toolkit
 import { configureStore } from "@reduxjs/toolkit";
 import  {roleReducer}  from '@/entities/user/model/roleSlice';
+import { cartReducer } from '@/entities/cart/model/cartSlice';
 
 const store = configureStore({
     reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
         sertificates: sertificatesReducer,
         role:roleReducer,
         orders: ordersReducer,
+        cart:cartReducer
     }
 });
 

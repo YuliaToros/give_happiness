@@ -11,7 +11,7 @@ export class SertificateService {
                 pages,
                 category_id
             });
-            return response.data.sertificate;
+            return response.data.Item;
         } catch (error) {
             console.error('Error create sertificate:', error);
             throw new Error('Failed to create sertificate');
@@ -21,7 +21,7 @@ export class SertificateService {
     static async getAllSertificates(): Promise<SertificateList> {
         try {
             const response = await axiosInstance.get('/item');
-            return response.data.sertificates;
+            return response.data.Items;
         } catch (error) {
             console.error('Error fetching all item:', error);
             throw new Error('Failed to fetch item');
@@ -34,7 +34,7 @@ export class SertificateService {
                 title,
                 author
             })
-            return response.data.sertificate;
+            return response.data.Item;
         } catch (error) {
             console.error('Error updating sertificate:', error);
             throw new Error('Failed to update sertificate');
