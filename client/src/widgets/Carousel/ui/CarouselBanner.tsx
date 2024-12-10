@@ -14,16 +14,18 @@ type CarouselBannerProps = {
 
 export const CarouselBanner: React.FC<CarouselBannerProps> = ({ images }) => {
   return (
-    <Carousel autoplay autoplaySpeed={3000} dots={true}>
-      {images.map((image, index) => (
-        <div key={index}>
-          <img
-            className="carousel-image"
-            src={`${import.meta.env.VITE_IMAGES}${image.src}`}
-            alt={image.alt}
-          />
-        </div>
-      ))}
-    </Carousel>
+    <div className="carousel-container">
+      <Carousel autoplay autoplaySpeed={3000} dots={true}>
+        {images.map((image, index) => (
+          <div key={index}>
+            <img
+              className="carousel-image"
+              src={`${import.meta.env.VITE_IMAGES}${image.src}`}
+              alt={image.alt}
+            />
+          </div>
+        ))}
+      </Carousel>
+    </div>
   );
 };
