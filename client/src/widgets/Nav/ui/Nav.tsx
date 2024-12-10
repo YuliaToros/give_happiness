@@ -89,16 +89,16 @@ export const Nav = React.memo(() => {
             <Link to={CLIENT_ROUTES.SERTIFICATES}>Сертификаты</Link>
           </Menu.Item>
           {!user && (
-            <Menu.Item key="auth">
-              <Link to={CLIENT_ROUTES.AUTH}>Войти</Link>
-            </Menu.Item>
-          )}
-          {!user && (
             <Menu.Item key="reg">
               <Link to={CLIENT_ROUTES.REG}>Регистрация</Link>
             </Menu.Item>
           )}
-          {user?.role_id !== 2 && (
+           {!user && (
+            <Menu.Item key="auth">
+              <Link to={CLIENT_ROUTES.AUTH}>Войти</Link>
+            </Menu.Item>
+          )}
+          {!user || user?.role_id !== 2 && (
             <>
               <Link to={CLIENT_ROUTES.CART}>Корзина</Link>
             </>
