@@ -1,9 +1,9 @@
 import { axiosInstance } from "@/shared/lib/axiosInstance";
-import { OrderList } from "@/entities/order/model";
+import { OrderType } from "@/entities/order/model";
 
 export class OrderService {
 
-  static async getAllOrders(): Promise<OrderList> {
+  static async getAllOrders(): Promise<OrderType> {
     try {
       const response = await axiosInstance.get("/order");
       return response.data;

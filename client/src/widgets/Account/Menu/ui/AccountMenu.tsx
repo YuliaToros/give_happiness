@@ -7,8 +7,7 @@ import {
   UserOutlined,
 } from '@ant-design/icons';
 import { Button, Layout, Menu, theme } from 'antd';
-import { Profile } from '../../Profile/ui/ProfileForm';
-import { CatalogForm } from '../../Catalog/ui/CatalogForm/CatalogForm';
+// import { CatalogForm } from '../../Catalog/ui/CatalogForm/CatalogForm';
 import { PurchaseHistoryWidget } from '../../PurchaseHistory';
 import { CatalogForm } from '../../Catalog/index';
 import { ProfileForm } from '../../Profile';
@@ -85,8 +84,8 @@ export const AccountMenu: React.FC = () => {
           }}
         >
           {/* Условная отрисовка контента */}
-<!--           {selectedMenuItem === '1' && <Profile />}
-//           {selectedMenuItem === '2' && <CatalogForm />} -->
+{/* {selectedMenuItem === '1' && <Profile />} */}
+{/* //           {selectedMenuItem === '2' && <CatalogForm />} --> */}
           {selectedMenuItem === '3' && <PurchaseHistoryWidget />}
           {/* Добавьте другие компоненты для других пунктов меню (Catalog, SalesHistory) */}
 
