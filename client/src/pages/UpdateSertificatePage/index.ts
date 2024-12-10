@@ -1,1 +1,0 @@
-export { UpdateSertificatePage } from './ui/UpdateSertificatePage';

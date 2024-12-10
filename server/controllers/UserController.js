@@ -36,7 +36,13 @@ class UserController {
       return;
     }
 
-    if (!name || !category_id) {
+    if (
+      !name 
+      || !email
+      || !password
+      || !phone
+      || !company_name
+      || !company_description) {
       res.status(400).json({ message: "Данные пустые" });
       return;
     }

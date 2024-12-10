@@ -1,115 +1,148 @@
 import React, { useState } from 'react';
-import { Button, Form, Input, Select, Upload, Card, message } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
+import { Card, Button, Form, Input,  Select, Modal, message } from 'antd'; // Upload,
+//import { UploadOutlined } from '@ant-design/icons';
 import { CatalogItem } from '../CatalogItem/CatalogItem';
+import { useAppDispatch, useAppSelector } from "@/shared/hooks/rtkHooks";
+import { createSertificate } from '@/entities/sertificate/model/sertificatesThunk';
+import { SertificateWithoutIdAndUserId } from '@/entities/sertificate/model';
 
-const { Option } = Select;
+// interface CatalogFormProps {
+//   userId: number; // Add userId prop to identify user's certificates
+// }
 
-interface CatalogFormProps {
-  userId: number; // Add userId prop to identify user's certificates
-}
+export const CatalogForm: React.FC = () => {
 
-export const CatalogForm: React.FC<CatalogFormProps> = () => {
-  const [isAdding, setIsAdding] = useState(false);
-  const [certificates, setCertificates] = useState([
-    // Example data - replace with actual data fetching logic
-    {
-      title: 'Сертификат 1',
-      description: 'Описание сертификата 1',
-      image: 'https://via.placeholder.com/150',
-      price: 100,
-      quantity: 5,
-      status: 'Активен',
-    },
-  ]);
-
+  const { sertificates } = useAppSelector(state => state.sertificates)
+  const dispatch = useAppDispatch()
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  
+   const initialValues = {
+    name: "",
+    description: "",
+    image: "",
+    price: 0,
+    count: 0,
+    status: '',
+  }
   const [form] = Form.useForm();
 
-  const onFinish = (values: any) => {
-    setCertificates([...certificates, { ...values }]);  //userId 
-    setIsAdding(false);
+  const onFinish = (values: SertificateWithoutIdAndUserId ) => {
+    const { name, description, image, price, count, status } = values
+    if (!name || !description || !image || !price || !count || !status) {
+      return alert('Not fill all fields');
+    }
+    dispatch(createSertificate({ name, description, image, price, count, status}))
+    setIsModalVisible(false);
     form.resetFields();
     message.success('Сертификат добавлен!');
   };
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
   };
 
-  const handleAddCertificate = () => {
-    setIsAdding(true);
+  const showModal = () => {
+    setIsModalVisible(true);
   };
 
-  const handleCancelAdd = () => {
-    setIsAdding(false);
+  const handleCancel = () => {
+    setIsModalVisible(false);
     form.resetFields();
   };
 
-  const handleDeleteCertificate = (index:number) => {
-    const updatedCertificates = certificates.filter((_, i) => i !== index);
-    setCertificates(updatedCertificates);
-  };
 
-  const handleEditCertificate = (values: any, index: number) => {
-    const updatedCertificates = [...certificates];
-    updatedCertificates[index] = { ...updatedCertificates[index], ...values };
-    setCertificates(updatedCertificates);
-  };
+  //  handleEditCertificate remains unchanged
 
+  // <Upload>
+  //    {<Button icon={<UploadOutlined />}>Загрузить</Button>}
+  // </Upload>
 
   return (
     <Card>
-      <Button type="primary" onClick={handleAddCertificate}>Добавить сертификат</Button>
-      {isAdding && (
+      <Button type="primary" onClick={showModal}>Добавить сертификат</Button>
+      <Modal
+        title="Добавить сертификат"
+        visible={isModalVisible}
+        onCancel={handleCancel}
+        footer={null} // Remove default footer
+      >
         <Form
           form={form}
           name="basic"
+          initialValues={initialValues}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           layout="vertical"
           style={{ marginTop: 16 }}
         >
-          <Form.Item label="Название" name="title">
-            <Input />
+          {/* Form items remain the same */}
+          <Form.Item label="Название" name="name">
+            <Input name="name" />
           </Form.Item>
           <Form.Item label="Описание" name="description">
             <Input.TextArea />
           </Form.Item>
           <Form.Item label="Изображение" name="image">
-            <Upload>
-              <Button icon={<UploadOutlined />}>Загрузить</Button>
-            </Upload>
+            <Input />
           </Form.Item>
           <Form.Item label="Цена" name="price">
             <Input type="number" />
           </Form.Item>
-          <Form.Item label="Количество" name="quantity">
+          <Form.Item label="Количество" name="count">
             <Input type="number" />
           </Form.Item>
           <Form.Item label="Статус" name="status">
             <Select>
-              <Option value="Активен">Активен</Option>
-              <Option value="Не активен">Не активен</Option>
+              <Select.Option value="inmoder">Активен</Select.Option>
+              <Select.Option value="unmoder">Не активен</Select.Option>
             </Select>
           </Form.Item>
           <Form.Item>
             <Button type="primary" htmlType="submit">
               Добавить
             </Button>
-            <Button onClick={handleCancelAdd}>Отмена</Button>
+            <Button onClick={handleCancel}>Отмена</Button>
           </Form.Item>
         </Form>
-      )}
-      <Card title="Текущие сертификаты" style={{marginTop: 16}}>
-          {certificates.map((cert, index) => (
-            <CatalogItem
-              key={index}
-              {...cert}
-              onEdit={() => handleEditCertificate(values, index)}
-              onDelete={() => handleDeleteCertificate(index)}
-            />
-          ))}
+      </Modal>
+      <Card title="Текущие сертификаты" style={{ marginTop: 16 }}>
+        {sertificates.map((sert, index) => (
+          <CatalogItem
+            key={index}
+            {...sert} index={index}
+            //onDelete={() => handleDeleteCertificate(index)}
+            onDelete={() => console.log("on delete")
+            }
+            onEdit={() => console.log("on edit")}
+          />
+        ))}
       </Card>
     </Card>
   );
 };
+
+// Placeholder for CatalogItem component.  Replace with your actual component
+// const CatalogItem: React.FC<{
+//   name: string;
+//   description: string;
+//   image: string;
+//   price: number;
+//   count: number;
+//   status: string;
+//   onDelete: () => void;
+//   onEdit?: () => void;
+// }> = ({ name, description, image, price, count, status, onDelete, onEdit }) => (
+//   <div>
+//     <h3>{name}</h3>
+//     <p>{description}</p>
+//     <img src={image} alt={title} style={{ maxWidth: '100px' }} />
+//     <p>Цена: {price}</p>
+//     <p>Количество: {count}</p>
+//     <p>Статус: {status}</p>
+//     <Button type="danger" onClick={onDelete}>Удалить</Button>
+//     {onEdit && <Button type="primary" onClick={onEdit}>Редактировать</Button>}
+//   </div>
+// );

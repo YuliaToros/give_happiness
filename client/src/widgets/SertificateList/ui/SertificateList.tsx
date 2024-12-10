@@ -38,6 +38,28 @@ export const SertificateList = React.memo(() => {
             <SertificateItem sertificate={sertificate} />
           </Col>
         ))
+
+  // console.log(123123, sertificates)
+  // return (
+  //   <>
+  //     {sertificates.length ? (
+  //       sertificates.map((sertificate) => {
+  //         if (user?.id === sertificate.user_id) {
+  //           return (
+  //             <Link key={sertificate.id} to={"/item" + `/${sertificate.id}`}>
+  //               <SertificateItem
+  //                 key={sertificate.id}
+  //                 sertificate={sertificate}
+  //               />
+  //             </Link>
+  //           );
+  //         } else {
+  //           return (
+  //             <SertificateItem key={sertificate.id} sertificate={sertificate} />
+  //           );
+  //         }
+  //       })
+
       ) : (
         <Col span={24}>
           <Empty
