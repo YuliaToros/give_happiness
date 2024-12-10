@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Card, Button } from "antd";
+import { Card, Button, message, Row, Col } from "antd";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/rtkHooks";
-import { addItemToCart } from "@/entities/cart/model/cartThunk";
+import { removeItemFromCart } from "@/entities/cart/model/cartThunk"; // Импортируем функцию для удаления товара
 import { Sertificate } from "@/entities/sertificate";
-
-const { Meta } = Card;
 
 export function CartItem({ sertificate }: { sertificate: Sertificate }) {
   const dispatch = useAppDispatch();
@@ -12,7 +10,7 @@ export function CartItem({ sertificate }: { sertificate: Sertificate }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const addItemHandler = async (event: React.FormEvent) => {
+  const removeItemHandler = async (event: React.FormEvent) => {
     event.preventDefault();
 
     if (!cart) {
@@ -24,14 +22,14 @@ export function CartItem({ sertificate }: { sertificate: Sertificate }) {
     setError(null);
 
     try {
-      // Отправляем запрос на добавление товара в корзину
-      const result = await dispatch(
-        addItemToCart({ cart_id: cart.id, item_id: sertificate.id })
+      // Отправляем запрос на удаление товара из корзины
+      await dispatch(
+        removeItemFromCart({ cart_id: cart.id, item_id: sertificate.id })
       );
-
-      return result;
+      message.success("Товар успешно удален из корзины"); // Показываем сообщение об успешном удалении
     } catch (error) {
       setError(error.message);
+      message.error("Ошибка при удалении товара"); // Показываем сообщение об ошибке
     } finally {
       setLoading(false);
     }
@@ -46,63 +44,69 @@ export function CartItem({ sertificate }: { sertificate: Sertificate }) {
 
   return (
     <Card
-      hoverable
       style={{
         borderRadius: 12, // Скругление углов
         boxShadow: "0 4px 16px rgba(0, 0, 0, 0.1)", // Тень
         overflow: "hidden", // Чтобы скругление применялось ко всей карточке
-        height: "100%", // Занимает всю высоту колонки
+        marginBottom: 16, // Отступ между карточками
       }}
-      cover={
-        <img
-          alt="Banner"
-          src={sertificate.image}
-          style={{
-            width: "100%", // Изображение по ширине контейнера
-            height: 200, // Фиксированная высота изображения
-            objectFit: "cover", // Масштабирование изображения
-          }}
-          onError={(e) => {
-            e.currentTarget.src = `${import.meta.env.VITE_IMAGES}/bunnerNull.png`; // Заглушка
-          }}
-        />
-      }
     >
-      <Meta
-        title={<h5 style={{ marginBottom: 8 }}>{sertificate.name}</h5>}
-        description={
-          <>
-            <p style={{ marginBottom: 8 }}>{sertificate.description}</p>
-            <p style={{ marginBottom: 16, fontWeight: "bold" }}>
-              Стоимость: {sertificate.price} ₽
-            </p>
-            <Button
-              type="primary"
-              style={{
-                backgroundColor: "#f0f0f0", // Светлый фон кнопки
-                color: "#333", // Темный текст
-                borderColor: "#f0f0f0", // Светлая рамка
-                borderRadius: 8, // Скругление кнопки
-                transition: "all 0.3s ease", // Плавный переход
-                width: "100%", // Кнопка занимает всю ширину
-              }}
-              onClick={addItemHandler}
-              loading={loading}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = "#0b6b3d"; // Цвет при наведении
-                e.currentTarget.style.color = "#fff"; // Белый текст при наведении
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = "#f0f0f0"; // Возврат исходного цвета
-                e.currentTarget.style.color = "#333"; // Возврат исходного текста
-              }}
-            >
-              Купить
-            </Button>
-            {error && <p style={{ color: "red", marginTop: 8 }}>{error}</p>}
-          </>
-        }
-      />
+      <Row gutter={16} align="middle">
+        {/* Левая колонка с изображением */}
+        <Col xs={24} sm={6}>
+          <img
+            alt="Banner"
+            src={sertificate.image}
+            style={{
+              width: "100%", // Изображение по ширине контейнера
+              height: 150, // Фиксированная высота изображения
+              objectFit: "cover", // Масштабирование изображения
+              borderRadius: 12, // Скругление изображения
+            }}
+            onError={(e) => {
+              e.currentTarget.src = `${import.meta.env.VITE_IMAGES}/bunnerNull.png`; // Заглушка
+            }}
+          />
+        </Col>
+
+        {/* Центральная колонка с описанием и ценой */}
+        <Col xs={24} sm={12}>
+          <h5 style={{ marginBottom: 8 }}>{sertificate.name}</h5>
+          <p style={{ marginBottom: 8 }}>{sertificate.description}</p>
+          <p style={{ marginBottom: 16, fontWeight: "bold" }}>
+            Стоимость: {sertificate.price} ₽
+          </p>
+        </Col>
+
+        {/* Правая колонка с кнопкой удаления */}
+        <Col xs={24} sm={4} style={{ textAlign: "right" }}>
+          <Button
+            type="default" // Используем стандартный стиль кнопки
+            danger // Делаем кнопку красной
+            style={{
+              borderRadius: 8, // Скругление кнопки
+              transition: "all 0.3s ease", // Плавный переход
+              width: "100%", // Кнопка занимает всю ширину
+              border: "2px solid #ff4d4f", // Красная обводка
+              backgroundColor: "transparent", // Прозрачный фон
+              color: "#ff4d4f", // Красный текст
+            }}
+            onClick={removeItemHandler}
+            loading={loading}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = "#ff4d4f"; // Красный фон при наведении
+              e.currentTarget.style.color = "#fff"; // Белый текст при наведении
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = "transparent"; // Прозрачный фон
+              e.currentTarget.style.color = "#ff4d4f"; // Красный текст
+            }}
+          >
+            Удалить из корзины
+          </Button>
+          {error && <p style={{ color: "red", marginTop: 8 }}>{error}</p>}
+        </Col>
+      </Row>
     </Card>
   );
 }
