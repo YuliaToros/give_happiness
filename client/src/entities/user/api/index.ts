@@ -6,9 +6,8 @@ enum API_ROUTES {
   AUTH_PATH = "/auth/authorization",
   LOGOUT_PATH = "/auth/logout",
   REFRESH_PATH = "/auth/refresh",
-  UPDATE_PATH = "/auth/update",
+  UPDATE_PATH = "/user",
 }
-
 export class UserService {
   // ---Взять роли для пользователя---
   static async getRoles(): Promise<RoleList> {
@@ -39,8 +38,8 @@ export class UserService {
           name,
           role_id
       });
-  setAccessToken(response.data.accessToken);
-  return response.data;
+    setAccessToken(response.data.accessToken);
+    return response.data;
   }
 
   static async authorization(
@@ -81,17 +80,15 @@ export class UserService {
     phone: number,
     company_name: string,
     company_description: string
-  ): Promise<{ accessToken: string; user: UserWithoutPasswordType }> {
-    const response = await axiosInstance.post(API_ROUTES.UPDATE_PATH, {
-      name,
-      email,
-      phone,
-      company_name,
-      company_description,
-    });
-    //
-    const tokenResponse = await axiosInstance.get(API_ROUTES.REFRESH_PATH);
-    setAccessToken(tokenResponse.data.accessToken); // или просто передать refreshAccessToken() ??
+    ): Promise<{ accessToken: string; user: UserWithoutPasswordType }> {
+      const response = await axiosInstance.put(API_ROUTES.UPDATE_PATH, {
+        name,
+        email,
+        phone,
+        company_name,
+        company_description,
+      });
+    setAccessToken(response.data.accessToken); // или просто передать refreshAccessToken() ??
     return response.data;
   }
 }

@@ -82,8 +82,18 @@ class UserService {
 
   static async updateUser(data, id) {
     try {
-      const [countUpdated] = await User.update(data, { where: { id } });
-      return countUpdated;
+      const { name, email, phone, company_name, company_description } = data;
+      const user = await User.findByPk(id)
+      
+      user.name = name
+      user.email = email
+      user.phone = phone
+      user.company_name = company_name
+      user.company_description = company_description
+      await user.save()
+      const cleanUser = user.get()
+
+      return cleanUser;
     } catch (error) {
       throw new Error(error.message);
     }

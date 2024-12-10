@@ -1,36 +1,42 @@
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/rtkHooks";
-import { Card, Input, Button, Form, Space, Select } from 'antd';
-const { Option } = Select;
+import { Card, Input, Button, Form, Space } from 'antd';
+import { updateUserProfile } from '@/entities/user/model/userThunk';
 
 export const ProfileForm: React.FC = () => {
   const { user } = useAppSelector(state => state.user)
   const [isEditing, setIsEditing] = useState(false);
-  const [name, setName] = useState(user?.name)
-  const [email, setEmail] = useState(user?.email)
-  const [phone, setPhone] = useState(String(user?.phone))
-  const [companyName, setCompanyName] = useState(user?.company_name)
-  const [companyDescription, setCompanyDescription] = useState(user?.company_description)
 
   const dispatch = useAppDispatch()
+  
+  type UserDataType = {
+    name: string,
+    email: string,
+    phone: string,
+    company_name: string,
+    company_description: string, 
+  }
 
-  
-  
   const [form] = Form.useForm();
-  const [userData, setUserData] = useState({
-    name: 'Иван Иванов',
-    phone: '+79991234567',
-    company_name: 'ООО "Пример"',
-    company_description: 'Описание компании',
-    email: 'ivan.ivanov@example.com',
+  const [userData, setUserData] = useState<UserDataType>({
+    name: user?.name || "",
+    email: user?.email || "",
+    phone: String(user?.phone) || "",
+    company_name: user?.company_name || "",
+    company_description: user?.company_description || "",
   });
 
-  const onFinish = (values: any) => {
+  const onFinish = (values: UserDataType) => {
+    console.log('asdadsasd');
+    handleUpdate()
     setUserData({ ...userData, ...values });
     setIsEditing(false);
     form.setFieldsValue(values);
   };
-
+  
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
   };
@@ -45,31 +51,23 @@ export const ProfileForm: React.FC = () => {
     form.setFieldsValue(userData);
   };
 
-  const handleUpdate = async (event: React.FormEvent) => {
-    event.preventDefault()
+  const handleUpdate = async () => {
 
     try {
-      if (!name || !email || !phone || !companyName || !companyDescription) {
+      console.log(userData);
+      
+      if (!userData.name || !userData.email || !userData.phone || !userData.company_name || !userData.company_description) {
         return alert("Please fill all fields");
       }
-      dispatch(updateProfile({ name, email, phone: Number(phone), companyName, companyDescription }));
+      dispatch(updateUserProfile({...userData, phone: Number(userData.phone)}));
     } catch (error) {
       console.error("Error deleting book:", error);
     }
-
-    
-    
-    //navigate('/CatalogForm') поправить 
-
-    
-
   }
 
-  useEffect(() => {
-    // дописать
-  
-  }, [])
-
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setUserData((prev) => ({...prev, [event.target.name]: event.target.value}))
+  }
 
   return (
     <Card>
@@ -82,25 +80,25 @@ export const ProfileForm: React.FC = () => {
         layout="vertical"
       >
         <Form.Item label="Имя" name="name">
-          <Input onChange={({ target }) => setName(target.value)} defaultValue={name} disabled={!isEditing} />
+          <Input name="name" onChange={handleChange} value={userData.name} disabled={!isEditing} />
         </Form.Item>
         <Form.Item label="Email" name="email">
-          <Input onChange={({ target }) => setEmail(target.value)} defaultValue={email} disabled={!isEditing} />
+          <Input name="email" onChange={handleChange} value={userData.email} disabled={!isEditing} />
         </Form.Item>
         <Form.Item label="Телефон" name="phone">
-          <Input onChange={({ target }) => setPhone(target.value)} defaultValue={phone} disabled={!isEditing} />
+          <Input name="phone" onChange={handleChange} value={userData.phone} disabled={!isEditing} />
         </Form.Item>
         <Form.Item label="Название компании" name="company_name">
-          <Input onChange={({ target }) => setCompanyName(target.value)} defaultValue={companyName} disabled={!isEditing} />
+          <Input name="company_name" onChange={handleChange} value={userData.company_name} disabled={!isEditing} />
         </Form.Item>
         <Form.Item label="Описание компании" name="company_description">
-          <Input.TextArea onChange={({ target }) => setCompanyDescription(target.value)} defaultValue={companyDescription} disabled={!isEditing} />
+          <Input.TextArea name="company_description" onChange={handleChange} value={userData.company_description} disabled={!isEditing} />
         </Form.Item>
 
         {isEditing && (
           <Form.Item>
             <Space>
-              <Button onSubmit={handleUpdate} type="primary" htmlType="submit">
+              <Button type="primary" htmlType="submit">
                 Сохранить
               </Button>
               <Button onClick={handleCancel}>Отменить</Button>
