@@ -23,6 +23,7 @@ const useStyle = createStyles(({ css, token }) => {
   };
 });
 
+// изменить типизацию
 interface DataType {
   key: React.Key;
   name: string;
@@ -61,17 +62,17 @@ export const PurchaseHistoryTable: React.FC = () => {
     dispatch(getAllOrders());
 }, [dispatch]);
 
-const dataSource = orders.map<OrderType>((el, i) => ({
-  key: i,
-  order_id: el.id,
-  sum: el.sum,
-}));
+// const dataSource = orders.map<OrderType>((el, i) => ({
+//   key: i,
+//   order_id: el.id,
+//   sum: el.sum,
+// }));
 
   return (
     <Table<DataType>
       className={styles.customTable}
       columns={columns}
-      dataSource={dataSource}
+      // dataSource={dataSource}
       pagination={{ pageSize: 25 }}
       scroll={{ y: 55 * 5 }}
     />
