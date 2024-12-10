@@ -4,6 +4,9 @@ import { useAppDispatch, useAppSelector } from "@/shared/hooks/rtkHooks";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { initRoles } from "@/entities/user/model/roleThunk";
+import { Form, Input, Button, Select } from "antd";
+
+const { Option } = Select;
 
 export const UserRegistrationForm = React.memo(() => {
 
@@ -20,56 +23,124 @@ export const UserRegistrationForm = React.memo(() => {
         dispatch(initRoles())
     },[dispatch])
     
-
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    const registrationHandler = (e: React.FormEvent) => {
-        e.preventDefault();
+
+    const registrationHandler = () => {
+     
 
         if (password !== confirmPassword) {
             return alert('Passwords do not match!');
         }
-        if (!emailRegex.test(email)) {
-          return alert("Введите корректный email!");
-        }
-      
-
         dispatch(registration({ email, password, name, role_id }))
         navigate(CLIENT_ROUTES.ACCOUNT_PAGE);
     }
 
     return (
-        <form onSubmit={registrationHandler}>
-            <input defaultValue={name} onChange={({ target }) => setName(target.value)} type="text" required placeholder="Your name" />
-            <input defaultValue={email} onChange={({ target }) => setEmail(target.value)} type="email" required placeholder="Your email" />
-            <input defaultValue={password} onChange={({ target }) => setPassword(target.value)} type="password" required placeholder="Your password" />
-            <input defaultValue={confirmPassword} onChange={({ target }) => setConfirmPassword(target.value)} type="password" required placeholder="Confirm password" />
-            <select
-        value={role_id}
-        onChange={(e) =>
-          setRole_id(+e.target.value)
-        }
+      <Form
+        layout="vertical"
+        onFinish={registrationHandler}
         style={{
-          width: "100%",
-          padding: "10px",
-          marginBottom: "10px",
-          borderRadius: "4px",
-          border: "1px solid #ddd",
+          maxWidth: "400px",
+          margin: "0 auto",
+          padding: "20px",
+          border: "1px solid #f0f0f0",
+          borderRadius: "8px",
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+          backgroundColor: "#fff",
         }}
-        required
       >
-        <option value="">Выберите роль</option>
-        {roles.length > 0 ? (
-          roles.map((roles) => (
-            <option key={roles.id} value={roles.id}>
-              {roles.name}
-            </option>
-          ))
-        ) : (
-          <option disabled>Нет доступных ролей</option>
-        )}
-       
-      </select>
-            <button type="submit">Registration</button>
-        </form>
+        <h2 style={{ textAlign: "center" }}>Регистрация</h2>
+  
+        <Form.Item
+          label="Имя"
+          name="name"
+          rules={[{ required: true, message: "Введите ваше имя" }]}
+        >
+          <Input
+            defaultValue={name}
+            onChange={({ target }) => setName(target.value)}
+            placeholder="Ваше имя"
+          />
+        </Form.Item>
+  
+        <Form.Item
+          label="Email"
+          name="email"
+          rules={[
+            { required: true, message: "Введите ваш email" },
+            { type: "email", message: "Введите корректный email" },
+          ]}
+        >
+          <Input
+            defaultValue={email}
+            onChange={({ target }) => setEmail(target.value)}
+            placeholder="Ваш email"
+          />
+        </Form.Item>
+  
+        <Form.Item
+          label="Пароль"
+          name="password"
+          rules={[{ required: true, message: "Введите пароль" }]}
+        >
+          <Input.Password
+            defaultValue={password}
+            onChange={({ target }) => setPassword(target.value)}
+            placeholder="Ваш пароль"
+          />
+        </Form.Item>
+  
+        <Form.Item
+          label="Подтверждение пароля"
+          name="confirmPassword"
+          rules={[
+            { required: true, message: "Подтвердите пароль" },
+            ({ getFieldValue }) => ({
+              validator(_, value) {
+                if (!value || getFieldValue("password") === value) {
+                  return Promise.resolve();
+                }
+                return Promise.reject(
+                  new Error("Пароли не совпадают")
+                );
+              },
+            }),
+          ]}
+        >
+          <Input.Password
+            defaultValue={confirmPassword}
+            onChange={({ target }) => setConfirmPassword(target.value)}
+            placeholder="Подтверждение пароля"
+          />
+        </Form.Item>
+  
+        <Form.Item
+          label="Роль"
+          name="role"
+          rules={[{ required: true, message: "Выберите роль" }]}
+        >
+          <Select
+            value={role_id}
+            onChange={(value) => setRole_id(value)}
+            placeholder="Выберите роль"
+          >
+            {roles.length > 0 ? (
+              roles.map((role) => (
+                <Option key={role.id} value={role.id}>
+                  {role.name}
+                </Option>
+              ))
+            ) : (
+              <Option disabled>Нет доступных ролей</Option>
+            )}
+          </Select>
+        </Form.Item>
+  
+        <Form.Item>
+          <Button type="primary" htmlType="submit" block disabled={!email||!password||!confirmPassword||!emailRegex.test(email)}>
+            Регистрация
+          </Button>
+        </Form.Item>
+      </Form>
     );
 })

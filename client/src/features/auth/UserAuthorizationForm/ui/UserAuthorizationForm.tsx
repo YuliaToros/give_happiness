@@ -3,6 +3,7 @@ import { authorization } from "@/entities/user/model/userThunk";
 import { useAppDispatch } from "@/shared/hooks/rtkHooks";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Form, Input, Button } from "antd";
 
 export const UserAuthorizationForm = React.memo(() => {
 
@@ -14,8 +15,8 @@ export const UserAuthorizationForm = React.memo(() => {
 
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-    const authHandler = (e: React.FormEvent) => {
-        e.preventDefault();
+    const authHandler = () => {
+        
 
         if (!emailRegex.test(email)) {
             return alert("Введите корректный email!");
@@ -26,11 +27,59 @@ export const UserAuthorizationForm = React.memo(() => {
     }
 
     return (
-        <form onSubmit={authHandler}>
-            <input defaultValue={email} onChange={({ target }) => setEmail(target.value)} type="email" required placeholder="You email" />
-            <input defaultValue={password} onChange={({ target }) => setPassword(target.value)} type="password" required placeholder="You password" />
-            <button disabled={(!email || !password)} type="submit">Auth</button>
-        </form>
-    );
+        <Form
+          layout="vertical"
+          onFinish={authHandler}
+          style={{
+            maxWidth: "400px",
+            margin: "0 auto",
+            padding: "20px",
+            border: "1px solid #f0f0f0",
+            borderRadius: "8px",
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+            backgroundColor: "#fff",
+          }}
+        >
+          <h2 style={{ textAlign: "center" }}>Авторизация</h2>
+    
+          <Form.Item
+            label="Email"
+            name="email"
+            rules={[
+              { required: true, message: "Введите ваш email" },
+              { type: "email", message: "Введите корректный email" },
+            ]}
+          >
+            <Input
+              defaultValue={email}
+              onChange={({ target }) => setEmail(target.value)}
+              placeholder="Ваш email"
+            />
+          </Form.Item>
+    
+          <Form.Item
+            label="Пароль"
+            name="password"
+            rules={[{ required: true, message: "Введите ваш пароль" }]}
+          >
+            <Input.Password
+              defaultValue={password}
+              onChange={({ target }) => setPassword(target.value)}
+              placeholder="Ваш пароль"
+            />
+          </Form.Item>
+    
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              block
+              disabled={!email || !password ||!emailRegex.test(email)}
+            >
+              Войти
+            </Button>
+          </Form.Item>
+        </Form>
+      );
 })
 

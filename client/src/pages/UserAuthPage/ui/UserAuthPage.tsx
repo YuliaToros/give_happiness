@@ -4,7 +4,7 @@ import { MemoUserAuthorizationForm } from "@/features/auth/UserAuthorizationForm
 export function UserAuthPage() {
     return (
         <>
-            <h1>AuthPage</h1>
+
             <MemoUserAuthorizationForm />
         </>
     );

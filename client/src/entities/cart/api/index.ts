@@ -1,5 +1,5 @@
 import { axiosInstance } from '@/shared/lib/axiosInstance';
-import { Cart, CartId, CartList } from '../model';
+import { Cart, CartList } from '../model';
 
 export class CartService {
   static async getUserCart(): Promise<Cart> {
@@ -13,7 +13,7 @@ export class CartService {
     }
   }
 
-  static async getAllUserCarts(userId: number): Promise<CartList> {
+  static async getAllUserCarts(userId: number): Promise<Cart> {
     try {
       const response = await axiosInstance.get(`/cart/${userId}`);
       
