@@ -20,12 +20,18 @@ export const UserRegistrationForm = React.memo(() => {
         dispatch(initRoles())
     },[dispatch])
     
+
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const registrationHandler = (e: React.FormEvent) => {
         e.preventDefault();
 
         if (password !== confirmPassword) {
             return alert('Passwords do not match!');
         }
+        if (!emailRegex.test(email)) {
+          return alert("Введите корректный email!");
+        }
+      
 
         dispatch(registration({ email, password, name, role_id }))
         navigate(CLIENT_ROUTES.ACCOUNT_PAGE);
@@ -61,6 +67,7 @@ export const UserRegistrationForm = React.memo(() => {
         ) : (
           <option disabled>Нет доступных ролей</option>
         )}
+       
       </select>
             <button type="submit">Registration</button>
         </form>

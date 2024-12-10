@@ -12,10 +12,10 @@ class ItemCartService {
     }
   }
 
-  static async deleteItemCart(id) {
+  static async deleteItemCart(item_id, cart_id) {
     try {
       return await ItemCart.destroy({
-        where: { id },
+        where: { item_id, cart_id, user_id: authUserId},
       });
     } catch (error) {
       throw new Error(error.message);

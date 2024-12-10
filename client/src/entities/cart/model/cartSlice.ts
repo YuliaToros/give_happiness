@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { fetchUserCart, addItemToCart, removeItemFromCart, syncCart } from './cartThunk';
 import {  Cart, CartList } from '../model';
 
-interface CartState {
+type CartState = {
   cart: Cart|null;
   loading: boolean;
   error: string | null;
@@ -64,19 +64,20 @@ const cartSlice = createSlice({
         state.error = action.payload?.message || "Create cart: fail";
       })
 
-      // .addCase(removeItemFromCart.pending, (state) => {
-      //   state.loading = true;
-      //   state.error = null;
-      // })
-      // .addCase(removeItemFromCart.fulfilled, (state, action) => {
-      //   state.cart = state.cart?.filter((el)=>el.id!==action.payload.id); // Обновляем корзину после удаления товара
-      //   state.loading = false;
-      //   state.error = null;
-      // })
-      // .addCase(removeItemFromCart.rejected, (state, action) => {
-      //   state.loading = false;
-      //   state.error = action.payload as string;
-      // })
+      .addCase(removeItemFromCart.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(removeItemFromCart.fulfilled, (state, action) => {
+        //state.cart = state.cart?.filter((el)=>el.id!==action.payload.id); // Обновляем корзину после удаления товара
+        state.cart = action.payload
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(removeItemFromCart.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload?.message || "destroy cart: fail";
+      })
   },
 });
 

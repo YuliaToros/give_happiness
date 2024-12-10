@@ -13,8 +13,6 @@ export function SertificateItem({ sertificate }: { sertificate: Sertificate }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-
-
   const addItemHandler = async (event: React.FormEvent) => {
     event.preventDefault();
 
