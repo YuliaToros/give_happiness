@@ -19,7 +19,7 @@ export function Layout() {
     return (
         <>
             <MemoNav />
-            <div className="container d-flex flex-column vh-100">
+            <div className="container d-flex flex-column flex-grow-1">
                 <Outlet />
             </div>
             <MemoFooter />
