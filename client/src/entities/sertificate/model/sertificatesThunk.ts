@@ -16,16 +16,18 @@ enum SERTIFICATES_THUNK_TYPES_PREFIX {
 
 export const createSertificate = createAsyncThunk<
   Sertificate,
-  { title: string; author: string; pages: number; category_id: number },
+  { name: string, description: string, image: string, price: number, count: number, status: string },
   { rejectValue: RejectValue }
   >(SERTIFICATES_THUNK_TYPES_PREFIX.ADD_SERTIFICATE,
-  async ({ title, author, pages, category_id }, { rejectWithValue }) => {
+  async ({ name, description, image, price, count, status }, { rejectWithValue }) => {
     try {
       return await SertificateService.createSertificate(
-        title,
-        author,
-        pages,
-        category_id
+        name,
+        description,
+        image,
+        price,
+        count,
+        status
       );
     } catch (error) {
       const err = error as AxiosError<{ message: string }>;
@@ -71,12 +73,12 @@ export const getAllSertificates = createAsyncThunk<
 // Создаем асинхронную thunk-функцию для обновления книги
 export const updateSertificate = createAsyncThunk<
   Sertificate,
-  { id: number; title: string; author: string },
+  { id: number, name: string, description: string, image: string, price: number, count: number, status: string },
   { rejectValue: RejectValue }
   >(SERTIFICATES_THUNK_TYPES_PREFIX.UPDATE_SERTIFICATE,
-  async ({ id, title, author }, { rejectWithValue }) => {
+  async ({ id, name, description, image, price, count, status }, { rejectWithValue }) => {
     try {
-      return await SertificateService.updateSertificate(id, title, author);
+      return await SertificateService.updateSertificate(id, name, description, image, price, count, status);
     } catch (error) {
       const err = error as AxiosError<{ message: string }>;
       return rejectWithValue({
