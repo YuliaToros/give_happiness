@@ -1,17 +1,19 @@
-import { useAppDispatch, useAppSelector } from "@/shared/hooks/rtkHooks";
-import { SertificateItem } from "@/entities/sertificate";
-import { removeItemFromCart } from "../../model/cartThunk";
+import { useAppSelector } from "@/shared/hooks/rtkHooks";
+// import { useAppDispatch, useAppSelector } from "@/shared/hooks/rtkHooks";
+// import { SertificateItem } from "@/entities/sertificate";
+// import { removeItemFromCart } from "../../model/cartThunk";
+import { CartItem } from "../CartItem";
 
 export function CartList() {
 
-  const dispatch = useAppDispatch()
+  // const dispatch = useAppDispatch()
 
 
-  const handleRemoveClick = (itemId: number) => {
-    if (cart) {
-      dispatch(removeItemFromCart({ cart_id: cart.id, item_id: itemId }));
-    }
-  };
+  // const handleRemoveClick = (itemId: number) => {
+  //   if (cart) {
+  //     dispatch(removeItemFromCart({ cart_id: cart.id, item_id: itemId }));
+  //   }
+  // };
 
   const { cart } = useAppSelector((state) => state.cart); // Получаем данные о корзине
   console.log(cart);
@@ -25,8 +27,8 @@ export function CartList() {
           cart.items.map((sertificate) => {
             return (
               <div key={sertificate.id}>
-                <SertificateItem sertificate={sertificate} />
-                <button onClick={() => handleRemoveClick(sertificate.id)}>Удалить</button>
+                <CartItem sertificate={sertificate} />
+                {/* <button onClick={() => handleRemoveClick(sertificate.id)}>Удалить</button> */}
               </div>
             );
           })
