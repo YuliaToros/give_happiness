@@ -83,6 +83,7 @@ export const Nav = React.memo(() => {
         </Link>
       </div>
       <div style={{ display: "flex", alignItems: "center" }}>
+
         {/* Кнопка меню для мобильных устройств */}
         {isMobile && (
           <Button
@@ -108,6 +109,7 @@ export const Nav = React.memo(() => {
             {!user && (
               <Menu.Item key="auth">
                 <Link to={CLIENT_ROUTES.AUTH}>Войти</Link>
+
               </Menu.Item>
             )}
             {!user && (

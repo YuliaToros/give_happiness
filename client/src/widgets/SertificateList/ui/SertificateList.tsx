@@ -1,42 +1,55 @@
-// import { CLIENT_ROUTES } from "@/app/router";
-import { SertificateItem } from "@/entities/sertificate";
-import { getAllSertificates } from "@/entities/sertificate/model/sertificatesThunk";
-import { useAppDispatch, useAppSelector } from "@/shared/hooks/rtkHooks";
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-// import { Link } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "@/shared/hooks/rtkHooks";
+import { getAllSertificates } from "@/entities/sertificate/model/sertificatesThunk";
+import { SertificateItem } from "@/entities/sertificate";
+import { Row, Col, Empty, Spin } from "antd";
 
 export const SertificateList = React.memo(() => {
   const dispatch = useAppDispatch();
-  const { sertificates } = useAppSelector((state) => state.sertificates);
-  const { user } = useAppSelector((state) => state.user);
+  const { sertificates, loading, error } = useAppSelector(
+    (state) => state.sertificates
+  );
 
   useEffect(() => {
     dispatch(getAllSertificates());
   }, [dispatch]);
-console.log(123123, sertificates)
+
+  if (loading) {
+    return (
+      <div style={{ textAlign: "center", marginTop: "50px" }}>
+        <Spin size="large" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div style={{ textAlign: "center", marginTop: "50px" }}>
+        <h2 style={{ color: "red" }}>Ошибка: {error}</h2>
+      </div>
+    );
+  }
+
   return (
-    <>
+    <Row gutter={[16, 24]} justify="center">
       {sertificates.length > 0 ? (
-        sertificates.map((sertificate) => {
-          if (user?.id === sertificate.user_id) {
-            return (
-              <Link key={sertificate.id} to={"/item" + `/${sertificate.id}`}>
-                <SertificateItem
-                  key={sertificate.id}
-                  sertificate={sertificate}
-                />
-              </Link>
-            );
-          } else {
-            return (
-              <SertificateItem key={sertificate.id} sertificate={sertificate} />
-            );
-          }
-        })
+        sertificates.map((sertificate) => (
+          <Col xs={24} sm={12} md={8} lg={8} xl={6} key={sertificate.id}>
+            <SertificateItem sertificate={sertificate} />
+          </Col>
+        ))
       ) : (
-        <h2>No data</h2>
+        <Col span={24}>
+          <Empty
+            description={
+              <h2 style={{ color: "#888", fontWeight: "normal" }}>
+                Нет данных
+              </h2>
+            }
+            imageStyle={{ height: 100 }}
+          />
+        </Col>
       )}
-    </>
+    </Row>
   );
 });
