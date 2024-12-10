@@ -1,5 +1,7 @@
 import React from 'react';
-import { Carousel } from 'react-bootstrap';
+import { Carousel } from 'antd';
+import 'antd/dist/reset.css'; // Подключение стилей Ant Design
+import './CarouselBanner.css'; // Подключение вашего CSS-файла
 
 type Image = {
   src: string;
@@ -12,15 +14,15 @@ type CarouselBannerProps = {
 
 export const CarouselBanner: React.FC<CarouselBannerProps> = ({ images }) => {
   return (
-    <Carousel interval={3000} pause={false}>
+    <Carousel autoplay autoplaySpeed={3000} dots={true}>
       {images.map((image, index) => (
-        <Carousel.Item key={index}>
+        <div key={index}>
           <img
-            className="d-block w-100"
+            className="carousel-image"
             src={`${import.meta.env.VITE_IMAGES}${image.src}`}
             alt={image.alt}
           />
-        </Carousel.Item>
+        </div>
       ))}
     </Carousel>
   );
