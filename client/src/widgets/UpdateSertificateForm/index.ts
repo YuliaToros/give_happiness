@@ -1,1 +1,0 @@
-export { UpdateSertificateForm as MemoUpdateSertificateForm } from './ui/UpdateSertificateForm';

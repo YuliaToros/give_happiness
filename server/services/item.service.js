@@ -14,27 +14,28 @@ class ItemService {
     }
   }
 
-  static async addItem(
+  static async createItem({
     name,
     description,
     image,
     price,
-    status,
     count,
+    status,
     user_id,
-  ) {
+  })
+   {
     try {
       const item = await Item.create({
         name,
         description,
         image,
         price,
-        status,
         count,
+        status,
         user_id,
       });
       const newItem = await Item.findOne({
-        where: { id: item.id },
+        where: { id: item.user_id },
         include: [
           { model: User, as: "user" },
         ],
