@@ -5,9 +5,11 @@ import { MemoSertificateList } from "@/widgets";
 export function SertificatesPage() {
     return (
         <>
+        <div style={{ paddingTop: "20px", paddingBottom: "40px" }}>
             <h1>Подарочные сертификаты</h1>
             {/* <MemoSertificateForm /> */}
             <MemoSertificateList />
+            </div>
         </>
     );
 };
