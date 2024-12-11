@@ -12,6 +12,8 @@ export function SertificateItem({ sertificate }: { sertificate: Sertificate }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const { user } = useAppSelector((state) => state.user)
+
   const addItemHandler = async (event: React.FormEvent) => {
     event.preventDefault();
 
@@ -73,7 +75,8 @@ export function SertificateItem({ sertificate }: { sertificate: Sertificate }) {
             <p style={{ marginBottom: 16, fontWeight: "bold" }}>
               Стоимость: {sertificate.price} ₽
             </p>
-            <Button
+            {user?.role_id === 3 && (
+              <Button
               type="primary"
               style={{
                 backgroundColor: "#f0f0f0", // Светлый фон кнопки
@@ -96,6 +99,7 @@ export function SertificateItem({ sertificate }: { sertificate: Sertificate }) {
             >
               Купить
             </Button>
+            )}
             {error && <p style={{ color: "red", marginTop: 8 }}>{error}</p>}
           </>
         }
