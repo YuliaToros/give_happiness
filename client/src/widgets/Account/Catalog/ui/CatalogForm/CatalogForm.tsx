@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, Button, Form, Input,  Select, Modal, message } from 'antd'; // Upload,
 //import { UploadOutlined } from '@ant-design/icons';
 import { CatalogItem } from '../CatalogItem/CatalogItem';
@@ -25,7 +25,6 @@ export const CatalogForm: React.FC = () => {
     status: '',
   }
   const [form] = Form.useForm();
-
   const onFinish = (values: SertificateWithoutIdAndUserId ) => {
     const { name, description, image, price, count, status } = values
     if (!name || !description || !image || !price || !count || !status) {
@@ -36,6 +35,10 @@ export const CatalogForm: React.FC = () => {
     form.resetFields();
     message.success('Сертификат добавлен!');
   };
+
+  useEffect(() => {
+    
+  },[ ])
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
@@ -53,6 +56,7 @@ export const CatalogForm: React.FC = () => {
     form.resetFields();
   };
 
+  
 
   //  handleEditCertificate remains unchanged
 

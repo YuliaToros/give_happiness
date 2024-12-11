@@ -31,19 +31,16 @@ export function SertificateItem({ sertificate }: { sertificate: Sertificate }) {
       );
 
       return result;
-    } catch (error) {
-      setError(error.message);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError('Произошла неизвестная ошибка');
+      }
     } finally {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    console.log("Mount: SertificateItem");
-    return () => {
-      console.log("Unmount: SertificateItem");
-    };
-  }, []);
 
   return (
     <Card
@@ -64,7 +61,7 @@ export function SertificateItem({ sertificate }: { sertificate: Sertificate }) {
             objectFit: "cover", // Масштабирование изображения
           }}
           onError={(e) => {
-            e.currentTarget.src = `${import.meta.env.VITE_IMAGES}/bunnerNull.png`; // Заглушка
+            e.currentTarget.src = `${import.meta.env.VITE_IMAGES}/bannerNull.png`; // Заглушка
           }}
         />
       }

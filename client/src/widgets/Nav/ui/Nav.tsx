@@ -1,6 +1,5 @@
-
-import React, { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom"; // , useLocation
+import React, { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/rtkHooks";
 import { logout } from "@/entities/user/model/userThunk";
 import { CLIENT_ROUTES } from "@/app/router";
@@ -14,34 +13,30 @@ const { Header } = Layout;
 
 export const Nav = React.memo(() => {
   const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useAppDispatch();
   const { loading: usersLoading } = useAppSelector((state) => state.userCRUD);
   const { user, loading: userLoading } = useAppSelector((state) => state.user);
   const [visible, setVisible] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768); // Изначально проверяем ширину экрана
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   useEffect(() => {
     dispatch(getAllUsers());
 
-    // Обработчик изменения размера окна
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768); // Обновляем состояние при изменении ширины экрана
+      setIsMobile(window.innerWidth <= 768);
     };
 
-    // Добавляем слушатель события resize
     window.addEventListener("resize", handleResize);
 
-    // Убираем слушатель при размонтировании компонента
     return () => {
       window.removeEventListener("resize", handleResize);
     };
   }, [dispatch]);
 
   useEffect(() => {
-    // Обновляем заголовок в зависимости от маршрута
     document.title = getTitle(location.pathname);
-  }, []); // Зависимость от location
-
+  }, [location.pathname]);
 
   const logoutHandler = () => {
     dispatch(logout());
@@ -56,36 +51,24 @@ export const Nav = React.memo(() => {
     setVisible(false);
   };
 
-
-  const userRoleName = useMemo(() => {
-    if (!user) return "Роль не указана";
-    return user.role ? user.role.name : "Роль не указана";
-  }, [user]);
-
-
-
-  const getTitle = (pathname: any ) => {
+  const getTitle = (pathname: string) => {
     switch (pathname) {
       case CLIENT_ROUTES.HOME:
-        return 'Главная страница';
+        return "Главная страница";
       case CLIENT_ROUTES.SERTIFICATES:
-        return 'Сертификаты';
+        return "Сертификаты";
       case CLIENT_ROUTES.AUTH:
-        return 'Авторизация';
+        return "Авторизация";
       case CLIENT_ROUTES.REG:
-        return 'Регистрация';
+        return "Регистрация";
       case CLIENT_ROUTES.CART:
-        return 'Корзина';
+        return "Корзина";
       case CLIENT_ROUTES.ACCOUNT_PAGE:
-        return 'Личный кабинет';
+        return "Личный кабинет";
       default:
-        return 'Название сайта'; // Заголовок по умолчанию
+        return "Название сайта";
     }
   };
-
-  if (usersLoading || userLoading) {
-    return <div>Loading...</div>;
-  }
 
   if (usersLoading || userLoading) {
     return (
@@ -95,6 +78,17 @@ export const Nav = React.memo(() => {
     );
   }
 
+  const linkStyle = {
+    textDecoration: "none",
+    color: "#000",
+    transition: "border-bottom 0.3s ease",
+    borderBottom: "2px solid transparent",
+    paddingBottom: "2px",
+    ":hover": {
+      borderBottom: "2px solid #000",
+    },
+  };
+
   return (
     <Header
       style={{
@@ -102,8 +96,7 @@ export const Nav = React.memo(() => {
         alignItems: "center",
         padding: "0 16px",
         marginBottom: "5px",
-        backgroundColor: "#fff",
-        boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
+        backgroundColor: "#acc8e5",
       }}
     >
       <div style={{ marginRight: "auto" }}>
@@ -133,39 +126,66 @@ export const Nav = React.memo(() => {
             theme="light"
             mode="horizontal"
             defaultSelectedKeys={["home"]}
-            style={{ display: "flex", alignItems: "center" }}
+            selectedKeys={[location.pathname]}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              backgroundColor: "#acc8e5",
+              height: "64px",
+              overflow: "hidden",
+            }}
           >
-            <Menu.Item key="certificates">
-              <Link to={CLIENT_ROUTES.SERTIFICATES}>Сертификаты</Link>
+            <Menu.Item key={CLIENT_ROUTES.SERTIFICATES} style={{ backgroundColor: "#acc8e5", height: "100%" }}>
+              <Link to={CLIENT_ROUTES.SERTIFICATES} style={linkStyle}>
+                Сертификаты
+              </Link>
             </Menu.Item>
+
             {!user && (
-              <Menu.Item key="auth">
-                <Link to={CLIENT_ROUTES.AUTH}>Войти</Link>
+              <Menu.Item key={CLIENT_ROUTES.AUTH} style={{ backgroundColor: "#acc8e5", height: "100%" }}>
+                <Link to={CLIENT_ROUTES.AUTH} style={linkStyle}>
+                  Войти
+                </Link>
               </Menu.Item>
             )}
+
             {!user && (
-              <Menu.Item key="reg">
-                <Link to={CLIENT_ROUTES.REG}>Регистрация</Link>
+              <Menu.Item key={CLIENT_ROUTES.REG} style={{ backgroundColor: "#acc8e5", height: "100%" }}>
+                <Link to={CLIENT_ROUTES.REG} style={linkStyle}>
+                  Регистрация
+                </Link>
               </Menu.Item>
             )}
-            {user?.role_id !== 2 && user && (
-              <Menu.Item key="cart">
-                <Link to={CLIENT_ROUTES.CART}>Корзина</Link>
-              </Menu.Item>
-            )}
+
             {user && (
-              <Space style={{ marginLeft: "16px" }}>
-                <Menu.Item key="account">
-                  <Link to={CLIENT_ROUTES.ACCOUNT_PAGE}>Личный кабинет</Link>
-                </Menu.Item>
-                <span style={{ color: "#000", marginRight: "16px" }}>
-                  Привет, {user.name} вы {userRoleName.toLocaleLowerCase()}
-                </span>
+              <Menu.Item key={CLIENT_ROUTES.ACCOUNT_PAGE} style={{ backgroundColor: "#acc8e5", height: "100%" }}>
+                <Link to={CLIENT_ROUTES.ACCOUNT_PAGE} style={linkStyle}>
+                  Личный кабинет
+                </Link>
+              </Menu.Item>
+            )}
+
+            {user && user.role_id !== 2 && (
+              <Menu.Item key={CLIENT_ROUTES.CART} style={{ backgroundColor: "#acc8e5", height: "100%" }}>
+                <Link to={CLIENT_ROUTES.CART} style={linkStyle}>
+                  Корзина
+                </Link>
+              </Menu.Item>
+            )}
+
+            {user && (
+              <Space style={{ marginLeft: "16px", backgroundColor: "#acc8e5" }}>
+                <span style={{ color: "#000", marginRight: "16px" }}>Привет, {user.name}</span>
                 <Button
                   type="primary"
                   danger
                   icon={<LogoutOutlined />}
                   onClick={logoutHandler}
+                  style={{
+                    border: "1px solid #ff4d4f",
+                    background: "transparent",
+                    color: "#ff4d4f",
+                  }}
                 >
                   Выйти
                 </Button>
@@ -174,54 +194,65 @@ export const Nav = React.memo(() => {
           </Menu>
         )}
       </div>
+
       {/* Выдвижное меню для мобильных устройств */}
       <Drawer title="" placement="right" onClose={onClose} visible={visible}>
-        <Menu
-          theme="light"
-          mode="vertical"
-          defaultSelectedKeys={["home"]}
-        >
+        <Menu theme="light" mode="vertical" defaultSelectedKeys={["home"]}>
           {user && (
             <Space direction="vertical" style={{ marginTop: "16px" }}>
-              <div>
-                Привет, {user.name} вы {userRoleName.toLowerCase()}
-              </div>
+              <div>Привет, {user.name}</div>
             </Space>
           )}
-          <Menu.Item key="home">
-            <Link to={CLIENT_ROUTES.HOME} onClick={onClose}>
+          <Menu.Item key={CLIENT_ROUTES.HOME}>
+            <Link to={CLIENT_ROUTES.HOME} onClick={onClose} style={linkStyle}>
               Главная
             </Link>
           </Menu.Item>
-          <Menu.Item key="certificates">
-            <Link to={CLIENT_ROUTES.SERTIFICATES} onClick={onClose}>
+          <Menu.Item key={CLIENT_ROUTES.SERTIFICATES}>
+            <Link to={CLIENT_ROUTES.SERTIFICATES} onClick={onClose} style={linkStyle}>
               Сертификаты
             </Link>
           </Menu.Item>
           {!user && (
-            <Menu.Item key="auth">
-              <Link to={CLIENT_ROUTES.AUTH} onClick={onClose}>
+            <Menu.Item key={CLIENT_ROUTES.AUTH}>
+              <Link to={CLIENT_ROUTES.AUTH} onClick={onClose} style={linkStyle}>
                 Войти
               </Link>
             </Menu.Item>
           )}
           {!user && (
-            <Menu.Item key="reg">
-              <Link to={CLIENT_ROUTES.REG} onClick={onClose}>
+            <Menu.Item key={CLIENT_ROUTES.REG}>
+              <Link to={CLIENT_ROUTES.REG} onClick={onClose} style={linkStyle}>
                 Регистрация
               </Link>
             </Menu.Item>
           )}
           {user && (
+            <Menu.Item key={CLIENT_ROUTES.ACCOUNT_PAGE}>
+              <Link to={CLIENT_ROUTES.ACCOUNT_PAGE} style={linkStyle}>
+                Личный кабинет
+              </Link>
+            </Menu.Item>
+          )}
+          {user && user.role_id !== 2 && (
+            <Menu.Item key={CLIENT_ROUTES.CART}>
+              <Link to={CLIENT_ROUTES.CART} style={linkStyle}>
+                Корзина
+              </Link>
+            </Menu.Item>
+          )}
+          {user && (
             <Space direction="vertical" style={{ marginTop: "16px" }}>
-              <Menu.Item key="account">
-                <Link to={CLIENT_ROUTES.ACCOUNT_PAGE}>Личный кабинет</Link>
-              </Menu.Item>
               <Button
                 type="primary"
                 danger
                 icon={<LogoutOutlined />}
                 onClick={logoutHandler}
+                style={{
+                  border: "1px solid #ff4d4f",
+                  background: "transparent",
+                  color: "#ff4d4f",
+                }}
               >
                 Выйти
               </Button>
@@ -232,4 +263,3 @@ export const Nav = React.memo(() => {
     </Header>
   );
 });
-    

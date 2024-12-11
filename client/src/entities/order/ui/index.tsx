@@ -1,27 +1,27 @@
 import React, { useEffect } from "react";
 import { Table } from "antd";
 import type { TableColumnsType } from "antd";
-import { createStyles } from "antd-style";
+//import { createStyles } from "antd-style";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/rtkHooks";
 import { getAllOrders } from "../model/orderThunk";
 
-const useStyle = createStyles(({ css, token }) => {
-  const { antCls } = token;
-  return {
-    customTable: css`
-      ${antCls}-table {
-        ${antCls}-table-container {
-          ${antCls}-table-body,
-          ${antCls}-table-content {
-            scrollbar-width: thin;
-            scrollbar-color: #eaeaea transparent;
-            scrollbar-gutter: stable;
-          }
-        }
-      }
-    `,
-  };
-});
+// const useStyle = createStyles(({ css, token }) => {
+//   const { antCls } = token;
+//   return {
+//     customTable: css`
+//       ${antCls}-table {
+//         ${antCls}-table-container {
+//           ${antCls}-table-body,
+//           ${antCls}-table-content {
+//             scrollbar-width: thin;
+//             scrollbar-color: #eaeaea transparent;
+//             scrollbar-gutter: stable;
+//           }
+//         }
+//       }
+//     `,
+//   };
+// });
 
 // изменить типизацию
 interface DataType {
