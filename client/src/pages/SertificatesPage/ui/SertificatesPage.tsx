@@ -5,7 +5,7 @@ import { MemoSertificateList } from "@/widgets";
 export function SertificatesPage() {
     return (
         <>
-        <div style={{ paddingTop: "20px", paddingBottom: "40px" }}>
+        <div style={{ paddingTop: "20px", paddingBottom: "40px", minHeight: "100vh"}}>
             <h1>Подарочные сертификаты</h1>
             {/* <MemoSertificateForm /> */}
             <MemoSertificateList />
