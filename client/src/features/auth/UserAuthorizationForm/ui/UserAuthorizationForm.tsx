@@ -3,7 +3,7 @@ import { authorization } from "@/entities/user/model/userThunk";
 import { useAppDispatch } from "@/shared/hooks/rtkHooks";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, message } from "antd";
 
 export const UserAuthorizationForm = React.memo(() => {
 
@@ -15,16 +15,25 @@ export const UserAuthorizationForm = React.memo(() => {
 
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-    const authHandler = () => {
-        
-
+    const authHandler = async () => {
         if (!emailRegex.test(email)) {
-            return alert("Введите корректный email!");
+          return message.error("Введите корректный email!");
+        }
+    
+        try {
+          const resultAction = await dispatch(authorization({ email, password }));
+    
+          if (authorization.fulfilled.match(resultAction)) {
+            navigate(CLIENT_ROUTES.ACCOUNT_PAGE);
+          } else {
+            message.error("Ошибка авторизации. Проверьте email и пароль.");
           }
-
-        dispatch(authorization({ email, password }))
-        navigate(CLIENT_ROUTES.ACCOUNT_PAGE);
-    }
+        } catch (error) {
+          console.error("Ошибка при авторизации:", error);
+          message.error("Произошла ошибка. Попробуйте ещё раз.");
+        }
+      };
+    
 
     return (
         <Form

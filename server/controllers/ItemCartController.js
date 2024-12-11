@@ -61,7 +61,7 @@ class ItemCartController {
       const countDeletedItemCarts = await ItemCartService.deleteItemCart( cartId, itemId);
       console.log(1111122211111,countDeletedItemCarts);
       if (countDeletedItemCarts > 0) {
-        res.status(200).json({ message: "success delete" });
+        res.status(200).json({ message: "success delete",countDeletedItemCarts });
       } else {
         res.status(400).json({ message: "Not found to delete" });
       }

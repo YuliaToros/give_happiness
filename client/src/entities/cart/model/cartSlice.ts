@@ -54,8 +54,12 @@ const cartSlice = createSlice({
         state.error = null;
       })
       .addCase(addItemToCart.fulfilled, (state, action) => {
-        state.cart = action.payload // Обновляем корзину с добавленным товаром
-      
+        if (state.cart) {
+          state.cart=action.payload; // Добавляем новый item в массив items
+          state.cart.count += 1; // Обновляем количество товаров в корзине
+        }
+        state.loading = false;
+        state.error = null;
       })
       .addCase(addItemToCart.rejected, (state, action) => {
         state.loading = false;
@@ -67,8 +71,10 @@ const cartSlice = createSlice({
         state.error = null;
       })
       .addCase(removeItemFromCart.fulfilled, (state, action) => {
-        //state.cart = state.cart?.filter((el)=>el.id!==action.payload.id); // Обновляем корзину после удаления товара
+        // state.cart = state.cart?.filter((el)=>el.id!==action.payload.id); // Обновляем корзину после удаления товара
         state.cart = action.payload
+        console.log("act",action.payload);
+        
         state.loading = false;
         state.error = null;
       })

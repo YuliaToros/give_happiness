@@ -27,6 +27,7 @@ export class CartService {
   static async addItemToCart(cartId: number, itemId: number): Promise<Cart> {
     try {
       const response = await axiosInstance.post(`/cart/${cartId}`, { itemId });
+      console.log(response.data.cart)
       return response.data.cart;
     } catch (error) {
       console.error('Error adding item to cart:', error);

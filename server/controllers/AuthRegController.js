@@ -74,7 +74,10 @@ exports.userAuthorizationController = async (req, res) => {
         delete user.password;
 
         // Получение корзины пользователя
-        const cart = await CartService.getUserCart(user.id);
+        let cart = await CartService.getUserCart(user.id);
+        if (!cart) {
+          cart = await CartService.createCart(user.id); // Создаем корзину
+        }
 
         // Генерация токенов
         const { accessToken, refreshToken } = generateTokens({ user });

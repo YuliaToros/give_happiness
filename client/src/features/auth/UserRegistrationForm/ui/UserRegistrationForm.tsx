@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "@/shared/hooks/rtkHooks";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { initRoles } from "@/entities/user/model/roleThunk";
-import { Form, Input, Button, Select } from "antd";
+import { Form, Input, Button, Select, message } from "antd";
 
 const { Option } = Select;
 
@@ -25,16 +25,26 @@ export const UserRegistrationForm = React.memo(() => {
     
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-    const registrationHandler = () => {
-     
-
-        if (password !== confirmPassword) {
-            return alert('Passwords do not match!');
+    const registrationHandler = async () => {
+      if (password !== confirmPassword) {
+        return message.error("Пароли не совпадают!");
+      }
+  
+      try {
+        const resultAction = await dispatch(
+          registration({ email, password, name, role_id })
+        );
+  
+        if (registration.fulfilled.match(resultAction)) {
+          navigate(CLIENT_ROUTES.ACCOUNT_PAGE);
+        } else {
+          message.error("Ошибка регистрации. Попробуйте ещё раз.");
         }
-        dispatch(registration({ email, password, name, role_id }))
-        navigate(CLIENT_ROUTES.ACCOUNT_PAGE);
-    }
-
+      } catch (error) {
+        console.error("Ошибка при регистрации:", error);
+        message.error("Произошла ошибка. Попробуйте ещё раз.");
+      }
+    };
     return (
       <Form
         layout="vertical"
@@ -125,7 +135,7 @@ export const UserRegistrationForm = React.memo(() => {
             placeholder="Выберите роль"
           >
             {roles.length > 0 ? (
-              roles.map((role) => (
+              roles.filter((role)=>role.name!=="Админ").map((role) => (
                 <Option key={role.id} value={role.id}>
                   {role.name}
                 </Option>
@@ -137,7 +147,7 @@ export const UserRegistrationForm = React.memo(() => {
         </Form.Item>
   
         <Form.Item>
-          <Button type="primary" htmlType="submit" block disabled={!email||!password||!confirmPassword||!emailRegex.test(email)}>
+          <Button type="primary" htmlType="submit" block disabled={!email||!password||!confirmPassword||!emailRegex.test(email)||!role_id}>
             Регистрация
           </Button>
         </Form.Item>

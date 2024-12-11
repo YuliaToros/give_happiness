@@ -1,10 +1,15 @@
 .carousel-container {
   border-radius: 16px;
+   width: 100%; /* Ширина карусели */
+  max-width: 800px; /* Максимальная ширина карусели */
+  margin: 0 auto; /* Центрирование карусели */
   overflow: hidden;
 }
 
 .carousel-image {
   width: 100%;
   height: auto;
+   max-height: 400px; /* Максимальная высота изображения */
+  object-fit: cover; /* Масштабирование изображения, чтобы оно заполнило контейнер */
   display: block;
 }

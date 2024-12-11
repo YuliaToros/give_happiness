@@ -8,6 +8,7 @@ class CartService {
         where: { user_id },
         include: [{ model: Item, as: "items" }],
       });
+      console.log('cart',cart)
       return cart;
     } catch (error) {
       throw new Error("Error fetching all carts: " + error.message);
@@ -31,6 +32,7 @@ class CartService {
       const cart = await Cart.findByPk(id, {
         include: User,
       });
+      
       return cart;
     } catch (error) {
       throw new Error("Error fetching cart by ID: " + error.message);

@@ -9,7 +9,7 @@ export const Footer = React.memo(() => {
 
   return (
     <Layout.Footer
-      style={{ backgroundColor: "#f0f2f5", color: "#333" }}
+      style={{ backgroundColor: "#acc8e5", color: "#333" }}
       className="py-4"
     >
       <Row gutter={16}>

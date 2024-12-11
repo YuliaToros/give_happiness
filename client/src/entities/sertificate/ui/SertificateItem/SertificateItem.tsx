@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {  useState } from "react";
 import { Card, Button } from "antd";
 import { Sertificate } from "../../model";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/rtkHooks";
@@ -9,16 +9,16 @@ const { Meta } = Card;
 export function SertificateItem({ sertificate }: { sertificate: Sertificate }) {
   const dispatch = useAppDispatch();
   const { cart } = useAppSelector((state) => state.cart); // Получаем корзину из Redux
+  console.log(cart)
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  const { user } = useAppSelector((state) => state.user)
+   const [error, setError] = useState<string | null>(null);
 
   const addItemHandler = async (event: React.FormEvent) => {
     event.preventDefault();
 
     if (!cart) {
       setError("Корзина не найдена");
+      console.log(error)
       return;
     }
 
@@ -75,8 +75,7 @@ export function SertificateItem({ sertificate }: { sertificate: Sertificate }) {
             <p style={{ marginBottom: 16, fontWeight: "bold" }}>
               Стоимость: {sertificate.price} ₽
             </p>
-            {user?.role_id === 3 && (
-              <Button
+            <Button
               type="primary"
               style={{
                 backgroundColor: "#f0f0f0", // Светлый фон кнопки
@@ -99,8 +98,7 @@ export function SertificateItem({ sertificate }: { sertificate: Sertificate }) {
             >
               Купить
             </Button>
-            )}
-            {error && <p style={{ color: "red", marginTop: 8 }}>{error}</p>}
+            {/* {error && <p style={{ color: "red", marginTop: 8 }}>{error}</p>} */}
           </>
         }
       />

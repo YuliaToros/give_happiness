@@ -33,7 +33,7 @@ export const HomePage: React.FC = () => {
     <div
     style={{ paddingTop: "20px", paddingBottom: "40px", minHeight: "100vh" }}
   >
-    <Layout style={{ marginTop: "40px", marginBottom: "100px", backgroundColor: "white" }}>
+    <Layout style={{ marginTop: "40px", marginBottom: "100px", backgroundColor: "transparent"}}>
       <Content style={{ padding: "0 50px" }}>
         <div style={{ textAlign: "center" }}>
           <Link to={CLIENT_ROUTES.SERTIFICATES}>

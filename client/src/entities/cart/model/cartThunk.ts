@@ -65,14 +65,17 @@ export const removeItemFromCart = createAsyncThunk<
 );
 
 // // Синхронизация корзины
-// export const syncCart = createAsyncThunk(
-//   "cart/syncCart",
-//   async (cart_id: number, { rejectWithValue }) => {
-//     try {
-//       const updatedCart = await CartService.getUserCart(cart_id);
-//       return updatedCart; // Возвращаем обновленную корзину
-//     } catch (error) {
-//       return rejectWithValue(error.message);
-//     }
-//   }
-// );
+export const syncCart = createAsyncThunk(
+  "cart/syncCart",
+  async (_, { rejectWithValue }) => {
+    try {
+      const updatedCart = await CartService.getUserCart();
+      return updatedCart; // Возвращаем обновленную корзину
+    } catch (error) {
+      const err = error as AxiosError<{ message: string }>;
+      return rejectWithValue({
+        message: err.response?.data.message || err.message,
+      });
+    }
+  }
+);
