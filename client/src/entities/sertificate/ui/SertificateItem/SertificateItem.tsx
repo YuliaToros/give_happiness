@@ -41,13 +41,6 @@ export function SertificateItem({ sertificate }: { sertificate: Sertificate }) {
     }
   };
 
-  useEffect(() => {
-    console.log("Mount: SertificateItem");
-    return () => {
-      console.log("Unmount: SertificateItem");
-    };
-  }, []);
-
   return (
     <Card
       hoverable

@@ -287,7 +287,7 @@ export const Nav = React.memo(() => {
                 <Link to={CLIENT_ROUTES.REG}>Регистрация</Link>
               </Menu.Item>
             )}
-            {user?.role_id !== 2 && (
+            {user && user?.role_id !== 2 && (
               <Menu.Item key="cart">
                 <Link to={CLIENT_ROUTES.CART}>Корзина</Link>
               </Menu.Item>
@@ -306,7 +306,7 @@ export const Nav = React.memo(() => {
                   icon={<LogoutOutlined />}
                   onClick={logoutHandler}
                   style={{ border: '1px solid #ff4d4f', background: 'transparent', color: '#ff4d4f' }}
-                  hoverStyle={{ background: '#ff4d4f', color: '#fff' }}
+                  //hoverStyle={{ background: '#ff4d4f', color: '#fff' }}
                 >
                   Выйти
                 </Button>
@@ -364,7 +364,7 @@ export const Nav = React.memo(() => {
                 icon={<LogoutOutlined />}
                 onClick={logoutHandler}
                 style={{ border: '1px solid #ff4d4f', background: 'transparent', color: '#ff4d4f' }}
-                hoverStyle={{ background: '#ff4d4f', color: '#fff' }}
+                //hoverStyle={{ background: '#ff4d4f', color: '#fff' }}
               >
                 Выйти
               </Button>
