@@ -30,6 +30,9 @@ export const HomePage: React.FC = () => {
   ];
 
   return (
+    <div
+    style={{ paddingTop: "20px", paddingBottom: "40px", minHeight: "100vh" }}
+  >
     <Layout style={{ marginTop: "40px", marginBottom: "100px", backgroundColor: "white" }}>
       <Content style={{ padding: "0 50px" }}>
         <div style={{ textAlign: "center" }}>
@@ -51,5 +54,6 @@ export const HomePage: React.FC = () => {
         </div>
       </Content>
     </Layout>
+    </div>
   );
 };
