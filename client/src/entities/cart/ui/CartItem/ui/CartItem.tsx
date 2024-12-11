@@ -7,6 +7,7 @@ import { Sertificate } from "@/entities/sertificate";
 export function CartItem({ sertificate }: { sertificate: Sertificate }) {
   const dispatch = useAppDispatch();
   const { cart } = useAppSelector((state) => state.cart); // Получаем корзину из Redux
+  console.log(cart)
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 

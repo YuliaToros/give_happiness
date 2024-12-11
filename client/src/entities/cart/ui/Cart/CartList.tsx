@@ -15,27 +15,28 @@ export function CartList() {
   //   }
   // };
 
-  const { cart } = useAppSelector((state) => state.cart); // Получаем данные о корзине
-  console.log(cart);
+  const { cart,loading  } = useAppSelector((state) => state.cart); // Получаем данные о корзине
+  console.log("KORZINKA",cart);
 
-  
+
+
   return (
     <div>
       <h1>Корзина</h1>
-      <div className="cart-items">
-        {cart ? (
-          cart.items.map((sertificate) => {
-            return (
-              <div key={sertificate.id}>
-                <CartItem sertificate={sertificate} />
-                {/* <button onClick={() => handleRemoveClick(sertificate.id)}>Удалить</button> */}
-              </div>
-            );
-          })
-        ) : (
-          <h2>Корзина пуста</h2>
-        )}
-      </div>
+      {loading ? (
+        <h2>Загрузка...</h2>
+      ) : cart && cart.items.length > 0 ? (
+        <div className="cart-items">
+          {cart.items.map((sertificate) => (
+            <div key={sertificate.id}>
+              <CartItem sertificate={sertificate} />
+              {/* <button onClick={() => handleRemoveClick(sertificate.id)}>Удалить</button> */}
+            </div>
+          ))}
+        </div>
+      ) : (
+        <h2>Корзина пуста</h2>
+      )}
     </div>
   );
 }

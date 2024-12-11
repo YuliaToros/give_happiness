@@ -159,7 +159,7 @@ export const Nav = React.memo(() => {
                   <Link to={CLIENT_ROUTES.ACCOUNT_PAGE}>Личный кабинет</Link>
                 </Menu.Item>
                 <span style={{ color: "#000", marginRight: "16px" }}>
-                  Привет, {user.name} вы {userRoleName}
+                  Привет, {user.name} вы {userRoleName.toLocaleLowerCase()}
                 </span>
                 <Button
                   type="primary"
@@ -184,7 +184,7 @@ export const Nav = React.memo(() => {
           {user && (
             <Space direction="vertical" style={{ marginTop: "16px" }}>
               <div>
-                Привет, {user.name} вы {userRoleName}
+                Привет, {user.name} вы {userRoleName.toLowerCase()}
               </div>
             </Space>
           )}

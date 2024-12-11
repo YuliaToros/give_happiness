@@ -9,8 +9,9 @@ const { Meta } = Card;
 export function SertificateItem({ sertificate }: { sertificate: Sertificate }) {
   const dispatch = useAppDispatch();
   const { cart } = useAppSelector((state) => state.cart); // Получаем корзину из Redux
+  console.log(cart)
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+   const [error, setError] = useState<string | null>(null);
 
   const addItemHandler = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -99,7 +100,7 @@ export function SertificateItem({ sertificate }: { sertificate: Sertificate }) {
             >
               Купить
             </Button>
-            {error && <p style={{ color: "red", marginTop: 8 }}>{error}</p>}
+            {/* {error && <p style={{ color: "red", marginTop: 8 }}>{error}</p>} */}
           </>
         }
       />

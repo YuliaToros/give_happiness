@@ -1,12 +1,12 @@
 const CartService = require("../services/cart.service");
 const ItemCartService = require("../services/itemcart.service");
-const ItemCartController = require("./ItemCartController");
+
 
 class CartController {
   static getUserCartController = async (req, res) => {
     try {
       const cart = await CartService.getUserCart(res.locals.user.id);
-      //console.log("cart =====>>>>>>", cart);
+      console.log("cart =====>>>>>>", cart);
 
       res.status(200).json({ message: "success", cart });
     } catch (error) {
@@ -59,7 +59,7 @@ class CartController {
 
   static deleteCartController = async (req, res) => {
     const { id } = req.params;
-    const authUserId = res.locals.user.id;
+
     try {
       const countDeletedCarts = await CartService.deleteCart(id);
       if (countDeletedCarts > 0) {

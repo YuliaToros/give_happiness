@@ -15,3 +15,4 @@ app.use('/', indexRouter)
 
 // запускаю прослушивание сервера на 3000 порту
 app.listen(PORT, () => console.log(`Server started at ${PORT} port`))
+
