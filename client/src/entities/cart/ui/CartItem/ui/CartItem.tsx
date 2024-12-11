@@ -67,7 +67,7 @@ export function CartItem({ sertificate }: { sertificate: Sertificate }) {
               borderRadius: 12, // Скругление изображения
             }}
             onError={(e) => {
-              e.currentTarget.src = `${import.meta.env.VITE_IMAGES}/bunnerNull.png`; // Заглушка
+              e.currentTarget.src = `${import.meta.env.VITE_IMAGES}/bannerNull.png`; // Заглушка
             }}
           />
         </Col>
