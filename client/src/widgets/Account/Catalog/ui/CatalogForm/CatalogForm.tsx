@@ -117,9 +117,7 @@ export const CatalogForm: React.FC = () => {
       </Modal>
       <Card title="Текущие сертификаты" style={{ marginTop: 16 }}>
         {sertificates.map((sert, index) => (
-          <CatalogItem
-            key={index}
-            {...sert} index={index}
+          <CatalogItem key={index} {...sert} index={index}
             //onDelete={() => handleDeleteCertificate(index)}
             onDelete={() => console.log("on delete")
             }
