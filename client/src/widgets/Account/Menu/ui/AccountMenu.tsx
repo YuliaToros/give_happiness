@@ -12,6 +12,8 @@ import { Button, Layout, Menu, theme } from 'antd';
 import { CatalogForm } from '../../Catalog/index';
 import { ProfileForm } from '../../Profile';
 import { useAppSelector } from '@/shared/hooks/rtkHooks';
+import { SalesHistoryWidget } from '../../SalesHistory';
+import { PurchaseHistoryWidget } from '../../PurchaseHistory';
 
 
 const { Header, Sider, Content } = Layout;
@@ -100,13 +102,11 @@ export const AccountMenu: React.FC = () => {
           }}
         >
           {/* Условная отрисовка контента */}
-{/* {selectedMenuItem === '1' && <Profile />} */}
-{/* //           {selectedMenuItem === '2' && <CatalogForm />} --> */}
-          {selectedMenuItem === '3' && <PurchaseHistoryWidget />}
-          {/* Добавьте другие компоненты для других пунктов меню (Catalog, SalesHistory) */}
-
           {selectedMenuItem === '1' && <ProfileForm />}
-          {selectedMenuItem === '2' && <CatalogForm />}
+          {selectedMenuItem === '2' && <CatalogForm/>}
+          {selectedMenuItem === '3' && <PurchaseHistoryWidget />}
+          {selectedMenuItem === '4' && <SalesHistoryWidget />}
+        
           {/* Добавьте другие компоненты для других пунктов меню (Catalog, PurchaseHistory, SalesHistory) */}
         </Content>
       </Layout>
