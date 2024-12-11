@@ -7,23 +7,23 @@ import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 
 export function Layout() {
-    const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
-    useEffect(() => {
-        dispatch(refreshAccessToken()).unwrap()
-        dispatch(getAllSertificates()).unwrap()
-        dispatch(fetchUserCart());
-    }, [dispatch]);
+  useEffect(() => {
+    dispatch(refreshAccessToken()).unwrap();
+    dispatch(getAllSertificates()).unwrap();
+    dispatch(fetchUserCart());
+  }, [dispatch]);
 
-
-    return (
-        <>
-            <MemoNav />
-            <div className="container d-flex flex-column flex-grow-1">
-                <Outlet />
-            </div>
-            <MemoFooter />
-        </>
-    );
+  return (
+    <>
+      <div style={{ position: "sticky", top: 0, zIndex: 1000 }}>
+        <MemoNav />
+      </div>
+      <div className="container d-flex flex-column flex-grow-1">
+        <Outlet />
+      </div>
+      <MemoFooter />
+    </>
+  );
 }
-

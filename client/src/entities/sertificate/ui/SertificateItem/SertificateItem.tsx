@@ -67,7 +67,7 @@ export function SertificateItem({ sertificate }: { sertificate: Sertificate }) {
             objectFit: "cover", // Масштабирование изображения
           }}
           onError={(e) => {
-            e.currentTarget.src = `${import.meta.env.VITE_IMAGES}/bunnerNull.png`; // Заглушка
+            e.currentTarget.src = `${import.meta.env.VITE_IMAGES}/bannerNull.png`; // Заглушка
           }}
         />
       }
