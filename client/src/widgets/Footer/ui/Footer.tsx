@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout, Row, Col, Typography, Divider} from "antd";
+import { Layout, Row, Col, Typography } from "antd"; // , Divider
 import Link from "antd/es/typography/Link";
 
 const { Text, Title } = Typography;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react'; // useEffect
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/rtkHooks";
 import { Card, Input, Button, Form, Space } from 'antd';
 import { updateUserProfile } from '@/entities/user/model/userThunk';

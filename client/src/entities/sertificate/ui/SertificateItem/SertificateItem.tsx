@@ -30,8 +30,12 @@ export function SertificateItem({ sertificate }: { sertificate: Sertificate }) {
       );
 
       return result;
-    } catch (error) {
-      setError(error.message);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError('Произошла неизвестная ошибка');
+      }
     } finally {
       setLoading(false);
     }
