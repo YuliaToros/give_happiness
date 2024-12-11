@@ -24,6 +24,8 @@ const sertificatesSlice = createSlice({
                 state.loading = true;
             })
             .addCase(createSertificate.fulfilled, (state, action) => {
+                console.log(action.payload);
+                
                 state.sertificates = [...state.sertificates, action.payload];
                 state.loading = false;
                 state.error = null;
@@ -32,7 +34,7 @@ const sertificatesSlice = createSlice({
                 state.loading = false;
                 state.error = action.payload?.message || 'Create sertificate: fail';
             })
-
+// ---------------------------------------------------------------------------
             .addCase(deleteSertificate.pending, (state) => {
                 state.loading = true;
             })

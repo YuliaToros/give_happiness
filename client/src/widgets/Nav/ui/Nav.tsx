@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"; // , useLocation
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/rtkHooks";
 import { logout } from "@/entities/user/model/userThunk";
 import { CLIENT_ROUTES } from "@/app/router";
-import { Layout, Menu, Button, Drawer, Space, Spin } from "antd";
+import { Layout, Menu, Button, Drawer, Space, Spin, message } from "antd";
 import { LogoutOutlined, MenuOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import logo from "../logo_black.png";
@@ -58,8 +58,8 @@ export const Nav = React.memo(() => {
 
 
   const userRoleName = useMemo(() => {
-    if (!user) return "Роль не указана";
-    return user.role ? user.role.name : "Роль не указана";
+    if (!user) return console.log('Роль не указана')
+    return user.role ? user.role.name : console.log('Роль не указана');
   }, [user]);
 
 
@@ -298,7 +298,7 @@ export const Nav = React.memo(() => {
                   <Link to={CLIENT_ROUTES.ACCOUNT_PAGE}>Личный кабинет</Link>
                 </Menu.Item>
                 <span style={{ color: "#000", marginRight: "16px" }}>
-                  Привет, {user.name} вы {userRoleName}
+                  Привет, {user.name}
                 </span>
                 <Button
                   type="primary"
@@ -325,7 +325,7 @@ export const Nav = React.memo(() => {
           {user && (
             <Space direction="vertical" style={{ marginTop: "16px" }}>
               <div>
-                Привет, {user.name} вы {userRoleName}
+                Привет, {user.name}
               </div>
             </Space>
           )}
