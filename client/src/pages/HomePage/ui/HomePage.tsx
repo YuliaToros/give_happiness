@@ -2,19 +2,20 @@ import React from "react";
 import { CLIENT_ROUTES } from "@/app/router";
 import { CarouselBanner } from "@/widgets";
 import { Link } from "react-router-dom";
+import { Layout, Button, Typography } from "antd";
 
-
+const { Content } = Layout;
+const { Paragraph } = Typography;
 
 // Интерфейс для изображений
 type Image = {
   src: string;
   alt: string;
-}
+};
 
 export const HomePage: React.FC = () => {
   const images: Image[] = [
     {
-
       src: '/banner_1.png',
       alt: 'Первый баннер',
     },
@@ -25,36 +26,30 @@ export const HomePage: React.FC = () => {
     {
       src: '/banner_3.png',
       alt: 'Третий баннер',
-    }
+    },
   ];
 
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col-12">
+    <Layout style={{ marginTop: "40px", marginBottom: "100px", backgroundColor: "white" }}>
+      <Content style={{ padding: "0 50px" }}>
+        <div style={{ textAlign: "center" }}>
           <Link to={CLIENT_ROUTES.SERTIFICATES}>
-            {" "}
-            <CarouselBanner images={images} />{" "}
+            <CarouselBanner images={images} />
           </Link>
         </div>
-      </div>
-      <div className="row mt-4">
-        <div className="col-12 text-center">
-          <p className="lead">
-            Подари счастье – маркет-плейс подарочных сертификатов в твоем
-            городе!
-          </p>
+        <div style={{ marginTop: "40px", textAlign: "center" }}>
+          <Paragraph style={{ fontSize: "1.25rem", fontWeight: "bold" }}>
+            Подари счастье – маркет-плейс подарочных сертификатов в твоем городе!
+          </Paragraph>
         </div>
-      </div>
-      <div className="row mt-3">
-        <div className="col-12 text-center">
+        <div style={{ marginTop: "20px", textAlign: "center" }}>
           <Link to={CLIENT_ROUTES.SERTIFICATES}>
-            <button className="btn btn-primary btn-lg">
+            <Button type="primary" size="large">
               Посмотреть сертификаты
-            </button>
+            </Button>
           </Link>
         </div>
-      </div>
-    </div>
+      </Content>
+    </Layout>
   );
 };
