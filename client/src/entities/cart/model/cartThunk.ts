@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { CartService } from "../api";
-import { Cart, CartId } from ".";
+import { Cart } from ".";
 import { AxiosError } from "axios";
 
 type RejectValue = {

@@ -30,8 +30,6 @@ class ItemController {
       res.status(401).json({ message: "Пользователь не авторизован" });
       return;
     }
-    console.log("name =>>",name, typeof name);
-    console.log(req.body);
     
     if (
       !name 
@@ -43,7 +41,6 @@ class ItemController {
       res.status(400).json({ message: "Данные пустые" });
       return;
     }
-    
     
     try {
       const item = await ItemService.createItem({

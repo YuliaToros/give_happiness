@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { fetchUserCart } from "@/entities/cart/model/cartThunk";
 import { getAllSertificates } from "@/entities/sertificate/model/sertificatesThunk";
 import { refreshAccessToken } from "@/entities/user/model/userThunk";
@@ -30,7 +31,7 @@ export function Layout() {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
 
-      const particles = [];
+      const particles:any = [];
       const particleCount = 100;
 
       const createParticle = () => {
@@ -50,7 +51,7 @@ export function Layout() {
 
       const animate = () => {
         ctx!.clearRect(0, 0, canvas.width, canvas.height);
-        particles.forEach((particle) => {
+        particles.forEach((particle: { x: number; speedX: number; y: number; speedY: number; radius: number; color: string | CanvasGradient | CanvasPattern; }) => {
           particle.x += particle.speedX;
           particle.y += particle.speedY;
 

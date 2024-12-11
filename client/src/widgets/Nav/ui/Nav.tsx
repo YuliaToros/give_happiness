@@ -1,5 +1,7 @@
+
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/rtkHooks";
 import { logout } from "@/entities/user/model/userThunk";
 import { CLIENT_ROUTES } from "@/app/router";
@@ -51,7 +53,9 @@ export const Nav = React.memo(() => {
     setVisible(false);
   };
 
+
   const getTitle = (pathname: string) => {
+
     switch (pathname) {
       case CLIENT_ROUTES.HOME:
         return "Главная страница";
@@ -78,6 +82,7 @@ export const Nav = React.memo(() => {
     );
   }
 
+
   const linkStyle = {
     textDecoration: "none",
     color: "#000",
@@ -88,6 +93,7 @@ export const Nav = React.memo(() => {
       borderBottom: "2px solid #000",
     },
   };
+
 
   return (
     <Header
@@ -158,6 +164,7 @@ export const Nav = React.memo(() => {
             )}
 
             {user && (
+
               <Menu.Item key={CLIENT_ROUTES.ACCOUNT_PAGE} style={{ backgroundColor: "#acc8e5", height: "100%" }}>
                 <Link to={CLIENT_ROUTES.ACCOUNT_PAGE} style={linkStyle}>
                   Личный кабинет
@@ -176,6 +183,7 @@ export const Nav = React.memo(() => {
             {user && (
               <Space style={{ marginLeft: "16px", backgroundColor: "#acc8e5" }}>
                 <span style={{ color: "#000", marginRight: "16px" }}>Привет, {user.name}</span>
+
                 <Button
                   type="primary"
                   danger
@@ -200,7 +208,9 @@ export const Nav = React.memo(() => {
         <Menu theme="light" mode="vertical" defaultSelectedKeys={["home"]}>
           {user && (
             <Space direction="vertical" style={{ marginTop: "16px" }}>
+
               <div>Привет, {user.name}</div>
+
             </Space>
           )}
           <Menu.Item key={CLIENT_ROUTES.HOME}>
