@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Card, Button } from "antd";
 import { Sertificate } from "../../model";
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/rtkHooks";

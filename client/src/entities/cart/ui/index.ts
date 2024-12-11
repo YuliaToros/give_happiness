@@ -1,1 +1,1 @@
-export { SertificateItem } from './SertificateItem/SertificateItem';
+//export { SertificateItem } from './SertificateItem/SertificateItem';
