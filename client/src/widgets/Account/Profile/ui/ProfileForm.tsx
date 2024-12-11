@@ -27,7 +27,6 @@ export const ProfileForm: React.FC = () => {
   });
 
   const onFinish = (values: UserDataType) => {
-    console.log('asdadsasd');
     handleUpdate()
     setUserData({ ...userData, ...values });
     setIsEditing(false);
@@ -52,10 +51,7 @@ export const ProfileForm: React.FC = () => {
   };
 
   const handleUpdate = async () => {
-
     try {
-      console.log(userData);
-      
       if (!userData.name || !userData.email || !userData.phone || !userData.company_name || !userData.company_description) {
         return alert("Please fill all fields");
       }

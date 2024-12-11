@@ -1,25 +1,27 @@
 import React, { useState } from 'react';
-import { Card, Button, Avatar, Image, Modal, Form, Input, Select } from 'antd';
+import { Card, Button, Modal, Form, Input, Select } from 'antd'; //  Image,
+import { SertificateWithoutIdAndUserId } from '@/entities/sertificate/model';
+
 
 interface CatalogItemProps {
-  title: string;
+  name: string;
   description: string;
   image: string;
   price: number;
-  quantity: number;
+  count: number;
   status: string;
-  onEdit: (updatedCert: any, index: number) => void; // Updated prop type
+  onEdit: (updatedSert: any, index: number) => void; // Updated prop type
   onDelete: () => void;
   index: number; // Added index for identification
 }
 
-export const CatalogItem: React.FC<CatalogItemProps> = ({ title, description, image, price, quantity, status, onEdit, onDelete, index }) => {
+export const CatalogItem: React.FC<CatalogItemProps> = ({ name, description, image, price, count, status, onEdit, onDelete, index }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [form] = Form.useForm();
 
   const showModal = () => {
     setIsModalOpen(true);
-    form.setFieldsValue({ title, description, image, price, quantity, status });
+    form.setFieldsValue({ name, description, image, price, count, status });
   };
 
   const handleOk = () => {
@@ -31,7 +33,7 @@ export const CatalogItem: React.FC<CatalogItemProps> = ({ title, description, im
     setIsModalOpen(false);
   };
 
-  const onFinish = (values: any) => {
+  const onFinish = (values: SertificateWithoutIdAndUserId) => {
       onEdit(values, index);
       setIsModalOpen(false); // Close the modal after successful submission
   };
@@ -40,25 +42,24 @@ export const CatalogItem: React.FC<CatalogItemProps> = ({ title, description, im
     <>
       <Card style={{ marginBottom: 16 }}>
         <Card.Meta
-          avatar={<Avatar src={image || 'https://joeschmoe.io/api/v1/random'} />}
-          title={title}
+          title={name}
           description={
             <div>
               <p>Описание: {description}</p>
               <p>Цена: {price}</p>
-              <p>Количество: {quantity}</p>
+              <p>Количество: {count}</p>
               <p>Статус: {status}</p>
             </div>
           }
         />
         <div style={{ textAlign: 'right' }}>
           <Button type="primary" onClick={showModal}>Изменить</Button>
-          <Button type="danger" onClick={onDelete}>Удалить</Button>
+          <Button danger onClick={onDelete}>Удалить</Button>
         </div>
       </Card>
       <Modal title="Изменить сертификат" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
         <Form form={form} name="edit-certificate" onFinish={onFinish} layout="vertical">
-          <Form.Item label="Название" name="title">
+          <Form.Item label="Название" name="name">
             <Input />
           </Form.Item>
           <Form.Item label="Описание" name="description">
@@ -70,13 +71,13 @@ export const CatalogItem: React.FC<CatalogItemProps> = ({ title, description, im
           <Form.Item label="Цена" name="price">
             <Input type="number" />
           </Form.Item>
-          <Form.Item label="Количество" name="quantity">
+          <Form.Item label="Количество" name="count">
             <Input type="number" />
           </Form.Item>
           <Form.Item label="Статус" name="status">
             <Select>
-              <Option value="Активен">Активен</Option>
-              <Option value="Не активен">Не активен</Option>
+              <Select.Option value="Активен">Активен</Select.Option>
+              <Select.Option value="Не активен">Не активен</Select.Option>
             </Select>
           </Form.Item>
         </Form>

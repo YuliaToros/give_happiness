@@ -1,5 +1,6 @@
+
 import React, { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; // , useLocation
 import { useAppDispatch, useAppSelector } from "@/shared/hooks/rtkHooks";
 import { logout } from "@/entities/user/model/userThunk";
 import { CLIENT_ROUTES } from "@/app/router";
@@ -36,8 +37,14 @@ export const Nav = React.memo(() => {
     };
   }, [dispatch]);
 
-  const logoutHandler = async () => {
-    await dispatch(logout());
+  useEffect(() => {
+    // Обновляем заголовок в зависимости от маршрута
+    document.title = getTitle(location.pathname);
+  }, []); // Зависимость от location
+
+
+  const logoutHandler = () => {
+    dispatch(logout());
     navigate(CLIENT_ROUTES.AUTH);
   };
 
@@ -49,10 +56,36 @@ export const Nav = React.memo(() => {
     setVisible(false);
   };
 
+
   const userRoleName = useMemo(() => {
     if (!user) return "Роль не указана";
     return user.role ? user.role.name : "Роль не указана";
   }, [user]);
+
+
+
+  const getTitle = (pathname: any ) => {
+    switch (pathname) {
+      case CLIENT_ROUTES.HOME:
+        return 'Главная страница';
+      case CLIENT_ROUTES.SERTIFICATES:
+        return 'Сертификаты';
+      case CLIENT_ROUTES.AUTH:
+        return 'Авторизация';
+      case CLIENT_ROUTES.REG:
+        return 'Регистрация';
+      case CLIENT_ROUTES.CART:
+        return 'Корзина';
+      case CLIENT_ROUTES.ACCOUNT_PAGE:
+        return 'Личный кабинет';
+      default:
+        return 'Название сайта'; // Заголовок по умолчанию
+    }
+  };
+
+  if (usersLoading || userLoading) {
+    return <div>Loading...</div>;
+  }
 
   if (usersLoading || userLoading) {
     return (
@@ -282,7 +315,6 @@ export const Nav = React.memo(() => {
           </Menu>
         )}
       </div>
-
       {/* Выдвижное меню для мобильных устройств */}
       <Drawer title="" placement="right" onClose={onClose} visible={visible}>
         <Menu
@@ -343,3 +375,4 @@ export const Nav = React.memo(() => {
     </Header>
   );
 });
+    
