@@ -41,10 +41,6 @@ export const router = createBrowserRouter([
                 path: CLIENT_ROUTES.SERTIFICATES,
                 element: <SertificatesPage />,
             },
-            // {
-            //     path: CLIENT_ROUTES.CURRENT_SERTIFICATE_PAGE,
-            //     element: <UpdateSertificatePage />,
-            // },
             {
                 path: CLIENT_ROUTES.NOT_FOUND,
                 element: <NotFound />,
@@ -53,7 +49,6 @@ export const router = createBrowserRouter([
                 path: CLIENT_ROUTES.ACCOUNT_PAGE,
                 element: <AccountPage />,
             },
-            
         ]
     }
 ]);

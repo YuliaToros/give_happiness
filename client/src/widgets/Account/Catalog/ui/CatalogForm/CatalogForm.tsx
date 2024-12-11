@@ -28,9 +28,12 @@ export const CatalogForm: React.FC = () => {
   const onFinish = (values: SertificateWithoutIdAndUserId ) => {
     const { name, description, image, price, count, status } = values
     if (!name || !description || !image || !price || !count || !status) {
-      return alert('Not fill all fields');
+      return message.warning('Пожалуйста, заполните все поля');
     }
+    console.log(name, description, image, price, count, status);
+
     dispatch(createSertificate({ name, description, image, price, count, status}))
+    
     setIsModalVisible(false);
     form.resetFields();
     message.success('Сертификат добавлен!');

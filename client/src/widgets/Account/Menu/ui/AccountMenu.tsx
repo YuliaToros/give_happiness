@@ -31,7 +31,27 @@ export const AccountMenu: React.FC = () => {
       <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed} theme="light">
         <div className="demo-logo-vertical" />
-        <Menu
+        {user?.role_id !== 3 ? (
+          <Menu
+          theme="light"
+          mode="inline"
+          defaultSelectedKeys={['1']}
+          selectedKeys={[selectedMenuItem]} // Установка выбранного ключа
+          onClick={(item) => setSelectedMenuItem(item.key)} // Обработчик клика для обновления состояния
+          items={[
+            {
+              key: '1',
+              icon: <UserOutlined />,
+              label: 'Профиль',
+            },
+            {
+              key: '3',
+              icon: <HistoryOutlined />,
+              label: 'История покупок',
+            },
+          ]}
+        />
+        ) : (<Menu
           theme="light"
           mode="inline"
           defaultSelectedKeys={['1']}
@@ -49,17 +69,13 @@ export const AccountMenu: React.FC = () => {
               label: 'Каталог',
             },
             {
-              key: '3',
-              icon: <HistoryOutlined />,
-              label: 'История покупок',
-            },
-            {
               key: '4',
               icon: <HistoryOutlined />,
               label: 'История продаж',
             },
           ]}
-        />
+        />)
+        }
       </Sider>
       <Layout>
         <Header style={{ padding: 0, background: colorBgContainer }}>
