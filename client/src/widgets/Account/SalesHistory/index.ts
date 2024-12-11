@@ -1,0 +1,1 @@
+export {SalesHistoryWidget} from './ui/SalesHistoryWidget'

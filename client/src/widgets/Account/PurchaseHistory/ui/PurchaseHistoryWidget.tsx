@@ -3,7 +3,8 @@ import { PurchaseHistoryTable } from "@/entities/order";
 export function PurchaseHistoryWidget() {
   return (
     <div>
-      <PurchaseHistoryTable />
+      Раздел в разработке
+      {/* <PurchaseHistoryTable /> */}
     </div>
   );
 }
