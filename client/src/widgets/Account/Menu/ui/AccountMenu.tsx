@@ -8,7 +8,7 @@ import {
 } from '@ant-design/icons';
 import { Button, Layout, Menu, theme } from 'antd';
 // import { CatalogForm } from '../../Catalog/ui/CatalogForm/CatalogForm';
-import { PurchaseHistoryWidget } from '../../PurchaseHistory';
+//import { PurchaseHistoryWidget } from '../../PurchaseHistory';
 import { CatalogForm } from '../../Catalog/index';
 import { ProfileForm } from '../../Profile';
 import { useAppSelector } from '@/shared/hooks/rtkHooks';
@@ -106,7 +106,7 @@ export const AccountMenu: React.FC = () => {
           {/* Добавьте другие компоненты для других пунктов меню (Catalog, SalesHistory) */}
 
           {selectedMenuItem === '1' && <ProfileForm />}
-          {selectedMenuItem === '2' && <CatalogForm userId={user.id}/>}
+          {selectedMenuItem === '2' && <CatalogForm />}
           {/* Добавьте другие компоненты для других пунктов меню (Catalog, PurchaseHistory, SalesHistory) */}
         </Content>
       </Layout>

@@ -1,5 +1,5 @@
 import { axiosInstance } from "@/shared/lib/axiosInstance";
-import { Cart, CartList } from "../../cart/model/";
+import { CartList } from "../../cart/model/";
 
 export class ItemCartService {
   // Получить все записи в ItemCart (связь товаров и корзин)

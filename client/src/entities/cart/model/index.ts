@@ -15,5 +15,4 @@ export type CartItem = {
 }
 
 export type CartId = Cart["id"]
-
 export type CartList = CartItem[]

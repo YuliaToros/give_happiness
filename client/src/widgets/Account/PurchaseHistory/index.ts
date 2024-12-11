@@ -1,1 +1,1 @@
-export {PurchaseHistoryWidget} from './ui/PurchaseHistoryWinget'
+// export {PurchaseHistoryWidget} from './ui/PurchaseHistoryWinget'
