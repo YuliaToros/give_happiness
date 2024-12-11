@@ -31,7 +31,7 @@ export const AccountMenu: React.FC = () => {
       <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed} theme="light">
         <div className="demo-logo-vertical" />
-        {user?.role_id !== 3 ? (
+        {user?.role_id === 3 ? (
           <Menu
           theme="light"
           mode="inline"
