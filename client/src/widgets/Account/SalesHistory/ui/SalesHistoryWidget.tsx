@@ -1,4 +1,4 @@
-import { PurchaseHistoryTable } from "@/entities/order";
+// import { PurchaseHistoryTable } from "@/entities/order";
 
 export function SalesHistoryWidget() {
   return (
