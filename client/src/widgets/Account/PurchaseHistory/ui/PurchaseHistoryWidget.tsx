@@ -1,4 +1,4 @@
-import { PurchaseHistoryTable } from "@/entities/order";
+// import { PurchaseHistoryTable } from "@/entities/order";
 
 export function PurchaseHistoryWidget() {
   return (
@@ -8,3 +8,4 @@ export function PurchaseHistoryWidget() {
     </div>
   );
 }
+

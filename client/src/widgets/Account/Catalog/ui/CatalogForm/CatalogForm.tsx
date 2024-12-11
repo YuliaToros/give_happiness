@@ -28,9 +28,12 @@ export const CatalogForm: React.FC = () => {
   const onFinish = (values: SertificateWithoutIdAndUserId ) => {
     const { name, description, image, price, count, status } = values
     if (!name || !description || !image || !price || !count || !status) {
-      return alert('Not fill all fields');
+      return message.warning('Пожалуйста, заполните все поля');
     }
+    console.log(name, description, image, price, count, status);
+
     dispatch(createSertificate({ name, description, image, price, count, status}))
+    
     setIsModalVisible(false);
     form.resetFields();
     message.success('Сертификат добавлен!');
@@ -114,9 +117,7 @@ export const CatalogForm: React.FC = () => {
       </Modal>
       <Card title="Текущие сертификаты" style={{ marginTop: 16 }}>
         {sertificates.map((sert, index) => (
-          <CatalogItem
-            key={index}
-            {...sert} index={index}
+          <CatalogItem key={index} {...sert} index={index}
             //onDelete={() => handleDeleteCertificate(index)}
             onDelete={() => console.log("on delete")
             }

@@ -35,7 +35,7 @@ class ItemService {
         user_id,
       });
       const newItem = await Item.findOne({
-        where: { id: item.user_id },
+        where: { id: item.id },
         include: [
           { model: User, as: "user" },
         ],

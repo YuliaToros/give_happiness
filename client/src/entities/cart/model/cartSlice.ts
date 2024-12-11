@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchUserCart, addItemToCart, removeItemFromCart, syncCart } from './cartThunk';
+import { fetchUserCart, addItemToCart, removeItemFromCart } from './cartThunk'; //, syncCart
 import {  Cart } from '../model';
 
 type CartState = {

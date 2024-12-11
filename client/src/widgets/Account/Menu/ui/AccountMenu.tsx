@@ -8,11 +8,12 @@ import {
 } from '@ant-design/icons';
 import { Button, Layout, Menu, theme } from 'antd';
 // import { CatalogForm } from '../../Catalog/ui/CatalogForm/CatalogForm';
-import { PurchaseHistoryWidget } from '../../PurchaseHistory';
+//import { PurchaseHistoryWidget } from '../../PurchaseHistory';
 import { CatalogForm } from '../../Catalog/index';
 import { ProfileForm } from '../../Profile';
 import { useAppSelector } from '@/shared/hooks/rtkHooks';
 import { SalesHistoryWidget } from '../../SalesHistory';
+import { PurchaseHistoryWidget } from '../../PurchaseHistory';
 
 
 const { Header, Sider, Content } = Layout;
@@ -32,7 +33,27 @@ export const AccountMenu: React.FC = () => {
       <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed} theme="light">
         <div className="demo-logo-vertical" />
-        <Menu
+        {user?.role_id === 3 ? (
+          <Menu
+          theme="light"
+          mode="inline"
+          defaultSelectedKeys={['1']}
+          selectedKeys={[selectedMenuItem]} // Установка выбранного ключа
+          onClick={(item) => setSelectedMenuItem(item.key)} // Обработчик клика для обновления состояния
+          items={[
+            {
+              key: '1',
+              icon: <UserOutlined />,
+              label: 'Профиль',
+            },
+            {
+              key: '3',
+              icon: <HistoryOutlined />,
+              label: 'История покупок',
+            },
+          ]}
+        />
+        ) : (<Menu
           theme="light"
           mode="inline"
           defaultSelectedKeys={['1']}
@@ -50,17 +71,13 @@ export const AccountMenu: React.FC = () => {
               label: 'Каталог',
             },
             {
-              key: '3',
-              icon: <HistoryOutlined />,
-              label: 'История покупок',
-            },
-            {
               key: '4',
               icon: <HistoryOutlined />,
               label: 'История продаж',
             },
           ]}
-        />
+        />)
+        }
       </Sider>
       <Layout>
         <Header style={{ padding: 0, background: colorBgContainer }}>
@@ -86,10 +103,10 @@ export const AccountMenu: React.FC = () => {
         >
           {/* Условная отрисовка контента */}
           {selectedMenuItem === '1' && <ProfileForm />}
-          {selectedMenuItem === '2' && <CatalogForm userId={user.id}/>}
+          {selectedMenuItem === '2' && <CatalogForm/>}
           {selectedMenuItem === '3' && <PurchaseHistoryWidget />}
           {selectedMenuItem === '4' && <SalesHistoryWidget />}
-         
+        
           {/* Добавьте другие компоненты для других пунктов меню (Catalog, PurchaseHistory, SalesHistory) */}
         </Content>
       </Layout>
