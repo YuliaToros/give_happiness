@@ -27,9 +27,12 @@ export function CartItem({ sertificate }: { sertificate: Sertificate }) {
         removeItemFromCart({ cart_id: cart.id, item_id: sertificate.id })
       );
       message.success("Товар успешно удален из корзины"); // Показываем сообщение об успешном удалении
-    } catch (error) {
-      setError(error.message);
-      message.error("Ошибка при удалении товара"); // Показываем сообщение об ошибке
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        message.error("Ошибка при удалении товара");
+      }
     } finally {
       setLoading(false);
     }
