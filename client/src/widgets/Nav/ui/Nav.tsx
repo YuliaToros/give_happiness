@@ -96,11 +96,12 @@ export const Nav = React.memo(() => {
         display: "flex",
         alignItems: "center",
         padding: "0 16px",
+        justifyContent: "space-between",
         // marginBottom: "5px",
         backgroundColor: "#220E5B",
       }}
     >
-      <div style={{ marginRight: "auto" }}>
+      <div>
         <Link to={CLIENT_ROUTES.HOME}>
           <img
             src={`${import.meta.env.VITE_ICON}/logowhite.svg`}

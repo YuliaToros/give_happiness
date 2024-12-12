@@ -1,3 +1,7 @@
+import { CLIENT_ROUTES } from "@/app/router";
+import { Button } from "antd";
+import { Link } from "react-router-dom";
+
 export function HeroBlock() {
   return (
     <div style={{ display: "flex", height: "80vh" }}>
@@ -10,41 +14,66 @@ export function HeroBlock() {
           flexDirection: "column",
           alignItems: "flex-start",
           justifyContent: "center",
-          padding: "50px 60px",
+          padding: "50px 100px 50px 60px",
+          maxWidth: "40%",
         }}
       >
+        {/* Заголовок */}
         <h1
           style={{
-            fontSize: "3rem",
+            fontSize: "3.5rem",
             textAlign: "left",
             color: "#220E5B",
             fontWeight: "bold",
             lineHeight: 1.2,
+            marginBottom: "20px",
           }}
         >
           Подари счастье
         </h1>
+
+        {/* Подзаголовок */}
         <p
           style={{
-            fontSize: "1.2rem",
+            fontSize: "1.5rem",
             color: "#220E5B",
             marginTop: "10px",
+            marginBottom: "30px",
           }}
         >
-          маркет-плейс по продаже электронных подарочных сертификатов
+          Маркет-плейс по продаже электронных подарочных сертификатов
         </p>
-        {/* <p
+
+        {/* Основной текст */}
+        <p
           style={{
-            fontSize: "1rem",
+            fontSize: "1.1rem",
             color: "#220E5B",
             marginTop: "10px",
+            marginBottom: "40px",
           }}
         >
           Ищешь идеальный подарок, который удивит и порадует? Мы предлагаем
           огромный выбор сертификатов на любимые бренды, развлечения, рестораны,
           SPA и многое другое. Просто, удобно и быстро — выбери, оплати и подари
           радость близким.
-        </p> */}
+        </p>
+
+        {/* Кнопка */}
+        <Link to={CLIENT_ROUTES.SERTIFICATES}><Button
+          type="primary"
+          style={{
+            backgroundColor: "#220E5B",
+            borderColor: "#220E5B",
+            fontSize: "1rem",
+            padding: "15px 20px", // Увеличиваем вертикальный отступ
+            borderRadius: "8px",
+            height: "auto", // Автоматическая высота (необязательно, если используется padding)
+          }}
+        >
+          Посмотреть сертификаты
+        </Button>
+        </Link>
       </div>
 
       {/* Правая колонка */}

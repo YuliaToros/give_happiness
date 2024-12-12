@@ -34,32 +34,18 @@ export const SertificateList = React.memo(() => {
     <Row gutter={[16, 24]} justify="center">
       {sertificates.length > 0 ? (
         sertificates.map((sertificate) => (
-          <Col xs={24} sm={12} md={8} lg={8} xl={6} key={sertificate.id}>
-            <SertificateItem sertificate={sertificate} />
+          <Col xs={24} sm={12} md={8} lg={6} xl={4} key={sertificate.id}>
+            <div style={{
+              width: "100%",
+              padding: "15px",
+              borderRadius: "10px",
+              // boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+              backgroundColor: "#fff",
+            }}>
+              <SertificateItem sertificate={sertificate} />
+            </div>
           </Col>
         ))
-
-  // console.log(123123, sertificates)
-  // return (
-  //   <>
-  //     {sertificates.length ? (
-  //       sertificates.map((sertificate) => {
-  //         if (user?.id === sertificate.user_id) {
-  //           return (
-  //             <Link key={sertificate.id} to={"/item" + `/${sertificate.id}`}>
-  //               <SertificateItem
-  //                 key={sertificate.id}
-  //                 sertificate={sertificate}
-  //               />
-  //             </Link>
-  //           );
-  //         } else {
-  //           return (
-  //             <SertificateItem key={sertificate.id} sertificate={sertificate} />
-  //           );
-  //         }
-  //       })
-
       ) : (
         <Col span={24}>
           <Empty
