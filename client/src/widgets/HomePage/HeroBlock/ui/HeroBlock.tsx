@@ -60,19 +60,27 @@ export function HeroBlock() {
         </p>
 
         {/* Кнопка */}
-        <Link to={CLIENT_ROUTES.SERTIFICATES}><Button
-          type="primary"
-          style={{
-            backgroundColor: "#220E5B",
-            borderColor: "#220E5B",
-            fontSize: "1rem",
-            padding: "15px 20px", // Увеличиваем вертикальный отступ
-            borderRadius: "8px",
-            height: "auto", // Автоматическая высота (необязательно, если используется padding)
-          }}
-        >
-          Посмотреть сертификаты
-        </Button>
+        <Link to={CLIENT_ROUTES.SERTIFICATES}>
+          <Button
+            type="primary"
+            style={{
+              backgroundColor: "#220E5B",
+              borderColor: "#220E5B",
+              fontSize: "1rem",
+              padding: "15px 20px",
+              borderRadius: "8px",
+              height: "auto",
+              transition: "box-shadow 0.3s ease", // Плавный переход для тени
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.boxShadow = "0 8px 20px rgba(34, 14, 91, 0.5)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.boxShadow = "none"; // Убираем тень при уходе курсора
+            }}
+          >
+            Посмотреть сертификаты
+          </Button>
         </Link>
       </div>
 
