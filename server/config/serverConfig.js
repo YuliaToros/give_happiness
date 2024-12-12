@@ -1,12 +1,13 @@
 const express = require("express");
 const morgan = require("morgan");
-//const removeHTTPHeader = require("../middleware/removeHeader");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const path = require('path');
+const fs = require('fs'); // Для работы с файловой системой
+const https = require('https'); // Для поддержки HTTPS
 
 const serverConfig = (app) => {
-  // погран. служба / парсит тело из формы
+  // Погран. служба / парсит тело из формы
   app.use(express.urlencoded({ extended: true }));
 
   // CORS
@@ -18,21 +19,32 @@ const serverConfig = (app) => {
     })
   );
 
-  // погран. служба регистрации / парсит JSON
+  // Погран. служба регистрации / парсит JSON
   app.use(express.json());
 
-  // "служба" фиксации логов
+  // "Служба" фиксации логов
   app.use(morgan("dev"));
 
-  // печеньки!!!!
+  // Печеньки!!!!
   app.use(cookieParser());
 
-  // наша кастомная мидлварка для удаления HTTP заголовка
-  //app.use(removeHTTPHeader);
-
-  // настройка статики, папка public ассоциирована с маршрутом запроса
+  // Настройка статики, папка public ассоциирована с маршрутом запроса
   app.use('/banner', express.static(path.join(__dirname, '..', 'public', 'img', 'banner')));
   app.use('/icon', express.static(path.join(__dirname, '..', 'public', 'img', 'icon')));
 };
 
-module.exports = serverConfig;
+// Функция для запуска сервера
+const startServer = (app) => {
+  // Настройка HTTPS
+  const options = {
+    cert: fs.readFileSync(path.join(__dirname, 'ssl', 'fullchain.pem')), // Путь к сертификату
+    key: fs.readFileSync(path.join(__dirname, 'ssl', 'privkey.pem'))    // Путь к приватному ключу
+  };
+
+  // Запуск сервера на HTTPS
+  https.createServer(options, app).listen(443, () => {
+    console.log('Сервер запущен на https://gift-happy.ru');
+  });
+};
+
+module.exports = { serverConfig, startServer }; // Экспортируем объект

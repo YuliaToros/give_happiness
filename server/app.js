@@ -1,18 +1,16 @@
 const express = require('express');
-require("dotenv").config()
-const serverConfig = require('./config/serverConfig');
+require("dotenv").config();
+const { serverConfig, startServer } = require('./config/serverConfig'); // Импортируем объект
 const indexRouter = require('./routes/index.routes');
-
 
 const app = express();
 const PORT = 3000;
 
-// конфигурация сервера
-serverConfig(app)
+// Конфигурация сервера
+serverConfig(app); // Вызываем метод serverConfig
 
-// маршрутизация
-app.use('/', indexRouter)
+// Маршрутизация
+app.use('/', indexRouter);
 
-// запускаю прослушивание сервера на 3000 порту
-app.listen(PORT, () => console.log(`Server started at ${PORT} port`))
-
+// Запуск сервера
+startServer(app); // Вызываем метод startServer
