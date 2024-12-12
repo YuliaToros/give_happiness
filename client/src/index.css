@@ -48,6 +48,7 @@ body {
 .ant-modal,
 .ant-table,
 .ant-menu,
-.ant-card-meta-detail, {
+.ant-card-meta-detail {
   font-family: var(--font-family) !important;
 }
+

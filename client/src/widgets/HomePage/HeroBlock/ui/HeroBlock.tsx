@@ -9,7 +9,7 @@ export function HeroBlock() {
       <div
         style={{
           flex: 1,
-          backgroundColor: "#CFF470",
+          backgroundColor: "#E1DBFD",
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-start",
@@ -87,7 +87,7 @@ export function HeroBlock() {
         }}
       >
         <img
-          src={`${import.meta.env.VITE_IMAGES}/heroblock.png`}
+          src={`${import.meta.env.VITE_IMAGES}/present.webp`}
           alt="Фотография"
           style={{ width: "100%", height: "100%", objectFit: "cover" }}
         />
