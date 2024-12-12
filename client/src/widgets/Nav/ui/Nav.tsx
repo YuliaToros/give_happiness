@@ -103,9 +103,9 @@ export const Nav = React.memo(() => {
       <div style={{ marginRight: "auto" }}>
         <Link to={CLIENT_ROUTES.HOME}>
           <img
-            src={`${import.meta.env.VITE_ICON}/logo.svg`}
+            src={`${import.meta.env.VITE_ICON}/logoblack.svg`}
             alt="Logo"
-            style={{ width: "70px", marginRight: "16px" }}
+            style={{ width: "200px", marginRight: "16px" }}
           />
         </Link>
       </div>
