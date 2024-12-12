@@ -13,13 +13,15 @@ const serverConfig = (app) => {
   // CORS
   app.use(
     cors({
-      origin: ["http://localhost:5173"],
+      origin: ["http://185.91.52.157:80"],
       optionsSuccessStatus: 200,
       credentials: true
     })
   );
 
-  // Погран. служба регистрации / парсит JSON
+  app.use(express.static(path.join(__dirname, '../public/dist')));
+
+  // погран. служба регистрации / парсит JSON
   app.use(express.json());
 
   // "Служба" фиксации логов

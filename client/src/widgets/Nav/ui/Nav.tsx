@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -8,7 +7,7 @@ import { CLIENT_ROUTES } from "@/app/router";
 import { Layout, Menu, Button, Drawer, Space, Spin } from "antd";
 import { LogoutOutlined, MenuOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import logo from "../logo_black.png";
+// import logo from "../logo_black.png";
 import { getAllUsers } from "@/entities/user/model/userCRUDThunk";
 
 const { Header } = Layout;
@@ -53,9 +52,7 @@ export const Nav = React.memo(() => {
     setVisible(false);
   };
 
-
   const getTitle = (pathname: string) => {
-
     switch (pathname) {
       case CLIENT_ROUTES.HOME:
         return "Главная страница";
@@ -82,7 +79,6 @@ export const Nav = React.memo(() => {
     );
   }
 
-
   const linkStyle = {
     textDecoration: "none",
     color: "#000",
@@ -93,7 +89,6 @@ export const Nav = React.memo(() => {
       borderBottom: "2px solid #000",
     },
   };
-
 
   return (
     <Header
@@ -108,9 +103,9 @@ export const Nav = React.memo(() => {
       <div style={{ marginRight: "auto" }}>
         <Link to={CLIENT_ROUTES.HOME}>
           <img
-            src={logo}
+            src={`${import.meta.env.VITE_ICON}/logo.svg`}
             alt="Logo"
-            style={{ width: "50px", marginRight: "16px" }}
+            style={{ width: "70px", marginRight: "16px" }}
           />
         </Link>
       </div>
@@ -141,14 +136,20 @@ export const Nav = React.memo(() => {
               overflow: "hidden",
             }}
           >
-            <Menu.Item key={CLIENT_ROUTES.SERTIFICATES} style={{ backgroundColor: "#acc8e5", height: "100%" }}>
+            <Menu.Item
+              key={CLIENT_ROUTES.SERTIFICATES}
+              style={{ backgroundColor: "#acc8e5", height: "100%", order: 1 }}
+            >
               <Link to={CLIENT_ROUTES.SERTIFICATES} style={linkStyle}>
                 Сертификаты
               </Link>
             </Menu.Item>
 
             {!user && (
-              <Menu.Item key={CLIENT_ROUTES.AUTH} style={{ backgroundColor: "#acc8e5", height: "100%" }}>
+              <Menu.Item
+                key={CLIENT_ROUTES.AUTH}
+                style={{ backgroundColor: "#acc8e5", height: "100%", order: 2 }}
+              >
                 <Link to={CLIENT_ROUTES.AUTH} style={linkStyle}>
                   Войти
                 </Link>
@@ -156,33 +157,47 @@ export const Nav = React.memo(() => {
             )}
 
             {!user && (
-              <Menu.Item key={CLIENT_ROUTES.REG} style={{ backgroundColor: "#acc8e5", height: "100%" }}>
+              <Menu.Item
+                key={CLIENT_ROUTES.REG}
+                style={{ backgroundColor: "#acc8e5", height: "100%", order: 3 }}
+              >
                 <Link to={CLIENT_ROUTES.REG} style={linkStyle}>
                   Регистрация
                 </Link>
               </Menu.Item>
             )}
 
-            {user && (
-
-              <Menu.Item key={CLIENT_ROUTES.ACCOUNT_PAGE} style={{ backgroundColor: "#acc8e5", height: "100%" }}>
-                <Link to={CLIENT_ROUTES.ACCOUNT_PAGE} style={linkStyle}>
-                  Личный кабинет
-                </Link>
-              </Menu.Item>
-            )}
-
             {user && user.role_id !== 2 && (
-              <Menu.Item key={CLIENT_ROUTES.CART} style={{ backgroundColor: "#acc8e5", height: "100%" }}>
+              <Menu.Item
+                key={CLIENT_ROUTES.CART}
+                style={{ backgroundColor: "#acc8e5", height: "100%", order: 4 }}
+              >
                 <Link to={CLIENT_ROUTES.CART} style={linkStyle}>
                   Корзина
                 </Link>
               </Menu.Item>
             )}
-
             {user && (
-              <Space style={{ marginLeft: "16px", backgroundColor: "#acc8e5" }}>
-                <span style={{ color: "#000", marginRight: "16px" }}>Привет, {user.name}</span>
+              <Menu.Item
+                key={CLIENT_ROUTES.ACCOUNT_PAGE}
+                style={{ backgroundColor: "#acc8e5", height: "100%", order: 5 }}
+              >
+                <Link to={CLIENT_ROUTES.ACCOUNT_PAGE} style={linkStyle}>
+                  Личный кабинет
+                </Link>
+              </Menu.Item>
+            )}
+            {user && (
+              <Space
+                style={{
+                  marginLeft: "16px",
+                  backgroundColor: "#acc8e5",
+                  order: 6,
+                }}
+              >
+                <span style={{ color: "#000", marginRight: "16px" }}>
+                  Привет, {user.name}
+                </span>
 
                 <Button
                   type="primary"
@@ -190,9 +205,9 @@ export const Nav = React.memo(() => {
                   icon={<LogoutOutlined />}
                   onClick={logoutHandler}
                   style={{
-                    border: "1px solid #ff4d4f",
-                    background: "transparent",
-                    color: "#ff4d4f",
+                    // border: "1px solid #ff4d4f",
+                    background: "#00377A",
+                    color: "#EFFAFF",
                   }}
                 >
                   Выйти
@@ -208,9 +223,7 @@ export const Nav = React.memo(() => {
         <Menu theme="light" mode="vertical" defaultSelectedKeys={["home"]}>
           {user && (
             <Space direction="vertical" style={{ marginTop: "16px" }}>
-
               <div>Привет, {user.name}</div>
-
             </Space>
           )}
           <Menu.Item key={CLIENT_ROUTES.HOME}>
@@ -219,7 +232,11 @@ export const Nav = React.memo(() => {
             </Link>
           </Menu.Item>
           <Menu.Item key={CLIENT_ROUTES.SERTIFICATES}>
-            <Link to={CLIENT_ROUTES.SERTIFICATES} onClick={onClose} style={linkStyle}>
+            <Link
+              to={CLIENT_ROUTES.SERTIFICATES}
+              onClick={onClose}
+              style={linkStyle}
+            >
               Сертификаты
             </Link>
           </Menu.Item>

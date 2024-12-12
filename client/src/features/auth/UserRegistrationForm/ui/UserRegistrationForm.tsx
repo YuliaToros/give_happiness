@@ -135,7 +135,7 @@ export const UserRegistrationForm = React.memo(() => {
             placeholder="Выберите роль"
           >
             {roles.length > 0 ? (
-              roles.filter((role)=>role.name!=="Админ").map((role) => (
+              roles.filter((role)=>role.name !== "Администратор").map((role) => (
                 <Option key={role.id} value={role.id}>
                   {role.name}
                 </Option>
