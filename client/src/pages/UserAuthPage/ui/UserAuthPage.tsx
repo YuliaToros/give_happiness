@@ -5,7 +5,7 @@ export function UserAuthPage() {
   return (
     <>
       <div
-        style={{ paddingTop: "20px", paddingBottom: "40px", height: "100vh" }}
+        style={{ paddingTop: "20px", paddingBottom: "40px", height: "100vh", backgroundColor: "#E1DBFD" }}
       >
         <MemoUserAuthorizationForm />
       </div>
