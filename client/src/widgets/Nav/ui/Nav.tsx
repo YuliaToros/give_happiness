@@ -81,7 +81,7 @@ export const Nav = React.memo(() => {
 
   const linkStyle = {
     textDecoration: "none",
-    color: "#000",
+    color: "#CFF47F",
     transition: "border-bottom 0.3s ease",
     borderBottom: "2px solid transparent",
     paddingBottom: "2px",
@@ -96,14 +96,14 @@ export const Nav = React.memo(() => {
         display: "flex",
         alignItems: "center",
         padding: "0 16px",
-        marginBottom: "5px",
-        backgroundColor: "#acc8e5",
+        // marginBottom: "5px",
+        backgroundColor: "#220E5B",
       }}
     >
       <div style={{ marginRight: "auto" }}>
         <Link to={CLIENT_ROUTES.HOME}>
           <img
-            src={`${import.meta.env.VITE_ICON}/logoblack.svg`}
+            src={`${import.meta.env.VITE_ICON}/logowhite.svg`}
             alt="Logo"
             style={{ width: "200px", marginRight: "16px" }}
           />
@@ -131,14 +131,14 @@ export const Nav = React.memo(() => {
             style={{
               display: "flex",
               alignItems: "center",
-              backgroundColor: "#acc8e5",
+              backgroundColor: "transparent",
               height: "64px",
               overflow: "hidden",
             }}
           >
             <Menu.Item
               key={CLIENT_ROUTES.SERTIFICATES}
-              style={{ backgroundColor: "#acc8e5", height: "100%", order: 1 }}
+              style={{ backgroundColor: "transparent", height: "100%", order: 1 }}
             >
               <Link to={CLIENT_ROUTES.SERTIFICATES} style={linkStyle}>
                 Сертификаты
@@ -148,7 +148,7 @@ export const Nav = React.memo(() => {
             {!user && (
               <Menu.Item
                 key={CLIENT_ROUTES.AUTH}
-                style={{ backgroundColor: "#acc8e5", height: "100%", order: 2 }}
+                style={{ backgroundColor: "transparent", height: "100%", order: 2 }}
               >
                 <Link to={CLIENT_ROUTES.AUTH} style={linkStyle}>
                   Войти
@@ -159,7 +159,7 @@ export const Nav = React.memo(() => {
             {!user && (
               <Menu.Item
                 key={CLIENT_ROUTES.REG}
-                style={{ backgroundColor: "#acc8e5", height: "100%", order: 3 }}
+                style={{ backgroundColor: "transparent", height: "100%", order: 3 }}
               >
                 <Link to={CLIENT_ROUTES.REG} style={linkStyle}>
                   Регистрация
@@ -170,7 +170,7 @@ export const Nav = React.memo(() => {
             {user && user.role_id !== 2 && (
               <Menu.Item
                 key={CLIENT_ROUTES.CART}
-                style={{ backgroundColor: "#acc8e5", height: "100%", order: 4 }}
+                style={{ backgroundColor: "transparent", height: "100%", order: 4 }}
               >
                 <Link to={CLIENT_ROUTES.CART} style={linkStyle}>
                   Корзина
@@ -180,7 +180,7 @@ export const Nav = React.memo(() => {
             {user && (
               <Menu.Item
                 key={CLIENT_ROUTES.ACCOUNT_PAGE}
-                style={{ backgroundColor: "#acc8e5", height: "100%", order: 5 }}
+                style={{ backgroundColor: "transparent", height: "100%", order: 5 }}
               >
                 <Link to={CLIENT_ROUTES.ACCOUNT_PAGE} style={linkStyle}>
                   Личный кабинет
@@ -191,11 +191,11 @@ export const Nav = React.memo(() => {
               <Space
                 style={{
                   marginLeft: "16px",
-                  backgroundColor: "#acc8e5",
+                  backgroundColor: "transparent",
                   order: 6,
                 }}
               >
-                <span style={{ color: "#000", marginRight: "16px" }}>
+                <span style={{ color: "#CFF47F", marginRight: "16px" }}>
                   Привет, {user.name}
                 </span>
 
@@ -205,9 +205,9 @@ export const Nav = React.memo(() => {
                   icon={<LogoutOutlined />}
                   onClick={logoutHandler}
                   style={{
-                    // border: "1px solid #ff4d4f",
-                    background: "#00377A",
-                    color: "#EFFAFF",
+                    border: "1px solid #CFF47F",
+                    background: "transparent",
+                    color: "#CFF47F",
                   }}
                 >
                   Выйти

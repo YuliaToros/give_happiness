@@ -5,3 +5,4 @@ export { MemoFooter } from "./Footer";
 export { MemoSertificateList } from "./SertificateList";
 export { CarouselBanner } from "./Carousel";
 export { AccountMenu } from "./Account";
+export { HeroBlock } from "./HomePage";

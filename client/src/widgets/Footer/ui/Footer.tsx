@@ -9,18 +9,18 @@ export const Footer = React.memo(() => {
 
   return (
     <Layout.Footer
-      style={{ backgroundColor: "#acc8e5", color: "#333" }}
+      style={{ backgroundColor: "#220E5B", color: "#CFF47F" }}
       className="py-4"
     >
       <Row gutter={16}>
         <Col xs={24} sm={8}>
-          <Text>&copy; {currentYear}, продактион</Text>
+          <Text   style={{ color: "#CFF47F" }}>&copy; {currentYear}, Подари счастье</Text>
         </Col>
         <Col xs={24} sm={8}>
-          <Title level={5}>Контакты</Title>
+          <Title style={{ color: "#CFF47F" }} level={5}>Контакты</Title>
           <ul style={{ listStyleType: "none", padding: 0 }}>
-            <li>Email: <Link href="mailto:info@bedolagiprodaktion.com">info@happiness.ru</Link></li>
-            <li>Телефон: <Link href="tel:+71234567890">+7 (123) 456-78-90</Link></li>
+            <li>Email: <Link href="mailto:info@bedolagiprodaktion.com" style={{ color: "#CFF47F" }}>info@happiness.ru</Link></li>
+            <li>Телефон: <Link href="tel:+71234567890" style={{ color: "#CFF47F" }}>+7 (123) 456-78-90</Link></li>
           </ul>
         </Col>
         <Col xs={24} sm={8}>
