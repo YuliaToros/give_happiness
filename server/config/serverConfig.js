@@ -13,7 +13,7 @@ const serverConfig = (app) => {
   // CORS
   app.use(
     cors({
-      origin: ["http://185.91.52.157:80"],
+      origin: ["https://gift-happy.ru"],
       optionsSuccessStatus: 200,
       credentials: true
     })
@@ -39,8 +39,8 @@ const serverConfig = (app) => {
 const startServer = (app) => {
   // Настройка HTTPS
   const options = {
-    cert: fs.readFileSync(path.join(__dirname, 'ssl', 'fullchain.pem')), // Путь к сертификату
-    key: fs.readFileSync(path.join(__dirname, 'ssl', 'privkey.pem'))    // Путь к приватному ключу
+    cert: fs.readFileSync(path.join(__dirname, '..', 'ssl', 'fullchain.pem')), // Путь к сертификату
+    key: fs.readFileSync(path.join(__dirname, '..', 'ssl', 'privkey.pem'))    // Путь к приватному ключу
   };
 
   // Запуск сервера на HTTPS
